@@ -17,14 +17,14 @@ const HeroSection = () => {
       <FloatingShapes />
       
       <div className="container mx-auto px-4 pt-24 pb-16 relative z-10 max-w-7xl">
-        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
+        <div className="flex flex-col max-w-5xl mx-auto">
           
-          {/* Logo/Brand at Top */}
+          {/* Logo/Brand at Top - Aligned with About in navbar */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6"
+            className="mb-6 text-left ml-[8px] md:ml-[6px] lg:ml-[204px]"
           >
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-3">
               <span className="text-foreground">ET TECH</span>{" "}
@@ -150,20 +150,22 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6"
+            className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6 text-center"
           >
             Shaping the Future of Learning
           </motion.h2>
 
           {/* Social Links */}
-          <SocialLinks />
+          <div className="flex justify-center">
+            <SocialLinks />
+          </div>
 
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-center"
           >
             Join the premier destination for EdTech innovation featuring world-class 
             <span className="text-secondary"> Awards</span>,
