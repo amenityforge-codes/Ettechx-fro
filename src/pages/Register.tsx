@@ -331,7 +331,7 @@ const Register = () => {
                     >
                       <Label htmlFor="eventInterest" className="flex items-center gap-2 mb-2">
                         <Calendar className="w-4 h-4 text-primary" />
-                        Event Interest *
+                        Registration Type *
                       </Label>
                       <select
                         id="eventInterest"
@@ -341,12 +341,11 @@ const Register = () => {
                           errors.eventInterest ? "border-destructive focus-visible:ring-destructive" : "border-border focus:border-primary"
                         }`}
                       >
-                        <option value="">Select your interest</option>
-                        <option value="expo">Expo & Exhibitions</option>
-                        <option value="conference">Conference & Keynotes</option>
-                        <option value="workshops">Workshops</option>
-                        <option value="awards">Awards Ceremony</option>
-                        <option value="all">All Events</option>
+                        <option value="">Select registration type</option>
+                        <option value="exhibitor">Exhibitor Registration</option>
+                        <option value="conference">Conference Registration</option>
+                        <option value="workshops">Workshops Registration</option>
+                        <option value="visitor">Visitor Registration</option>
                       </select>
                       {errors.eventInterest && (
                         <p className="text-destructive text-sm mt-1">{errors.eventInterest}</p>

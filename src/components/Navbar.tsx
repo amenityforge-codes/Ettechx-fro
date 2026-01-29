@@ -59,7 +59,7 @@ const Navbar = () => {
         isScrolled ? "glass-strong py-3" : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between">
+      <div className="container mx-auto px-4 flex items-center justify-between max-w-7xl">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 group">
           <img 

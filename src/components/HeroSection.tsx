@@ -16,7 +16,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
       <FloatingShapes />
       
-      <div className="container mx-auto px-4 pt-24 pb-16 relative z-10">
+      <div className="container mx-auto px-4 pt-24 pb-16 relative z-10 max-w-7xl">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
           {/* Logo/Brand at Top */}
@@ -53,11 +53,11 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-4xl mb-10"
+            className="relative w-full max-w-4xl mx-auto mb-10"
           >
             {/* Decorative elements behind image */}
-            <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 blur-sm" />
-            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-accent/20 to-gold/20 blur-sm" />
+            <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 lg:-top-8 lg:-left-8 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 blur-sm overflow-hidden" />
+            <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 lg:-bottom-8 lg:-right-8 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-accent/20 to-gold/20 blur-sm overflow-hidden" />
             
             {/* Main Image Container */}
             <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-2 border-border/50">
@@ -87,20 +87,23 @@ const HeroSection = () => {
                       Next Event Highlight
                     </p>
                     <p className="text-sm md:text-base font-bold text-foreground mt-1">
-                      22, 23, 24 September 2026
+                      7th Edition ET TECH X • 22, 23, 24
                     </p>
-                    <p className="text-[11px] md:text-xs text-muted-foreground mt-0.5">
+                    <p className="text-[11px] md:text-xs font-bold text-foreground mt-0.5">
+                      September 2026
+                    </p>
+                    <p className="text-[11px] md:text-xs font-bold text-foreground mt-0.5">
                       Yashnabhoomi, Dwaraka, New Delhi
                     </p>
                   </div>
-                  <div className="flex flex-col items-end gap-2">
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-accent flex items-center justify-center shadow-glow-primary">
+                  <Link to="/register" className="flex flex-col items-end gap-2 cursor-pointer group/calendar">
+                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-accent flex items-center justify-center shadow-glow-primary group-hover/calendar:scale-110 transition-transform duration-300">
                       <Calendar className="w-4 h-4 md:w-5 md:h-5 text-accent-foreground" />
                     </div>
-                    <span className="hidden md:inline-flex text-[11px] font-medium text-accent">
+                    <span className="hidden md:inline-flex text-[11px] font-medium text-accent group-hover/calendar:underline transition-all">
                       Book your dates
                     </span>
-                  </div>
+                  </Link>
                 </div>
               </motion.div>
             </div>
@@ -110,14 +113,14 @@ const HeroSection = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.8 }}
-              className="absolute -left-4 lg:-left-8 top-1/4 p-3 md:p-4 rounded-xl bg-card border border-border shadow-card hidden md:block"
+              className="absolute -left-4 lg:-left-8 xl:-left-12 2xl:-left-16 top-1/4 p-3 md:p-4 rounded-xl bg-card border border-border shadow-card hidden md:block"
             >
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
                   <Users className="w-4 h-4 md:w-5 md:h-5 text-secondary" />
                 </div>
                 <div className="text-left">
-                  <p className="font-display text-base md:text-lg font-bold text-secondary">5000+</p>
+                  <p className="font-display text-base md:text-lg font-bold text-secondary">6000+</p>
                   <p className="text-xs text-muted-foreground">Attendees</p>
                 </div>
               </div>
@@ -128,14 +131,14 @@ const HeroSection = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.9 }}
-              className="absolute -right-4 lg:-right-8 top-1/3 p-3 md:p-4 rounded-xl bg-card border border-border shadow-card hidden md:block"
+              className="absolute -right-4 lg:-right-8 xl:-right-12 2xl:-right-16 top-1/3 p-3 md:p-4 rounded-xl bg-card border border-border shadow-card hidden md:block"
             >
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                   <MapPin className="w-4 h-4 md:w-5 md:h-5 text-primary" />
                 </div>
                 <div className="text-left">
-                  <p className="font-display text-base md:text-lg font-bold text-primary">10+</p>
+                  <p className="font-display text-base md:text-lg font-bold text-primary">20+</p>
                   <p className="text-xs text-muted-foreground">Cities</p>
                 </div>
               </div>

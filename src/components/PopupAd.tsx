@@ -6,9 +6,20 @@ const PopupAd = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Show popup after a short delay on every page load/refresh
+    // Show popup only once per user (using localStorage)
+    const hasSeenPopup =
+      typeof window !== "undefined" &&
+      window.localStorage.getItem("ettechx_popup_shown") === "true";
+
+    if (hasSeenPopup) return;
+
     const timer = setTimeout(() => {
       setIsOpen(true);
+      try {
+        window.localStorage.setItem("ettechx_popup_shown", "true");
+      } catch {
+        // ignore storage errors
+      }
     }, 500); // Small delay for better UX
 
     return () => clearTimeout(timer);
@@ -16,6 +27,13 @@ const PopupAd = () => {
 
   const handleClose = () => {
     setIsOpen(false);
+    try {
+      if (typeof window !== "undefined") {
+        window.localStorage.setItem("ettechx_popup_shown", "true");
+      }
+    } catch {
+      // ignore storage errors
+    }
   };
 
   return (

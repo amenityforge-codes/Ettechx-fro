@@ -26,7 +26,7 @@ const Footer = () => {
     { icon: Linkedin, href: "https://www.linkedin.com/company/et-tech-x/", label: "LinkedIn" },
     { icon: Instagram, href: "https://www.instagram.com/ettechxexpo/", label: "Instagram" },
     { icon: Youtube, href: "https://www.youtube.com/@eduexpoglobal", label: "YouTube" },
-    { icon: Facebook, href: "https://www.facebook.com/ettechX/", label: "Facebook" },
+    { icon: Facebook, href: "https://www.facebook.com/ettechxexpo/", label: "Facebook" },
   ];
 
   return (
