@@ -9,9 +9,9 @@ const AnnualEventsSection = () => {
       season: "Autumn Edition",
       title: "7th Edition ET TECH X",
       date: "22, 23, 24 September 2026",
-      location: "Yashnabhoomi, Dwaraka, New Delhi",
+      location: "Yashobhoomi, Dwaraka, New Delhi",
       description:
-        "Join the 7th Edition ET TECH X at Yashnabhoomi, Dwaraka, New Delhi for three power-packed days of awards, exhibitions, and future-forward discussions on education technology.",
+        "Join the 7th Edition ET TECH X at Yashobhoomi, Dwaraka, New Delhi for three power-packed days of awards, exhibitions, and future-forward discussions on education technology.",
       gradient: "from-secondary via-coral to-gold",
       accentColor: "secondary",
       link: "/autumn-conference",

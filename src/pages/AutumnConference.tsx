@@ -62,7 +62,7 @@ const AutumnConference = () => {
                   7th Edition ET TECH X
                 </h1>
                 <p className="text-muted-foreground text-lg mb-6">
-                  Join the 7th Edition ET TECH X at Yashnabhoomi, Dwaraka, New Delhi for three power-packed days of awards, exhibitions, and future-forward discussions on education technology.
+                  Join the 7th Edition ET TECH X at Yashobhoomi, Dwaraka, New Delhi for three power-packed days of awards, exhibitions, and future-forward discussions on education technology.
                 </p>
                 
                 <div className="flex flex-wrap gap-4 mb-6">
@@ -72,7 +72,7 @@ const AutumnConference = () => {
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <MapPin className="w-5 h-5 text-secondary" />
-                    <span className="font-medium">Yashnabhoomi, Dwaraka, New Delhi</span>
+                    <span className="font-medium">Yashobhoomi, Dwaraka, New Delhi</span>
                   </div>
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <Users className="w-5 h-5 text-secondary" />

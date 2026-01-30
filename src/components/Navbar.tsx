@@ -59,72 +59,74 @@ const Navbar = () => {
         isScrolled ? "glass-strong py-3" : "bg-transparent py-5"
       }`}
     >
-      <div className="container mx-auto px-4 flex items-center justify-between max-w-7xl">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <img 
-            src="/logo.png" 
-            alt="Et Tech X Logo" 
-            className="h-12 w-auto group-hover:scale-110 transition-transform duration-300"
-          />
-        </Link>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) =>
-            link.name === "Gallery" ? (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={handleGalleryClick}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-              </a>
-            ) : link.isRoute ? (
-              <Link
-                key={link.name}
-                to={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-              </Link>
-            ) : (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-              </a>
-            )
-          )}
-        </div>
-
-        {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-4">
-          <a href="tel:+919876543210">
-          <Button variant="heroOutline" size="default">
-            Call Us
-          </Button>
-          </a>
-          <Link to="/register">
-          <Button variant="hero" size="default">
-            Register Now
-          </Button>
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <img 
+              src="/logo.png" 
+              alt="Et Tech X Logo" 
+              className="h-12 w-auto group-hover:scale-110 transition-transform duration-300"
+            />
           </Link>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-foreground p-2"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden md:flex items-center justify-center gap-6 lg:gap-8 absolute left-1/2 transform -translate-x-1/2">
+            {navLinks.map((link) =>
+              link.name === "Gallery" ? (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={handleGalleryClick}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group whitespace-nowrap"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                </a>
+              ) : link.isRoute ? (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group whitespace-nowrap"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                </Link>
+              ) : (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group whitespace-nowrap"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                </a>
+              )
+            )}
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-4">
+            <a href="tel:+919876543210">
+            <Button variant="heroOutline" size="default">
+              Call Us
+            </Button>
+            </a>
+            <Link to="/register">
+            <Button variant="hero" size="default">
+              Register Now
+            </Button>
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden text-foreground p-2"
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

@@ -17,14 +17,14 @@ const HeroSection = () => {
       <FloatingShapes />
       
       <div className="container mx-auto px-4 pt-24 pb-16 relative z-10 max-w-7xl">
-        <div className="flex flex-col max-w-5xl mx-auto">
+        <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
-          {/* Logo/Brand at Top - Aligned with About in navbar */}
+          {/* Logo/Brand at Top */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6 text-left ml-[8px] md:ml-[6px] lg:ml-[204px]"
+            className="mb-6"
           >
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-3">
               <span className="text-foreground">ET TECH</span>{" "}
@@ -81,26 +81,26 @@ const HeroSection = () => {
                 {/* Glowing highlight behind card */}
                 <div className="absolute inset-0 blur-xl bg-gradient-to-r from-primary/40 via-accent/40 to-gold/40 opacity-70 animate-pulse-slow pointer-events-none" />
 
-                <div className="relative flex items-center justify-between rounded-lg md:rounded-xl glass-strong border border-accent/40 shadow-[0_0_40px_rgba(34,197,94,0.35)] px-3 py-3 md:px-4 md:py-4">
-                  <div className="text-left">
-                    <p className="text-xs md:text-sm font-semibold text-accent tracking-wide uppercase">
-                      Next Event Highlight
+                <div className="relative flex items-center justify-between rounded-lg md:rounded-xl glass-strong border border-accent/40 shadow-[0_0_40px_rgba(34,197,94,0.35)] px-4 py-4 md:px-6 md:py-5">
+                  <div className="text-left flex-1">
+                    <p className="text-xs md:text-sm font-semibold text-accent tracking-wide uppercase mb-2">
+                      Next Event
                     </p>
-                    <p className="text-sm md:text-base font-bold text-foreground mt-1">
-                      7th Edition ET TECH X • 22, 23, 24
+                    <p className="text-base md:text-xl lg:text-2xl font-bold text-foreground mb-1">
+                      7th Edition ET TECH X
                     </p>
-                    <p className="text-[11px] md:text-xs font-bold text-foreground mt-0.5">
-                      September 2026
+                    <p className="text-sm md:text-lg lg:text-xl font-bold text-foreground">
+                      22, 23, 24 September 2026
                     </p>
-                    <p className="text-[11px] md:text-xs font-bold text-foreground mt-0.5">
-                      Yashnabhoomi, Dwaraka, New Delhi
+                    <p className="text-xs md:text-sm font-semibold text-muted-foreground mt-1">
+                      Yashobhoomi, Dwaraka, New Delhi
                     </p>
                   </div>
-                  <Link to="/register" className="flex flex-col items-end gap-2 cursor-pointer group/calendar">
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-accent flex items-center justify-center shadow-glow-primary group-hover/calendar:scale-110 transition-transform duration-300">
-                      <Calendar className="w-4 h-4 md:w-5 md:h-5 text-accent-foreground" />
+                  <Link to="/register" className="flex flex-col items-center gap-2 cursor-pointer group/calendar ml-4">
+                    <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full bg-accent flex items-center justify-center shadow-glow-primary group-hover/calendar:scale-110 transition-transform duration-300">
+                      <Calendar className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-accent-foreground" />
                     </div>
-                    <span className="hidden md:inline-flex text-[11px] font-medium text-accent group-hover/calendar:underline transition-all">
+                    <span className="text-[10px] md:text-xs lg:text-sm font-semibold text-accent group-hover/calendar:underline transition-all whitespace-nowrap">
                       Book your dates
                     </span>
                   </Link>
@@ -150,22 +150,20 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6 text-center"
+            className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6"
           >
             Shaping the Future of Learning
           </motion.h2>
 
           {/* Social Links */}
-          <div className="flex justify-center">
-            <SocialLinks />
-          </div>
+          <SocialLinks />
 
           {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-center"
+            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           >
             Join the premier destination for EdTech innovation featuring world-class 
             <span className="text-secondary"> Awards</span>,
