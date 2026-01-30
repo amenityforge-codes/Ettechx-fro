@@ -8,7 +8,7 @@ import SocialLinks from "./SocialLinks";
 const HeroSection = () => {
   const stats = [
     { icon: Users, value: "150+", label: "EdTech Exhibitors", color: "primary" },
-    { icon: Calendar, value: "2", label: "National Events", color: "secondary" },
+    { icon: Calendar, value: "6000+", label: "Attendance", color: "secondary" },
     { icon: MapPin, value: "20+", label: "Cities Covered", color: "accent" },
   ];
 
@@ -165,11 +165,11 @@ const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           >
-            Join the premier destination for EdTech innovation featuring world-class 
-            <span className="text-secondary"> Awards</span>,
+            Join the premier destination for EdTech innovation featuring world-class
+            <span className="text-gold"> Expo</span>,
             <span className="text-primary"> Conferences</span>,
             <span className="text-accent"> Workshops</span>, and
-            <span className="text-gold"> Expo</span>.
+            <span className="text-secondary"> Awards</span>.
           </motion.p>
 
           {/* CTA Buttons */}
