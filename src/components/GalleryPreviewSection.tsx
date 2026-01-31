@@ -177,6 +177,7 @@ const GalleryPreviewSection = () => {
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white text-foreground flex items-center justify-center hover:scale-110 transition-transform shadow-lg z-10"
+              aria-label="Close image preview"
             >
               <X className="w-6 h-6" />
             </button>

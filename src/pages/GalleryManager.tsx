@@ -315,6 +315,7 @@ const GalleryManager = () => {
                             size="sm"
                             variant="ghost"
                             onClick={() => setEditingYear(null)}
+                            aria-label="Cancel year edit"
                           >
                             Cancel
                           </Button>
@@ -331,6 +332,7 @@ const GalleryManager = () => {
                               setEditingYear(yearData.year);
                               setYearDisplayName(yearData.displayName);
                             }}
+                            aria-label={`Edit year ${yearData.displayName}`}
                           >
                             <Edit2 className="w-4 h-4" />
                           </Button>
@@ -354,6 +356,7 @@ const GalleryManager = () => {
                         onClick={() =>
                           setExpandedYear(expandedYear === yearData.year ? null : yearData.year)
                         }
+                        aria-label={expandedYear === yearData.year ? "Collapse year" : "Expand year"}
                       >
                         {expandedYear === yearData.year ? (
                           <ChevronUp className="w-5 h-5" />
@@ -366,6 +369,7 @@ const GalleryManager = () => {
                         variant="ghost"
                         onClick={() => deleteYear(yearData.year)}
                         className="text-destructive hover:text-destructive"
+                        aria-label={`Delete year ${yearData.displayName}`}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -414,6 +418,7 @@ const GalleryManager = () => {
                                       size="sm"
                                       variant="ghost"
                                       onClick={() => setEditingCategory(null)}
+                                      aria-label="Cancel category edit"
                                     >
                                       <X className="w-4 h-4" />
                                     </Button>
@@ -433,6 +438,7 @@ const GalleryManager = () => {
                                         });
                                         setCategoryName(category.name);
                                       }}
+                                      aria-label={`Edit category ${category.name}`}
                                     >
                                       <Edit2 className="w-4 h-4" />
                                     </Button>
@@ -449,6 +455,7 @@ const GalleryManager = () => {
                                   variant="ghost"
                                   onClick={() => deleteCategory(yearData.year, category.name)}
                                   className="text-destructive hover:text-destructive"
+                                  aria-label={`Delete category ${category.name}`}
                                 >
                                   <Trash2 className="w-4 h-4" />
                                 </Button>
@@ -464,7 +471,10 @@ const GalleryManager = () => {
                               {/* File Upload */}
                               <div className="space-y-4">
                                 <div>
-                                  <Label className="text-xs text-muted-foreground mb-2 block">
+                                  <Label
+                                    htmlFor={`file-input-${yearData.year}-${category.name}`}
+                                    className="text-xs text-muted-foreground mb-2 block"
+                                  >
                                     Upload from Computer
                                   </Label>
                                   <div className="flex gap-2">
@@ -505,10 +515,14 @@ const GalleryManager = () => {
 
                                 {/* URL Input */}
                                 <div>
-                                  <Label className="text-xs text-muted-foreground mb-2 block">
+                                  <Label
+                                    htmlFor={`url-input-${yearData.year}-${category.name}`}
+                                    className="text-xs text-muted-foreground mb-2 block"
+                                  >
                                     Or Enter Image URL
                                   </Label>
                                   <Input
+                                    id={`url-input-${yearData.year}-${category.name}`}
                                     placeholder="https://example.com/image.jpg or /gallery/2026/image.jpg"
                                     value={newImageUrl}
                                     onChange={(e) => {
@@ -523,7 +537,14 @@ const GalleryManager = () => {
 
                                 {/* Alt Text */}
                                 <div className="flex gap-2">
+                                  <Label
+                                    htmlFor={`alt-input-${yearData.year}-${category.name}`}
+                                    className="sr-only"
+                                  >
+                                    Alt text or description
+                                  </Label>
                                   <Input
+                                    id={`alt-input-${yearData.year}-${category.name}`}
                                     placeholder="Alt text / description (optional)"
                                     value={newImageAlt}
                                     onChange={(e) => setNewImageAlt(e.target.value)}
@@ -562,6 +583,7 @@ const GalleryManager = () => {
                                       deleteImage(yearData.year, category.name, imgIndex)
                                     }
                                     className="absolute top-2 right-2 w-8 h-8 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:scale-110 shadow-lg"
+                                    aria-label="Delete image"
                                   >
                                     <Trash2 className="w-4 h-4" />
                                   </button>

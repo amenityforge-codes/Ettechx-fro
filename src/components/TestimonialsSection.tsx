@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
@@ -85,6 +86,16 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
   return (
     <section className="py-20 bg-background" id="testimonials">
       <div className="container mx-auto px-4">
@@ -108,49 +119,93 @@ const TestimonialsSection = () => {
           </p>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`relative bg-gradient-to-br ${testimonial.gradient} rounded-2xl p-6 border ${testimonial.borderColor} hover:shadow-lg transition-all duration-300 group`}
+        {/* Testimonials Carousel */}
+        <div className="relative max-w-4xl mx-auto">
+          <div className="overflow-hidden">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
             >
-              {/* Quote Icon */}
-              <div className={`absolute -top-3 -left-3 w-10 h-10 ${testimonial.accentColor} rounded-full flex items-center justify-center shadow-lg`}>
-                <Quote className="w-5 h-5 text-white" />
-              </div>
+              {testimonials.map((testimonial) => (
+                <motion.div
+                  key={testimonial.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  viewport={{ once: true }}
+                  className="w-full shrink-0 px-2"
+                >
+                  <div
+                    className={`relative bg-gradient-to-br ${testimonial.gradient} rounded-2xl p-6 border ${testimonial.borderColor} hover:shadow-lg transition-all duration-300 group`}
+                  >
+                    {/* Quote Icon */}
+                    <div className={`absolute -top-3 -left-3 w-10 h-10 ${testimonial.accentColor} rounded-full flex items-center justify-center shadow-lg`}>
+                      <Quote className="w-5 h-5 text-white" />
+                    </div>
 
-              {/* Type Badge */}
-              <div className="flex justify-end mb-4">
-                <span className={`px-3 py-1 ${testimonial.accentColor}/20 text-foreground text-xs font-semibold rounded-full border ${testimonial.borderColor}`}>
-                  {testimonial.type}
-                </span>
-              </div>
+                    {/* Type Badge */}
+                    <div className="flex justify-end mb-4">
+                      <span className={`px-3 py-1 ${testimonial.accentColor}/20 text-foreground text-xs font-semibold rounded-full border ${testimonial.borderColor}`}>
+                        {testimonial.type}
+                      </span>
+                    </div>
 
-              {/* Quote */}
-              <blockquote className="text-foreground/90 text-base leading-relaxed mb-6 italic">
-                "{testimonial.quote}"
-              </blockquote>
+                    {/* Quote */}
+                    <blockquote className="text-foreground/90 text-base leading-relaxed mb-6 italic">
+                      "{testimonial.quote}"
+                    </blockquote>
 
-              {/* Author */}
-              <div className="flex items-center gap-3">
-                <div className={`w-12 h-12 ${testimonial.accentColor} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
-                  {testimonial.name.split(' ').map(n => n[0]).join('')}
-                </div>
-                <div>
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.title}</p>
-                </div>
-              </div>
+                    {/* Author */}
+                    <div className="flex items-center gap-3">
+                      <div className={`w-12 h-12 ${testimonial.accentColor} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
+                        {testimonial.name.split(' ').map((n) => n[0]).join('')}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">{testimonial.name}</p>
+                        <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                      </div>
+                    </div>
 
-              {/* Decorative Element */}
-              <div className={`absolute bottom-0 right-0 w-24 h-24 ${testimonial.accentColor}/5 rounded-tl-full`} />
-            </motion.div>
-          ))}
+                    {/* Decorative Element */}
+                    <div className={`absolute bottom-0 right-0 w-24 h-24 ${testimonial.accentColor}/5 rounded-tl-full`} />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Controls */}
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              type="button"
+              onClick={handlePrev}
+              className="px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+              aria-label="Previous testimonial"
+            >
+              Prev
+            </button>
+            <div className="flex items-center gap-2">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                    index === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
+                  }`}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              onClick={handleNext}
+              className="px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+              aria-label="Next testimonial"
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </section>
