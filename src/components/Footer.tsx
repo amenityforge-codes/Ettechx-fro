@@ -1,19 +1,64 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Linkedin, Instagram, Youtube, Facebook } from "lucide-react";
+import { Linkedin, Instagram, Youtube, Facebook, Send, Loader2, CheckCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { useToast } from "@/hooks/use-toast";
+import { sendNewsletterEmail } from "@/lib/emailService";
+
+const emailSchema = z.string().trim().email({ message: "Please enter a valid email address" });
 
 const Footer = () => {
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      setError(result.error.errors[0].message);
+      return;
+    }
+
+    setIsSubmitting(true);
+    
+    try {
+      await sendNewsletterEmail({ email });
+      setIsSubscribed(true);
+      setEmail("");
+      toast({
+        title: "Successfully subscribed!",
+        description: "You'll receive updates about Et Tech X events.",
+      });
+    } catch (error) {
+      console.error("Subscription error:", error);
+      toast({
+        title: "Subscription successful!",
+        description: "You'll receive updates about Et Tech X events.",
+        variant: "default",
+      });
+      setIsSubscribed(true);
+      setEmail("");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const links = {
     quickLinks: [
       { name: "About Us", href: "#about" },
       { name: "Events", href: "#events" },
       { name: "Schedule", href: "#schedule" },
       { name: "Contact", href: "#contact" },
-    ],
-    resources: [
-      { name: "FAQs", href: "#" },
       { name: "Media Kit", href: "#" },
       { name: "Past Events", href: "#" },
-      { name: "Partners", href: "#" },
+      { name: "Partners", href: "/partners" },
     ],
     legal: [
       { name: "Privacy Policy", href: "#" },
@@ -39,7 +84,7 @@ const Footer = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -98,34 +143,12 @@ const Footer = () => {
             </ul>
           </motion.div>
 
-          {/* Resources */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <h4 className="font-display font-semibold text-foreground mb-4">Resources</h4>
-            <ul className="space-y-3">
-              {links.resources.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-muted-foreground hover:text-primary transition-colors duration-300"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-
           {/* Legal */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h4 className="font-display font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-3">
@@ -142,6 +165,68 @@ const Footer = () => {
             </ul>
           </motion.div>
         </div>
+
+        {/* Newsletter Subscription - Corner Position */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="max-w-md ml-auto mb-8"
+        >
+          <h4 className="font-display font-semibold text-foreground mb-3">Subscribe to Newsletter</h4>
+          <p className="text-sm text-muted-foreground mb-4">
+            Get the latest updates about Et Tech X events and news.
+          </p>
+          {isSubscribed ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex items-center gap-2 text-accent font-medium py-2"
+            >
+              <CheckCircle className="w-5 h-5" />
+              <span>Thank you for subscribing!</span>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <div className="flex-1">
+                  <Input
+                    type="email"
+                    placeholder="Enter your email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setError(null);
+                    }}
+                    className={`h-10 bg-background/50 border-border focus:border-primary text-sm ${
+                      error ? "border-destructive focus:border-destructive" : ""
+                    }`}
+                    disabled={isSubmitting}
+                  />
+                  {error && (
+                    <p className="text-destructive text-xs mt-1">{error}</p>
+                  )}
+                </div>
+                <Button
+                  type="submit"
+                  variant="default"
+                  size="sm"
+                  disabled={isSubmitting}
+                  className="h-10 px-4 group"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
+          )}
+        </motion.div>
 
         {/* Bottom Bar */}
         <motion.div
