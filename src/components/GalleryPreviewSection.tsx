@@ -121,6 +121,8 @@ const GalleryPreviewSection = () => {
                       src={image.src}
                       alt={image.alt}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      decoding="async"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "/placeholder.svg";
                       }}
@@ -182,6 +184,8 @@ const GalleryPreviewSection = () => {
               src={selectedImage}
               alt="Gallery Image"
               className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+              loading="lazy"
+              decoding="async"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = "/placeholder.svg";
               }}

@@ -3,7 +3,6 @@ import vvLaxminarayanImg from "../../Speakers images/shri v.v lakshmi Narayana.p
 import liisaToivonenImg from "../../Speakers images/Liisa_Toivonen-Picsart-AiImageEnhancer-removebg-preview.png";
 import biswajitSahaImg from "../../Speakers images/Biswajit Saha.png";
 import francisJosephImg from "../../Speakers images/Francis Joseph formal Photo.png";
-import geetaRamanujamImg from "../../Speakers images/Geeta Ramanujam 2.png";
 
 import chinuAgrawalImg from "../../Speakers images/Chinu Agrawal.png";
 import swatiPopatImg from "../../Speakers images/5__Dr._Swati_Popat_Vats-removebg.png";
@@ -21,7 +20,8 @@ import krishnaChalamImg from "../../Speakers images/Krishna Chalam Vice-Chancell
 
 export type Speaker = {
   name: string;
-  title: string;
+  designation: string;
+  organization: string;
   image: string;
   accentColor: string;
   bgAccent: string;
@@ -76,39 +76,45 @@ export const speakerGroups: SpeakerGroup[] = [
     speakers: [
       {
         name: "Ashish Vidyarthi",
-        title: "K12 Keynote Speaker",
+        designation: "",
+        organization: "",
         image: ashishVidyarthiImg,
         ...withAccent(0),
       },
       {
         name: "VV Laxminarayan",
-        title: "K12 Keynote Speaker",
+        designation: "",
+        organization: "",
         image: vvLaxminarayanImg,
         ...withAccent(1),
       },
       {
         name: "Lisa Tasvonen",
-        title: "K12 Keynote Speaker",
+        designation: "",
+        organization: "",
         image: liisaToivonenImg,
         ...withAccent(2),
       },
       {
         name: "Biswajit Saha",
-        title: "K12 Keynote Speaker",
+        designation: "",
+        organization: "",
         image: biswajitSahaImg,
         ...withAccent(3),
       },
       {
         name: "Francis Joseph",
-        title: "K12 Keynote Speaker",
+        designation: "",
+        organization: "",
         image: francisJosephImg,
         ...withAccent(4),
       },
       {
-        name: "Geeta Ramanujam",
-        title: "K12 Keynote Speaker",
-        image: geetaRamanujamImg,
-        ...withAccent(5),
+        name: "Dr. Kondal Reddy",
+        designation: "",
+        organization: "",
+        image: drKondalReddyImg,
+        ...withAccent(0),
       },
     ],
   },
@@ -118,37 +124,43 @@ export const speakerGroups: SpeakerGroup[] = [
     speakers: [
       {
         name: "Chinu Agrawal",
-        title: "Foundational Years Speaker",
+        designation: "",
+        organization: "",
         image: chinuAgrawalImg,
         ...withAccent(1),
       },
       {
         name: "Swati Popat",
-        title: "Foundational Years Speaker",
+        designation: "",
+        organization: "",
         image: swatiPopatImg,
         ...withAccent(2),
       },
       {
         name: "Sonal Andrews",
-        title: "Foundational Years Speaker",
+        designation: "",
+        organization: "",
         image: sonalAndrewsImg,
         ...withAccent(3),
       },
       {
         name: "Anjum Babu Khan",
-        title: "Foundational Years Speaker",
+        designation: "",
+        organization: "",
         image: anjumBabuKhanImg,
         ...withAccent(4),
       },
       {
         name: "Dr. Reeta Sonawat",
-        title: "Foundational Years Speaker",
+        designation: "",
+        organization: "",
         image: drReetaSonawatImg,
         ...withAccent(5),
       },
       {
         name: "Dr. Mayuri",
-        title: "Foundational Years Speaker",
+        designation: "",
+        organization: "",
         image: drMayuriImg,
         ...withAccent(0),
       },
@@ -160,37 +172,36 @@ export const speakerGroups: SpeakerGroup[] = [
     speakers: [
       {
         name: "Balakista Reddy",
-        title: "Higher Education Institution Speaker",
+        designation: "",
+        organization: "",
         image: balakistaReddyImg,
         ...withAccent(2),
       },
       {
         name: "Br. Vishwanathamrita Chaitanya",
-        title: "Higher Education Institution Speaker",
+        designation: "",
+        organization: "",
         image: brVishwanathamritaImg,
         ...withAccent(3),
       },
       {
         name: "Prof. K. Pushpanadham",
-        title: "Higher Education Institution Speaker",
+        designation: "",
+        organization: "",
         image: profPushpanadhamImg,
         ...withAccent(4),
       },
       {
         name: "Dr. Jawahar Surisetti",
-        title: "Higher Education Institution Speaker",
+        designation: "",
+        organization: "",
         image: jawaharSurisettiImg,
         ...withAccent(5),
       },
       {
-        name: "Dr. Kondal Reddy",
-        title: "Higher Education Institution Speaker",
-        image: drKondalReddyImg,
-        ...withAccent(0),
-      },
-      {
         name: "Krishna Chalam",
-        title: "Higher Education Institution Speaker",
+        designation: "",
+        organization: "",
         image: krishnaChalamImg,
         ...withAccent(1),
       },
@@ -265,7 +276,8 @@ for (const [path, url] of Object.entries(allSpeakerImages)) {
 
   extraSpeakers.push({
     name,
-    title: "Speaker",
+    designation: "Speaker",
+    organization: "",
     image: url,
     ...withAccent(extraIndex + speakerGroups.length),
   });

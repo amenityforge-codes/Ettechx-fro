@@ -73,7 +73,7 @@ const Awards = () => {
                   <div className="flex flex-wrap gap-4 mb-6">
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <Calendar className="w-5 h-5 text-secondary" />
-                      <span>March 2025</span>
+                      <span>September 2026</span>
                     </div>
                     <div className="flex items-center gap-2 text-muted-foreground">
                       <MapPin className="w-5 h-5 text-secondary" />
@@ -98,6 +98,8 @@ const Awards = () => {
                     src={awardsImage}
                     alt="Awards Ceremony"
                     className="w-full h-full object-cover"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>

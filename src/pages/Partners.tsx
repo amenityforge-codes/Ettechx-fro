@@ -154,6 +154,8 @@ const Partners = () => {
           src={logo.path}
           alt={logo.name}
           className="max-w-full max-h-full object-contain"
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.style.display = "none";

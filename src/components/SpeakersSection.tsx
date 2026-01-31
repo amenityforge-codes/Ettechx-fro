@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Linkedin, Twitter } from "lucide-react";
 import { speakerGroups } from "@/lib/speakersData";
 
   const containerVariants = {
@@ -105,6 +104,7 @@ const SpeakersSection = () => {
                           alt={speaker.name}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -115,23 +115,13 @@ const SpeakersSection = () => {
                     <h3 className="font-display text-xl font-bold text-foreground mb-1">
                       {speaker.name}
                     </h3>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {speaker.title}
-                    </p>
+                    {(speaker.designation || speaker.organization) && (
+                      <div className="text-muted-foreground text-sm mb-4">
+                        {speaker.designation && <p>{speaker.designation}</p>}
+                        {speaker.organization && <p>{speaker.organization}</p>}
+                      </div>
+                    )}
 
-                    {/* Social Links */}
-                    <div className="flex justify-center gap-3">
-                            <button
-                              className={`w-9 h-9 rounded-full ${speaker.bgAccent} flex items-center justify-center transition-all duration-300 hover:scale-110`}
-                            >
-                        <Linkedin className="w-4 h-4 text-foreground/70" />
-                      </button>
-                            <button
-                              className={`w-9 h-9 rounded-full ${speaker.bgAccent} flex items-center justify-center transition-all duration-300 hover:scale-110`}
-                            >
-                        <Twitter className="w-4 h-4 text-foreground/70" />
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>

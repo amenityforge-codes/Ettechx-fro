@@ -8,7 +8,7 @@ import SocialLinks from "./SocialLinks";
 const HeroSection = () => {
   const stats = [
     { icon: Users, value: "150+", label: "EdTech Exhibitors", color: "primary" },
-    { icon: Calendar, value: "6000+", label: "Attendance", color: "secondary" },
+    { icon: Calendar, value: "2", label: "National Events", color: "secondary" },
     { icon: MapPin, value: "20+", label: "Cities Covered", color: "accent" },
   ];
 
@@ -66,6 +66,8 @@ const HeroSection = () => {
                 alt="EdTech innovation showcasing students and professionals using advanced learning technology with VR headsets and digital displays"
                 className="w-full h-auto object-cover max-h-[280px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[500px]"
                 loading="eager"
+                decoding="async"
+                fetchPriority="high"
               />
               
               {/* Overlay gradient */}
@@ -165,11 +167,11 @@ const HeroSection = () => {
             transition={{ duration: 0.7, delay: 0.4 }}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           >
-            Join the premier destination for EdTech innovation featuring world-class
-            <span className="text-gold"> Expo</span>,
+            Join the premier destination for EdTech innovation featuring world-class 
+            <span className="text-secondary"> Awards</span>,
             <span className="text-primary"> Conferences</span>,
             <span className="text-accent"> Workshops</span>, and
-            <span className="text-secondary"> Awards</span>.
+            <span className="text-gold"> Expo</span>.
           </motion.p>
 
           {/* CTA Buttons */}

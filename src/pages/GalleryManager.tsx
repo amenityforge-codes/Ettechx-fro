@@ -486,6 +486,8 @@ const GalleryManager = () => {
                                           src={filePreview}
                                           alt="Preview"
                                           className="w-full h-full object-cover"
+                                        loading="lazy"
+                                        decoding="async"
                                         />
                                       </div>
                                     )}
@@ -549,6 +551,8 @@ const GalleryManager = () => {
                                     src={image.src}
                                     alt={image.alt}
                                     className="w-full h-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
                                     onError={(e) => {
                                       (e.target as HTMLImageElement).src = "/placeholder.svg";
                                     }}

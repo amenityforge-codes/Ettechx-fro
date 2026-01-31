@@ -53,6 +53,8 @@ const Footer = () => {
                 src="/logo.png" 
                 alt="Et Tech X Logo" 
                 className="h-12 w-auto"
+                loading="lazy"
+                decoding="async"
               />
             </a>
             <p className="text-muted-foreground mb-6 max-w-sm">

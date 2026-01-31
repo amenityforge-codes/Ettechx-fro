@@ -55,6 +55,8 @@ const renderLogo = (partner: PartnerLogo) => {
         src={partner.path}
         alt={partner.name}
         className="max-w-full max-h-full object-contain"
+        loading="lazy"
+        decoding="async"
         onError={(e) => {
           const target = e.target as HTMLImageElement;
           target.style.display = "none";

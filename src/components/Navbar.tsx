@@ -67,6 +67,7 @@ const Navbar = () => {
             src="/logo.png" 
             alt="Et Tech X Logo" 
             className="h-12 w-auto group-hover:scale-110 transition-transform duration-300"
+            decoding="async"
           />
         </Link>
 

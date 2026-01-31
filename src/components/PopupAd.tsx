@@ -55,7 +55,7 @@ const PopupAd = () => {
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl w-full max-h-[90vh] bg-card rounded-2xl shadow-2xl overflow-hidden"
+              className="relative max-w-4xl w-full max-h-[90vh] bg-transparent rounded-2xl shadow-2xl overflow-hidden"
             >
               {/* Close Button */}
               <button
@@ -71,7 +71,9 @@ const PopupAd = () => {
                 <img
                   src="/ETTECHX .jpeg"
                   alt="ET TECH X Event Poster"
-                  className="w-full h-auto object-contain max-h-[90vh]"
+                  className="block w-full h-auto object-contain max-h-[90vh]"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     console.error("Failed to load popup image");
                     handleClose();

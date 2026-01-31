@@ -154,6 +154,7 @@ const AboutSection = () => {
                       alt={partner.name}
                       className="max-h-16 w-auto object-contain"
                       loading="lazy"
+                    decoding="async"
                     />
                   </div>
                 )}
