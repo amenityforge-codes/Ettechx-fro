@@ -267,7 +267,7 @@ const Exhibitor = () => {
                       <Input
                         id="phone"
                         type="tel"
-                        placeholder="+91 98765 43210"
+                        placeholder="+91 79959 75959"
                         value={formData.phone}
                         onChange={(e) => handleChange("phone", e.target.value)}
                         className={`h-12 bg-background/50 border-border focus:border-primary ${

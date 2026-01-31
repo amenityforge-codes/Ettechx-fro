@@ -193,7 +193,7 @@ const CTASection = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-8 pt-8 border-t border-border"
             >
               <a
-                href="tel:+919876543210"
+                href="tel:+917995975959"
                 className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors duration-300 group"
               >
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors duration-300">
@@ -201,7 +201,7 @@ const CTASection = () => {
                 </div>
                 <div className="text-left">
                   <div className="text-sm text-muted-foreground">Call Us</div>
-                  <div className="font-semibold text-foreground">+91 98765 43210</div>
+                  <div className="font-semibold text-foreground">+91 79959 75959</div>
                 </div>
               </a>
               <a
