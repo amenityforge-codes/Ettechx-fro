@@ -16,7 +16,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
       <FloatingShapes />
       
-      <div className="container mx-auto px-4 pt-24 pb-16 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-3 sm:px-4 pt-20 sm:pt-24 pb-12 sm:pb-16 relative z-10 max-w-7xl">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
           {/* Logo/Brand at Top */}
@@ -24,13 +24,13 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-6"
+            className="mb-4 sm:mb-6"
           >
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-3">
+            <h1 className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-2 sm:mb-3 px-2">
               <span className="text-foreground">ET TECH</span>{" "}
               <span className="text-gradient-primary">X</span>
             </h1>
-            <p className="text-base md:text-lg lg:text-xl text-muted-foreground font-medium">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground font-medium px-2">
               Educational and Training Resources & Tech Expo
             </p>
           </motion.div>
@@ -40,10 +40,10 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-8"
+            className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full glass mb-6 sm:mb-8"
           >
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-sm font-medium text-muted-foreground">
+            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-accent animate-pulse" />
+            <span className="text-xs sm:text-sm font-medium text-muted-foreground">
               India's Leading Educational Expo
             </span>
           </motion.div>
@@ -53,7 +53,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-4xl mx-auto mb-10"
+            className="relative w-full max-w-4xl mx-auto mb-6 sm:mb-10 px-2 sm:px-0"
           >
             {/* Decorative elements behind image */}
             <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 lg:-top-8 lg:-left-8 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 blur-sm overflow-hidden" />
@@ -78,31 +78,31 @@ const HeroSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="absolute bottom-3 left-3 right-3 md:bottom-4 md:left-4 md:right-4"
+                className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-3 sm:right-3 md:bottom-4 md:left-4 md:right-4"
               >
                 {/* Glowing highlight behind card */}
                 <div className="absolute inset-0 blur-xl bg-gradient-to-r from-primary/40 via-accent/40 to-gold/40 opacity-70 animate-pulse-slow pointer-events-none" />
 
-                <div className="relative flex items-center justify-between rounded-lg md:rounded-xl glass-strong border border-accent/40 shadow-[0_0_40px_rgba(34,197,94,0.35)] px-4 py-4 md:px-6 md:py-5">
-                  <div className="text-left flex-1">
-                    <p className="text-xs md:text-sm font-semibold text-accent tracking-wide uppercase mb-2">
+                <div className="relative flex items-center justify-between rounded-lg md:rounded-xl glass-strong border border-accent/40 shadow-[0_0_40px_rgba(34,197,94,0.35)] px-3 py-3 sm:px-4 sm:py-4 md:px-6 md:py-5">
+                  <div className="text-left flex-1 min-w-0 pr-2">
+                    <p className="text-[10px] sm:text-xs md:text-sm font-semibold text-accent tracking-wide uppercase mb-1 sm:mb-2">
                       Next Event
                     </p>
-                    <p className="text-base md:text-xl lg:text-2xl font-bold text-foreground mb-1">
+                    <p className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-foreground mb-0.5 sm:mb-1 leading-tight">
                       7th Edition ET TECH X
                     </p>
-                    <p className="text-sm md:text-lg lg:text-xl font-bold text-foreground">
+                    <p className="text-xs sm:text-sm md:text-lg lg:text-xl font-bold text-foreground leading-tight">
                       22, 23, 24 September 2026
                     </p>
-                    <p className="text-xs md:text-sm font-semibold text-muted-foreground mt-1">
+                    <p className="text-[10px] sm:text-xs md:text-sm font-semibold text-muted-foreground mt-0.5 sm:mt-1 leading-tight">
                       Yashobhoomi, Dwaraka, New Delhi
                     </p>
                   </div>
-                  <Link to="/register" className="flex flex-col items-center gap-2 cursor-pointer group/calendar ml-4">
-                    <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full bg-accent flex items-center justify-center shadow-glow-primary group-hover/calendar:scale-110 transition-transform duration-300">
-                      <Calendar className="w-6 h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-accent-foreground" />
+                  <Link to="/register" className="flex flex-col items-center gap-1 sm:gap-2 cursor-pointer group/calendar ml-2 sm:ml-4 shrink-0">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full bg-accent flex items-center justify-center shadow-glow-primary group-hover/calendar:scale-110 active:scale-95 transition-transform duration-300">
+                      <Calendar className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-accent-foreground" />
                     </div>
-                    <span className="text-[10px] md:text-xs lg:text-sm font-semibold text-accent group-hover/calendar:underline transition-all whitespace-nowrap">
+                    <span className="text-[9px] sm:text-[10px] md:text-xs lg:text-sm font-semibold text-accent group-hover/calendar:underline transition-all whitespace-nowrap text-center">
                       Book your dates
                     </span>
                   </Link>
@@ -152,7 +152,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-6"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-muted-foreground font-medium mb-4 sm:mb-6 px-2"
           >
             Shaping the Future of Learning
           </motion.h2>
@@ -165,7 +165,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto mb-6 sm:mb-10 px-4"
           >
             Join the premier destination for EdTech innovation featuring world-class 
             <span className="text-secondary"> Awards</span>,
@@ -179,7 +179,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 w-full px-4"
           >
             <Link to="/register">
             <Button variant="hero" size="xl" className="group">
@@ -199,7 +199,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap items-center justify-center gap-6 md:gap-10"
+            className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-10 px-4"
           >
             {stats.map((stat, index) => (
               <motion.div

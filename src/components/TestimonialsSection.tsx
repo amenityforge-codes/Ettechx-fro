@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
@@ -87,6 +87,9 @@ const testimonials = [
 
 const TestimonialsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+  const minSwipeDistance = 50; // Minimum distance in pixels to trigger a swipe
 
   const handlePrev = () => {
     setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
@@ -96,32 +99,61 @@ const TestimonialsSection = () => {
     setActiveIndex((prev) => (prev + 1) % testimonials.length);
   };
 
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchEndX.current = null;
+    touchStartX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX;
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return;
+    
+    const distance = touchStartX.current - touchEndX.current;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      handleNext();
+    }
+    if (isRightSwipe) {
+      handlePrev();
+    }
+  };
+
   return (
-    <section className="py-20 bg-background" id="testimonials">
-      <div className="container mx-auto px-4">
+    <section className="py-12 sm:py-16 md:py-20 bg-background" id="testimonials">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-coral/10 text-coral rounded-full text-sm font-semibold mb-4">
+          <span className="inline-block px-3 py-1.5 sm:px-4 sm:py-2 bg-coral/10 text-coral rounded-full text-xs sm:text-sm font-semibold mb-3 sm:mb-4">
             Testimonials
           </span>
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-foreground mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-3 sm:mb-4 px-2">
             Voices from Our{" "}
             <span className="text-coral">Community</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
             Hear from educators, innovators, and leaders who have experienced the transformative power of Et Tech X
           </p>
         </motion.div>
 
         {/* Testimonials Carousel */}
         <div className="relative max-w-4xl mx-auto">
-          <div className="overflow-hidden">
+          <div 
+            className="overflow-hidden rounded-xl sm:rounded-2xl touch-pan-y"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+          >
             <div
               className="flex transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
@@ -133,41 +165,41 @@ const TestimonialsSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
-                  className="w-full shrink-0 px-2"
+                  className="w-full shrink-0 px-2 sm:px-3 md:px-4"
                 >
                   <div
-                    className={`relative bg-gradient-to-br ${testimonial.gradient} rounded-2xl p-6 border ${testimonial.borderColor} hover:shadow-lg transition-all duration-300 group`}
+                    className={`relative bg-gradient-to-br ${testimonial.gradient} rounded-xl sm:rounded-2xl p-4 sm:p-6 border ${testimonial.borderColor} hover:shadow-lg transition-all duration-300 group min-h-[300px] sm:min-h-[350px] flex flex-col`}
                   >
                     {/* Quote Icon */}
-                    <div className={`absolute -top-3 -left-3 w-10 h-10 ${testimonial.accentColor} rounded-full flex items-center justify-center shadow-lg`}>
-                      <Quote className="w-5 h-5 text-white" />
+                    <div className={`absolute -top-2 -left-2 sm:-top-3 sm:-left-3 w-8 h-8 sm:w-10 sm:h-10 ${testimonial.accentColor} rounded-full flex items-center justify-center shadow-lg z-10`}>
+                      <Quote className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     </div>
 
                     {/* Type Badge */}
-                    <div className="flex justify-end mb-4">
-                      <span className={`px-3 py-1 ${testimonial.accentColor}/20 text-foreground text-xs font-semibold rounded-full border ${testimonial.borderColor}`}>
+                    <div className="flex justify-end mb-3 sm:mb-4 pt-1">
+                      <span className={`px-2 py-1 sm:px-3 sm:py-1 ${testimonial.accentColor}/20 text-foreground text-[10px] sm:text-xs font-semibold rounded-full border ${testimonial.borderColor}`}>
                         {testimonial.type}
                       </span>
                     </div>
 
                     {/* Quote */}
-                    <blockquote className="text-foreground/90 text-base leading-relaxed mb-6 italic">
+                    <blockquote className="text-foreground/90 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 italic flex-1 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent">
                       "{testimonial.quote}"
                     </blockquote>
 
                     {/* Author */}
-                    <div className="flex items-center gap-3">
-                      <div className={`w-12 h-12 ${testimonial.accentColor} rounded-full flex items-center justify-center text-white font-bold text-lg`}>
+                    <div className="flex items-center gap-2 sm:gap-3 mt-auto pt-2 border-t border-border/30">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 ${testimonial.accentColor} rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg shrink-0`}>
                         {testimonial.name.split(' ').map((n) => n[0]).join('')}
                       </div>
-                      <div>
-                        <p className="font-semibold text-foreground">{testimonial.name}</p>
-                        <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-foreground text-sm sm:text-base truncate">{testimonial.name}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground truncate">{testimonial.title}</p>
                       </div>
                     </div>
 
                     {/* Decorative Element */}
-                    <div className={`absolute bottom-0 right-0 w-24 h-24 ${testimonial.accentColor}/5 rounded-tl-full`} />
+                    <div className={`absolute bottom-0 right-0 w-16 h-16 sm:w-24 sm:h-24 ${testimonial.accentColor}/5 rounded-tl-full pointer-events-none`} />
                   </div>
                 </motion.div>
               ))}
@@ -175,22 +207,22 @@ const TestimonialsSection = () => {
           </div>
 
           {/* Controls */}
-          <div className="flex items-center justify-center gap-4 mt-6">
+          <div className="flex items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
             <button
               type="button"
               onClick={handlePrev}
-              className="px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors text-sm sm:text-base"
               aria-label="Previous testimonial"
             >
               Prev
             </button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   type="button"
                   onClick={() => setActiveIndex(index)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                  className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-colors ${
                     index === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
@@ -200,7 +232,7 @@ const TestimonialsSection = () => {
             <button
               type="button"
               onClick={handleNext}
-              className="px-4 py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-border text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors text-sm sm:text-base"
               aria-label="Next testimonial"
             >
               Next

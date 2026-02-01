@@ -56,17 +56,17 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass-strong py-3" : "bg-transparent py-5"
+        isScrolled ? "glass-strong py-2 sm:py-3" : "bg-transparent py-3 sm:py-5"
       }`}
     >
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
         <div className="flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group shrink-0">
           <img 
             src="/logo.png" 
             alt="Et Tech X Logo" 
-            className="h-12 w-auto group-hover:scale-110 transition-transform duration-300"
+            className="h-10 sm:h-12 w-auto group-hover:scale-110 transition-transform duration-300"
             decoding="async"
           />
         </Link>
@@ -107,14 +107,14 @@ const Navbar = () => {
         </div>
 
         {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center gap-3 lg:gap-4 shrink-0">
           <a href="tel:+917995975959">
-          <Button variant="heroOutline" size="default">
+          <Button variant="heroOutline" size="default" className="text-sm lg:text-base">
             Call Us
           </Button>
           </a>
           <Link to="/register">
-          <Button variant="hero" size="default">
+          <Button variant="hero" size="default" className="text-sm lg:text-base">
             Register Now
           </Button>
           </Link>

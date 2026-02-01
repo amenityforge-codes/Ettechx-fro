@@ -201,7 +201,7 @@ const AIChatbot = () => {
           setIsOpen(!isOpen);
           setHasInteracted(true);
         }}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-gradient-primary shadow-glow-primary flex items-center justify-center hover:scale-110 transition-transform duration-300"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-primary shadow-glow-primary flex items-center justify-center hover:scale-110 active:scale-95 transition-transform duration-300"
         aria-label="Toggle chat"
       >
         <AnimatePresence mode="wait">
@@ -235,21 +235,21 @@ const AIChatbot = () => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 3, duration: 0.3 }}
-          className="fixed bottom-[4.5rem] right-6 z-50 w-4 h-4 rounded-full bg-secondary animate-pulse"
+          className="fixed bottom-[3.5rem] right-4 sm:bottom-[4.5rem] sm:right-6 z-50 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-secondary animate-pulse"
         />
       )}
 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3 }}
-            onClick={handleInteraction}
-            className="fixed bottom-24 right-6 z-50 w-[350px] max-w-[calc(100vw-3rem)] rounded-2xl overflow-hidden shadow-2xl border border-border bg-card"
-          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              onClick={handleInteraction}
+              className="fixed bottom-20 right-4 sm:bottom-24 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[350px] max-w-[calc(100vw-2rem)] sm:max-w-[calc(100vw-3rem)] rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl border border-border bg-card"
+            >
             {/* Header */}
             <div className="bg-gradient-primary p-4">
               <div className="flex items-center gap-3">
@@ -268,7 +268,7 @@ const AIChatbot = () => {
             </div>
 
             {/* Messages */}
-            <div className="h-[300px] overflow-y-auto p-4 space-y-4 bg-background/50">
+            <div className="h-[280px] sm:h-[300px] overflow-y-auto p-3 sm:p-4 space-y-3 sm:space-y-4 bg-background/50">
               {messages.map((message) => (
                 <motion.div
                   key={message.id}
@@ -320,7 +320,7 @@ const AIChatbot = () => {
             {/* Input */}
             <form
               onSubmit={handleSendMessage}
-              className="p-4 border-t border-border bg-card"
+              className="p-3 sm:p-4 border-t border-border bg-card"
             >
               <div className="flex gap-2">
                 <Input
@@ -328,7 +328,7 @@ const AIChatbot = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Type your message..."
                   disabled={isLoading}
-                  className="flex-1 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary"
+                  className="flex-1 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary text-sm sm:text-base"
                 />
                 <Button
                   type="submit"
