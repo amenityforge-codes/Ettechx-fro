@@ -1,0 +1,22 @@
+{
+  "name": "Et Tech X - India's Premier EdTech Expo & Conference",
+  "short_name": "ET TECH X",
+  "description": "India's premier educational technology expo featuring awards, conferences, workshops, and exhibitions",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}
