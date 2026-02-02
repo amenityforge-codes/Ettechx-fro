@@ -281,3 +281,73 @@ html {
     font-size: 16px !important;
   }
 }
+
+/* Fix navbar overlap and responsive issues */
+/* Ensure first section accounts for fixed navbar */
+section:first-of-type {
+  padding-top: 5rem !important;
+}
+
+@media (min-width: 640px) {
+  section:first-of-type {
+    padding-top: 6rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  section:first-of-type {
+    padding-top: 7rem !important;
+  }
+}
+
+/* Fix navbar z-index and positioning */
+nav {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 1000 !important;
+}
+
+/* Tablet view fixes (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  /* Ensure nav items don't overlap */
+  nav .container > div {
+    position: relative !important;
+    gap: 1rem !important;
+  }
+  
+  /* Adjust logo size for tablet */
+  nav img {
+    height: 2.5rem !important;
+  }
+  
+  /* Hide desktop nav on tablet, show hamburger */
+  nav .hidden.lg\\:flex {
+    display: none !important;
+  }
+  
+  /* Ensure hamburger is visible on tablet */
+  nav button[aria-label*="menu"],
+  nav button[aria-label*="Close"],
+  nav button[aria-label*="Open"] {
+    display: block !important;
+  }
+  
+  /* Adjust button sizes for tablet */
+  nav button {
+    padding: 0.5rem !important;
+  }
+}
+
+/* Mobile view fixes */
+@media (max-width: 767px) {
+  nav .container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+  
+  nav img {
+    height: 2rem !important;
+  }
+}

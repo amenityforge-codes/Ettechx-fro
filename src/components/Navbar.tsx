@@ -59,27 +59,27 @@ const Navbar = () => {
         isScrolled ? "glass-strong py-2 sm:py-3" : "bg-transparent py-3 sm:py-5"
       }`}
     >
-      <div className="container mx-auto px-3 sm:px-4 max-w-7xl">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 max-w-7xl">
+        <div className="flex items-center justify-between relative">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group shrink-0">
+        <Link to="/" className="flex items-center gap-2 group shrink-0 z-10">
           <img 
             src="/logo.png" 
             alt="Et Tech X Logo" 
-            className="h-10 sm:h-12 w-auto group-hover:scale-110 transition-transform duration-300"
+            className="h-8 sm:h-10 md:h-12 w-auto group-hover:scale-110 transition-transform duration-300"
             decoding="async"
           />
         </Link>
 
-          {/* Desktop Navigation - Centered */}
-          <div className="hidden md:flex items-center justify-center gap-6 lg:gap-8 absolute left-1/2 transform -translate-x-1/2">
+          {/* Desktop Navigation - Centered (Tablet and Desktop) */}
+          <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-6 absolute left-1/2 transform -translate-x-1/2 z-10">
           {navLinks.map((link) =>
             link.name === "Gallery" ? (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={handleGalleryClick}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group whitespace-nowrap"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
@@ -88,7 +88,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group whitespace-nowrap"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
@@ -97,7 +97,7 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium relative group whitespace-nowrap"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
@@ -106,24 +106,24 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* CTA Buttons */}
-        <div className="hidden md:flex items-center gap-3 lg:gap-4 shrink-0">
+        {/* CTA Buttons - Desktop Only */}
+        <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0 z-10">
           <a href="tel:+917995975959">
-          <Button variant="heroOutline" size="default" className="text-sm lg:text-base">
+          <Button variant="heroOutline" size="sm" className="text-xs xl:text-sm px-3 xl:px-4">
             Call Us
           </Button>
           </a>
           <Link to="/register">
-          <Button variant="hero" size="default" className="text-sm lg:text-base">
+          <Button variant="hero" size="sm" className="text-xs xl:text-sm px-3 xl:px-4">
             Register Now
           </Button>
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile/Tablet Menu Button - Show on mobile and tablet, hide on desktop */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden text-foreground p-2"
+          className="lg:hidden text-foreground p-2 z-10"
           aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
         >
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -138,7 +138,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-strong border-t border-border mt-3"
+            className="lg:hidden glass-strong border-t border-border mt-3"
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) =>
