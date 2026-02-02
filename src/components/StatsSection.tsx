@@ -263,7 +263,10 @@ const StatsSection = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <motion.a
-                href="#"
+                href="/ET%20TECH%20X%202025%20Show%20Directory_compressed.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download="ET TECH X 2025 Show Directory.pdf"
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="group rounded-2xl bg-card border border-primary/20 shadow-card p-4 flex flex-col justify-between"
               >

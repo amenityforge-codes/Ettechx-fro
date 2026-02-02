@@ -33,17 +33,59 @@ const partners: PartnerLogo[] = [
   { name: "Amrita Vishwa Vidyapeetham", path: "/logos/abhi creations logo - Abhi Creations.jpeg", type: "image", tier: "university" },
 ];
 
+const getTierStyles = (tier: string) => {
+  switch (tier) {
+    case "gold":
+      return {
+        bg: "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20",
+        border: "border-amber-300/50 dark:border-amber-700/50",
+        hover: "hover:border-amber-400 hover:shadow-amber-200/50 dark:hover:shadow-amber-900/20",
+        badge: "bg-gradient-to-r from-amber-500 to-orange-500",
+      };
+    case "silver":
+      return {
+        bg: "bg-gradient-to-br from-slate-50 to-gray-50 dark:from-slate-950/20 dark:to-gray-950/20",
+        border: "border-slate-300/50 dark:border-slate-700/50",
+        hover: "hover:border-slate-400 hover:shadow-slate-200/50 dark:hover:shadow-slate-900/20",
+        badge: "bg-gradient-to-r from-slate-400 to-slate-500",
+      };
+    case "k12":
+      return {
+        bg: "bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20",
+        border: "border-green-300/50 dark:border-green-700/50",
+        hover: "hover:border-green-400 hover:shadow-green-200/50 dark:hover:shadow-green-900/20",
+        badge: "bg-gradient-to-r from-green-500 to-emerald-500",
+      };
+    case "university":
+      return {
+        bg: "bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20",
+        border: "border-blue-300/50 dark:border-blue-700/50",
+        hover: "hover:border-blue-400 hover:shadow-blue-200/50 dark:hover:shadow-blue-900/20",
+        badge: "bg-gradient-to-r from-blue-500 to-indigo-500",
+      };
+    default:
+      return {
+        bg: "bg-card",
+        border: "border-border",
+        hover: "hover:border-primary/30",
+        badge: "bg-primary",
+      };
+  }
+};
+
 const renderLogo = (partner: PartnerLogo) => {
+  const styles = getTierStyles(partner.tier);
+  
   if (partner.type === "pdf") {
     return (
-      <div className="relative w-full h-full flex flex-col items-center justify-center bg-muted rounded-lg p-4">
-        <FileText className="w-12 h-12 text-muted-foreground mb-2" />
-        <p className="text-xs text-muted-foreground text-center mb-2 line-clamp-2">{partner.name}</p>
+      <div className={`relative w-full h-full flex flex-col items-center justify-center rounded-xl p-6 border-2 ${styles.bg} ${styles.border} ${styles.hover} transition-all duration-300`}>
+        <FileText className="w-12 h-12 text-muted-foreground mb-3" />
+        <p className="text-sm text-muted-foreground text-center mb-3 font-medium">{partner.name}</p>
         <a
           href={partner.path}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-xs text-primary hover:underline"
+          className="flex items-center gap-2 text-sm text-primary hover:underline font-semibold"
         >
           View PDF
         </a>
@@ -52,11 +94,14 @@ const renderLogo = (partner: PartnerLogo) => {
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center bg-card rounded-lg p-4 border border-border hover:border-primary/30 transition-colors">
+    <div className={`relative w-full h-full flex items-center justify-center rounded-xl p-6 border-2 ${styles.bg} ${styles.border} ${styles.hover} transition-all duration-300 group`}>
+      <div className={`absolute -top-3 -right-3 px-3 py-1 ${styles.badge} text-white text-xs font-bold rounded-full shadow-lg z-10`}>
+        {partner.tier.toUpperCase()}
+      </div>
       <img
         src={partner.path}
         alt={partner.name}
-        className="max-w-full max-h-full object-contain"
+        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-300"
         loading="lazy"
         decoding="async"
         onError={(e) => {
@@ -105,129 +150,155 @@ const SponsorsSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Gold Partners Column */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-          >
-              <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-foreground mb-2">Gold Partner</h3>
-                <div className="h-1 w-16 bg-gradient-to-r from-amber-500 to-orange-500 mx-auto rounded-full" />
-              </div>
-              {partners
-                .filter((p) => p.tier === "gold")
-                .map((partner, index) => (
-                  <motion.div
-                    key={`gold-${partner.name}-${index}`}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    className="h-40"
-                  >
-                    {renderLogo(partner)}
-                  </motion.div>
-                ))}
-            </motion.div>
+          <div className="space-y-16">
+            {/* Gold Partners Section */}
+            {partners.filter((p) => p.tier === "gold").length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="space-y-8"
+              >
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center gap-3 mb-4">
+                    <div className="h-1 w-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" />
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground">Gold Partner</h3>
+                    <div className="h-1 w-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" />
+                  </div>
+                  <p className="text-muted-foreground text-sm md:text-base">Our premier partners</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                  {partners
+                    .filter((p) => p.tier === "gold")
+                    .map((partner, index) => (
+                      <motion.div
+                        key={`gold-${partner.name}-${index}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.03, y: -6 }}
+                        className="h-48"
+                      >
+                        {renderLogo(partner)}
+                      </motion.div>
+                    ))}
+                </div>
+              </motion.div>
+            )}
 
-            {/* Silver Partners Column */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
-              <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-foreground mb-2">Silver Partner</h3>
-                <div className="h-1 w-16 bg-gradient-to-r from-slate-400 to-slate-500 mx-auto rounded-full" />
-              </div>
-              {partners
-                .filter((p) => p.tier === "silver")
-                .map((partner, index) => (
-                  <motion.div
-                    key={`silver-${partner.name}-${index}`}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    className="h-40"
-                  >
-                    {renderLogo(partner)}
-                  </motion.div>
-                ))}
-            </motion.div>
+            {/* Silver Partners Section */}
+            {partners.filter((p) => p.tier === "silver").length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="space-y-8"
+              >
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center gap-3 mb-4">
+                    <div className="h-1 w-12 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full" />
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground">Silver Partner</h3>
+                    <div className="h-1 w-12 bg-gradient-to-r from-slate-400 to-slate-500 rounded-full" />
+                  </div>
+                  <p className="text-muted-foreground text-sm md:text-base">Our valued partners</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                  {partners
+                    .filter((p) => p.tier === "silver")
+                    .map((partner, index) => (
+                      <motion.div
+                        key={`silver-${partner.name}-${index}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.03, y: -6 }}
+                        className="h-44"
+                      >
+                        {renderLogo(partner)}
+                      </motion.div>
+                    ))}
+                </div>
+              </motion.div>
+            )}
 
-            {/* K12 Partners Column */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-                  >
-              <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-foreground mb-2">K12 Partner</h3>
-                <div className="h-1 w-16 bg-gradient-to-r from-green-500 to-emerald-500 mx-auto rounded-full" />
-                      </div>
-              {partners
-                .filter((p) => p.tier === "k12")
-                .map((partner, index) => (
-                  <motion.div
-                    key={`k12-${partner.name}-${index}`}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    className="h-40"
-                  >
-                    {renderLogo(partner)}
-                  </motion.div>
-                ))}
-            </motion.div>
+            {/* K12 Partners Section */}
+            {partners.filter((p) => p.tier === "k12").length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
+                className="space-y-8"
+              >
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center gap-3 mb-4">
+                    <div className="h-1 w-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground">K12 Partner</h3>
+                    <div className="h-1 w-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
+                  </div>
+                  <p className="text-muted-foreground text-sm md:text-base">K-12 education partners</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {partners
+                    .filter((p) => p.tier === "k12")
+                    .map((partner, index) => (
+                      <motion.div
+                        key={`k12-${partner.name}-${index}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.03, y: -6 }}
+                        className="h-44"
+                      >
+                        {renderLogo(partner)}
+                      </motion.div>
+                    ))}
+                </div>
+              </motion.div>
+            )}
 
-            {/* University Partners Column */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
-              <div className="text-center mb-4">
-                <h3 className="text-lg font-bold text-foreground mb-2">University Partner</h3>
-                <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full" />
-                    </div>
-              {partners
-                .filter((p) => p.tier === "university")
-                .map((partner, index) => (
-                  <motion.div
-                    key={`university-${partner.name}-${index}`}
-                    whileHover={{ scale: 1.05, y: -4 }}
-                    className="h-40"
-                  >
-                    {renderLogo(partner)}
-                  </motion.div>
-              ))}
-            </motion.div>
+            {/* University Partners Section */}
+            {partners.filter((p) => p.tier === "university").length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="space-y-8"
+              >
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center gap-3 mb-4">
+                    <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full" />
+                    <h3 className="text-3xl md:text-4xl font-bold text-foreground">University Partner</h3>
+                    <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full" />
+                  </div>
+                  <p className="text-muted-foreground text-sm md:text-base">Higher education partners</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                  {partners
+                    .filter((p) => p.tier === "university")
+                    .map((partner, index) => (
+                      <motion.div
+                        key={`university-${partner.name}-${index}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.4, delay: index * 0.08 }}
+                        viewport={{ once: true }}
+                        whileHover={{ scale: 1.03, y: -6 }}
+                        className="h-44"
+                      >
+                        {renderLogo(partner)}
+                      </motion.div>
+                    ))}
+                </div>
+              </motion.div>
+            )}
           </div>
-        </motion.div>
-
-        {/* Tier Labels */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mt-12"
-        >
-          <span className="px-6 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full text-sm font-semibold">
-            Gold Partner
-          </span>
-          <span className="px-6 py-2 bg-gradient-to-r from-slate-400 to-slate-500 text-white rounded-full text-sm font-semibold">
-            Silver Partner
-          </span>
-          <span className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-full text-sm font-semibold">
-            K12 Partner
-          </span>
-          <span className="px-6 py-2 bg-gradient-to-r from-blue-500 to-indigo-500 text-white rounded-full text-sm font-semibold">
-            University Partner
-          </span>
         </motion.div>
 
         {/* View More Button */}

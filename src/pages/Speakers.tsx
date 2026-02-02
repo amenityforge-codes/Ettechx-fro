@@ -89,9 +89,9 @@ const Speakers = () => {
                     <div className="absolute top-16 left-4 w-8 h-8 rounded-full bg-white/10 blur-lg" />
 
                     {/* Content */}
-                    <div className="relative pt-16 pb-6 px-6">
+                    <div className="relative pt-12 pb-6 px-6">
                       {/* Profile Image */}
-                      <div className="relative w-28 h-28 mx-auto mb-5">
+                      <div className="relative w-20 h-20 mx-auto mb-4">
                         <div
                           className={`absolute inset-0 rounded-full bg-gradient-to-br ${speaker.accentColor} p-1`}
                         >

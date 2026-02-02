@@ -1,23 +1,3 @@
-import ashishVidyarthiImg from "../../Speakers images/Ashish Vidyarthi  1.png";
-import vvLaxminarayanImg from "../../Speakers images/shri v.v lakshmi Narayana.png";
-import liisaToivonenImg from "../../Speakers images/Liisa_Toivonen-Picsart-AiImageEnhancer-removebg-preview.png";
-import biswajitSahaImg from "../../Speakers images/Biswajit Saha.png";
-import francisJosephImg from "../../Speakers images/Francis Joseph formal Photo.png";
-
-import chinuAgrawalImg from "../../Speakers images/Chinu Agrawal.png";
-import swatiPopatImg from "../../Speakers images/5__Dr._Swati_Popat_Vats-removebg.png";
-import sonalAndrewsImg from "../../Speakers images/Sonal Profile pic.png";
-import anjumBabuKhanImg from "../../Speakers images/Anjum Babu Khan.png";
-import drReetaSonawatImg from "../../Speakers images/Dr Reeta Sonawat.png";
-import drMayuriImg from "../../Speakers images/Dr Mayuri.png";
-
-import balakistaReddyImg from "../../Speakers images/Balakista Reddy 2.png";
-import brVishwanathamritaImg from "../../Speakers images/Br. Vishwanathamrita Chaitanya.png";
-import profPushpanadhamImg from "../../Speakers images/Prof. Karanam.png";
-import jawaharSurisettiImg from "../../Speakers images/Jawahar Surisetti.png";
-import drKondalReddyImg from "../../Speakers images/Dr Kondal Reddy.png";
-import krishnaChalamImg from "../../Speakers images/Krishna Chalam Vice-Chancellor 1.png";
-
 export type Speaker = {
   name: string;
   designation: string;
@@ -69,224 +49,215 @@ const accentStyles = [
 
 const withAccent = (index: number) => accentStyles[index % accentStyles.length];
 
+// Helper function to get image path from filename
+const getImagePath = (filename: string) => `/speakers/${filename}`;
+
 export const speakerGroups: SpeakerGroup[] = [
   {
     id: "k12",
     label: "K12 Speakers",
     speakers: [
       {
+        name: "Dr. Biswajit Saha",
+        designation: "Professor & Director (Skill Education)",
+        organization: "CBSE, Ministry of Education, Government of India",
+        image: getImagePath("Biswajit Saha.png"),
+        ...withAccent(0),
+      },
+      {
         name: "Ashish Vidyarthi",
-        designation: "",
-        organization: "",
-        image: ashishVidyarthiImg,
-        ...withAccent(0),
-      },
-      {
-        name: "VV Laxminarayan",
-        designation: "",
-        organization: "",
-        image: vvLaxminarayanImg,
+        designation: "Actor & Motivational Speaker",
+        organization: "Transformational Leader, Mumbai",
+        image: getImagePath("Ashish Vidyarthi  .png"),
         ...withAccent(1),
       },
       {
-        name: "Lisa Tasvonen",
-        designation: "",
-        organization: "",
-        image: liisaToivonenImg,
+        name: "Group Captain Angad Pratap",
+        designation: "Astronaut Designate",
+        organization: "India",
+        image: getImagePath("Angad Pratap .png"),
         ...withAccent(2),
       },
       {
-        name: "Biswajit Saha",
-        designation: "",
-        organization: "",
-        image: biswajitSahaImg,
+        name: "Shri V.V. Lakshminarayana",
+        designation: "Tenant Farmer, CBI Ex-JD",
+        organization: "Additional Director General of Police (Retd.), Maharashtra",
+        image: getImagePath("shri v.v lakshmi Narayana.png"),
         ...withAccent(3),
       },
       {
-        name: "Francis Joseph",
-        designation: "",
-        organization: "",
-        image: francisJosephImg,
+        name: "Dr. Ashok Kumar Pandey",
+        designation: "Chairperson",
+        organization: "Council for Global Citizenship Education Delhi",
+        image: getImagePath("ashok-pandey.png"),
         ...withAccent(4),
       },
       {
-        name: "Dr. Kondal Reddy",
-        designation: "",
-        organization: "",
-        image: drKondalReddyImg,
-        ...withAccent(0),
-      },
-    ],
-  },
-  {
-    id: "foundational",
-    label: "Foundational Years",
-    speakers: [
-      {
-        name: "Chinu Agrawal",
-        designation: "",
-        organization: "",
-        image: chinuAgrawalImg,
-        ...withAccent(1),
-      },
-      {
-        name: "Swati Popat",
-        designation: "",
-        organization: "",
-        image: swatiPopatImg,
-        ...withAccent(2),
-      },
-      {
-        name: "Sonal Andrews",
-        designation: "",
-        organization: "",
-        image: sonalAndrewsImg,
-        ...withAccent(3),
-      },
-      {
-        name: "Anjum Babu Khan",
-        designation: "",
-        organization: "",
-        image: anjumBabuKhanImg,
-        ...withAccent(4),
-      },
-      {
-        name: "Dr. Reeta Sonawat",
-        designation: "",
-        organization: "",
-        image: drReetaSonawatImg,
+        name: "Mr. Rajendran Dandapani",
+        designation: "Business Solutions Evangelist",
+        organization: "Zoho Corporation. President, Zoho Schools of Learning",
+        image: getImagePath("Rajendran Dandapani.png"),
         ...withAccent(5),
       },
       {
-        name: "Dr. Mayuri",
-        designation: "",
+        name: "Dr. Shankar Goenka",
+        designation: "Author, Coach & TEDx Speaker",
         organization: "",
-        image: drMayuriImg,
+        image: getImagePath("Shankar Goenka.png"),
         ...withAccent(0),
       },
-    ],
-  },
-  {
-    id: "higher-education",
-    label: "Higher Education Institution Speakers",
-    speakers: [
       {
-        name: "Balakista Reddy",
-        designation: "",
-        organization: "",
-        image: balakistaReddyImg,
+        name: "Dr. R. Kishore Kumar",
+        designation: "Chairman",
+        organization: "St. John's Public Schools, Chennai",
+        image: getImagePath("Dr. R. Kishore Kumar - Photo 1.png"),
+        ...withAccent(1),
+      },
+      {
+        name: "Mr. Naga Tummala",
+        designation: "Co-founder & CEO",
+        organization: "Coschool. Co-founder & Chairman, People Combine",
+        image: getImagePath("Nagaprasad tummala.png"),
         ...withAccent(2),
       },
       {
-        name: "Br. Vishwanathamrita Chaitanya",
-        designation: "",
-        organization: "",
-        image: brVishwanathamritaImg,
+        name: "Dr. Liisa Toivonen",
+        designation: "Counsellor, Science & Higher Education Policy",
+        organization: "Embassy of Finland, New Delhi",
+        image: getImagePath("Liisa Toivonen.png"),
         ...withAccent(3),
       },
       {
-        name: "Prof. K. Pushpanadham",
-        designation: "",
-        organization: "",
-        image: profPushpanadhamImg,
+        name: "Praveen Raju Kalidindi",
+        designation: "Founder",
+        organization: "Suchitra Academy & Sagebrook International School. President - ARISE",
+        image: getImagePath("Praveen Raju.png"),
         ...withAccent(4),
       },
       {
-        name: "Dr. Jawahar Surisetti",
-        designation: "",
-        organization: "",
-        image: jawaharSurisettiImg,
+        name: "Dr. Kondal Reddy Kandadi",
+        designation: "Founder Chairman",
+        organization: "Manchester Global School, Hyderabad",
+        image: getImagePath("Dr Kondal Reddy.png"),
         ...withAccent(5),
       },
       {
-        name: "Krishna Chalam",
-        designation: "",
-        organization: "",
-        image: krishnaChalamImg,
+        name: "Sadula Madhusudhan",
+        designation: "President",
+        organization: "Telangana Recognised School Managements Association",
+        image: getImagePath("Sudula Madhusudhan.png"),
+        ...withAccent(0),
+      },
+      {
+        name: "Sreekanth Koganti",
+        designation: "Director",
+        organization: "NextGen & Kennedy Schools. President, ISMA",
+        image: getImagePath("Sreekanth Koganti .png"),
         ...withAccent(1),
+      },
+      {
+        name: "Kanak Gupta",
+        designation: "Group Director",
+        organization: "Seth M.R. Jaipuria Schools",
+        image: getImagePath("Kanak Gupta .png"),
+        ...withAccent(2),
+      },
+      {
+        name: "Yeshwanth Raj Parasmal",
+        designation: "Founder & CEO",
+        organization: "21K School, Bengaluru",
+        image: getImagePath("Yeswanth Parasmal.png"),
+        ...withAccent(3),
+      },
+      {
+        name: "Dr. Tushar Guha",
+        designation: "Founder, Chairman",
+        organization: "Nrityanjali Group & Open Forum for Principals, Mumbai",
+        image: getImagePath("Tushar Guha.png"),
+        ...withAccent(4),
+      },
+      {
+        name: "Rev. Fr. J.R. Bharat Reddy Y",
+        designation: "Correspondent & Principal",
+        organization: "STEM School, Guntur",
+        image: getImagePath("bharath reddy.png"),
+        ...withAccent(5),
+      },
+      {
+        name: "Dr. Seetha Murty",
+        designation: "Director Education",
+        organization: "Silver Oaks International Schools. Vice President, IB Heads Association India",
+        image: getImagePath("Dr seetha Murty.png"),
+        ...withAccent(0),
+      },
+      {
+        name: "Prof. Usha Raman",
+        designation: "Professor",
+        organization: "Department of Communication, University of Hyderabad",
+        image: getImagePath("Usha Raman.png"),
+        ...withAccent(1),
+      },
+      {
+        name: "Dr. Swati Popat Vats",
+        designation: "President",
+        organization: "Early Childhood Association India & Podar Education Network, Mumbai",
+        image: getImagePath("Swati papat vats.png"),
+        ...withAccent(2),
+      },
+      {
+        name: "Pradeep Sharma",
+        designation: "Founder & CEO",
+        organization: "Teacherfirst.in, Jaipur",
+        image: getImagePath("Pradeep Sharma.png"),
+        ...withAccent(3),
+      },
+      {
+        name: "Ms. Geeta Ramanujam",
+        designation: "Founder & Director",
+        organization: "Kathalaya's International Academy of Storytelling, Bengaluru",
+        image: getImagePath("Geeta Ramanujam .png"),
+        ...withAccent(4),
+      },
+      {
+        name: "Dr. Anjum Babu Khan",
+        designation: "Author, ABCs of Brain-Compatible Learning & Lead Consultant",
+        organization: "Edvatage Leadership Institute & Formerly Founder-Director, Glendale Education",
+        image: getImagePath("Anjum Babu Khan.png"),
+        ...withAccent(5),
+      },
+      {
+        name: "Dr. Revathi Srinivasan",
+        designation: "Director",
+        organization: "Singhania Group of Schools, Mumbai",
+        image: getImagePath("REVATHI  SRINIVASAN.png"),
+        ...withAccent(0),
+      },
+      {
+        name: "Ms. Deepti Asnani Nambiar",
+        designation: "Director",
+        organization: "The Ivy Global School, Bhopal",
+        image: getImagePath("deepti asnani.png"),
+        ...withAccent(1),
+      },
+      {
+        name: "Ms. Jhansi Christopher",
+        designation: "Head Academic Excellence",
+        organization: "Ryan International",
+        image: getImagePath("Jhansi Christopher .png"),
+        ...withAccent(2),
+      },
+      {
+        name: "Ms. Shreya Yashwanth",
+        designation: "TEDx Speaker",
+        organization: "India 2018",
+        image: getImagePath("Shreya yashwanth.png"),
+        ...withAccent(3),
       },
     ],
   },
 ];
 
 // All speakers for the full speakers page
-
-// Import all images from the Speakers images folder.
-// Vite will replace these with URLs at build time.
-const allSpeakerImages = import.meta.glob("/Speakers images/*.{png,jpg,jpeg,avif}", {
-  eager: true,
-  as: "url",
-}) as Record<string, string>;
-
-const fileNameOverrides: Record<string, string> = {
-  "Ashish Vidyarthi  1.png": "Ashish Vidyarthi",
-  "shri v.v lakshmi Narayana.png": "VV Laxminarayan",
-  "Liisa_Toivonen-Picsart-AiImageEnhancer-removebg-preview.png": "Lisa Tasvonen",
-  "Liisa_Toivonen-Picsart-AiImageEnhancer-removebg-preview 2.png": "Lisa Tasvonen",
-  "5__Dr._Swati_Popat_Vats-removebg.png": "Swati Popat",
-  "Sonal Profile pic.png": "Sonal Andrews",
-  "Jawahar Surisetti.png": "Dr. Jawahar Surisetti",
-  "Prof. Karanam.png": "Prof. K. Pushpanadham",
-  "Francis Joseph formal Photo.png": "Francis Joseph",
-  "Geeta Ramanujam 2.png": "Geeta Ramanujam",
-  "Dr Reeta Sonawat.png": "Dr. Reeta Sonawat",
-  "Dr Mayuri.png": "Dr. Mayuri",
-  "Dr Kondal Reddy.png": "Dr. Kondal Reddy",
-  "Krishna Chalam Vice-Chancellor 1.png": "Krishna Chalam",
-};
-
-const fileNameToDisplayName = (fileName: string): string => {
-  if (fileNameOverrides[fileName]) {
-    return fileNameOverrides[fileName];
-  }
-
-  const withoutExt = fileName.replace(/\.[^/.]+$/, "");
-
-  let name = withoutExt
-    .replace(/[_\-]+/g, " ")
-    .replace(/\b(removebg|preview|thumb|Picsart AiImageEnhancer|AiImageEnhancer)\b/gi, "")
-    .replace(/\b(PNG\d*|PNG|HR|NEW|Oct)\b/gi, "")
-    .replace(/\b\d+\b/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  if (!name) {
-    name = "Guest Speaker";
-  }
-
-  return name;
-};
-
-const existingNames = new Set(
-  speakerGroups.flatMap((group) => group.speakers.map((speaker) => speaker.name.toLowerCase())),
-);
-
-const extraSpeakers: Speaker[] = [];
-let extraIndex = 0;
-
-for (const [path, url] of Object.entries(allSpeakerImages)) {
-  const segments = path.split("/");
-  const fileName = segments[segments.length - 1] ?? "";
-  const name = fileNameToDisplayName(fileName);
-
-  const normalized = name.toLowerCase();
-  if (!name || existingNames.has(normalized)) {
-    continue;
-  }
-
-  extraSpeakers.push({
-    name,
-    designation: "Speaker",
-    organization: "",
-    image: url,
-    ...withAccent(extraIndex + speakerGroups.length),
-  });
-
-  extraIndex += 1;
-}
-
 export const allSpeakers: Speaker[] = [
   ...speakerGroups.flatMap((group) => group.speakers),
-  ...extraSpeakers,
 ];
-

@@ -7,8 +7,8 @@ import SocialLinks from "./SocialLinks";
 
 const HeroSection = () => {
   const stats = [
-    { icon: Users, value: "150+", label: "EdTech Exhibitors", color: "primary" },
-    { icon: Calendar, value: "2", label: "National Events", color: "secondary" },
+    { icon: Users, value: "6000+", label: "Attendees", color: "primary" },
+    { icon: Users, value: "150+", label: "EdTech Exhibitors", color: "secondary" },
     { icon: MapPin, value: "20+", label: "Cities Covered", color: "accent" },
   ];
 

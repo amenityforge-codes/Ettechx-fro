@@ -149,7 +149,7 @@ const TestimonialsSection = () => {
         {/* Testimonials Carousel */}
         <div className="relative max-w-4xl mx-auto">
           <div 
-            className="overflow-hidden rounded-xl sm:rounded-2xl touch-pan-y"
+            className="overflow-visible touch-pan-y py-4 sm:py-6"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -165,10 +165,10 @@ const TestimonialsSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                   viewport={{ once: true }}
-                  className="w-full shrink-0 px-2 sm:px-3 md:px-4"
+                  className="w-full shrink-0 px-3 sm:px-4 md:px-6"
                 >
                   <div
-                    className={`relative bg-gradient-to-br ${testimonial.gradient} rounded-xl sm:rounded-2xl p-4 sm:p-6 border ${testimonial.borderColor} hover:shadow-lg transition-all duration-300 group min-h-[300px] sm:min-h-[350px] flex flex-col`}
+                    className={`relative bg-gradient-to-br ${testimonial.gradient} rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-8 border ${testimonial.borderColor} hover:shadow-lg transition-all duration-300 group flex flex-col overflow-visible`}
                   >
                     {/* Quote Icon */}
                     <div className={`absolute -top-2 -left-2 sm:-top-3 sm:-left-3 w-8 h-8 sm:w-10 sm:h-10 ${testimonial.accentColor} rounded-full flex items-center justify-center shadow-lg z-10`}>
@@ -176,25 +176,25 @@ const TestimonialsSection = () => {
                     </div>
 
                     {/* Type Badge */}
-                    <div className="flex justify-end mb-3 sm:mb-4 pt-1">
+                    <div className="flex justify-end mb-4 sm:mb-5 pt-2">
                       <span className={`px-2 py-1 sm:px-3 sm:py-1 ${testimonial.accentColor}/20 text-foreground text-[10px] sm:text-xs font-semibold rounded-full border ${testimonial.borderColor}`}>
                         {testimonial.type}
                       </span>
                     </div>
 
                     {/* Quote */}
-                    <blockquote className="text-foreground/90 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 italic flex-1 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-muted-foreground/30 scrollbar-track-transparent">
+                    <blockquote className="text-foreground/90 text-sm sm:text-base md:text-lg leading-relaxed mb-5 sm:mb-6 italic flex-1">
                       "{testimonial.quote}"
                     </blockquote>
 
                     {/* Author */}
-                    <div className="flex items-center gap-2 sm:gap-3 mt-auto pt-2 border-t border-border/30">
+                    <div className="flex items-center gap-2 sm:gap-3 mt-auto pt-4 border-t border-border/30">
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 ${testimonial.accentColor} rounded-full flex items-center justify-center text-white font-bold text-base sm:text-lg shrink-0`}>
                         {testimonial.name.split(' ').map((n) => n[0]).join('')}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <p className="font-semibold text-foreground text-sm sm:text-base truncate">{testimonial.name}</p>
-                        <p className="text-xs sm:text-sm text-muted-foreground truncate">{testimonial.title}</p>
+                        <p className="font-semibold text-foreground text-sm sm:text-base">{testimonial.name}</p>
+                        <p className="text-xs sm:text-sm text-muted-foreground">{testimonial.title}</p>
                       </div>
                     </div>
 
