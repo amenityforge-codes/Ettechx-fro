@@ -85,7 +85,6 @@ const AIChatbot = () => {
 
     if (isExhibitor) {
       return (
-        "Exhibitor Inquiry:\n\n" +
         "Thank you for your interest in exhibiting at ET Tech X! 🎉\n\n" +
         "We offer a variety of exhibition packages, including booth space and branding opportunities across the expo.\n\n" +
         "For detailed information on stall sizes, pricing, and sponsorship options, please contact:\n" +
@@ -97,7 +96,6 @@ const AIChatbot = () => {
 
     if (isVisitor) {
       return (
-        "Visitor Inquiry:\n\n" +
         "We’re thrilled that you’d like to visit ET Tech X! 🙌\n\n" +
         "At ET Tech X, you can explore the latest in educational technology, meet leading solution providers, and network with school leaders and industry professionals.\n\n" +
         "For visitor details, including registration, timings, and entry guidelines, please contact our Visitor Support Team at:\n" +
@@ -108,7 +106,6 @@ const AIChatbot = () => {
 
     if (isDelegate) {
       return (
-        "Delegate Inquiry:\n\n" +
         "Great to hear you’re interested in attending ET Tech X as a delegate! 🎓\n\n" +
         "Delegates get access to expert sessions, panel discussions, and special networking opportunities with education leaders.\n\n" +
         "For delegate registration and package details, please contact:\n" +

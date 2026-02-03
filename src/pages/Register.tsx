@@ -23,6 +23,33 @@ const registerSchema = z.object({
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
+// Fire-and-forget helper to also submit data to FormSubmit
+const submitRegisterToFormSubmit = (data: RegisterFormData) => {
+  try {
+    const formData = new FormData();
+    formData.append("name", data.fullName);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("organization", data.organization);
+    formData.append("designation", data.designation);
+    formData.append("attendees", data.attendees);
+    formData.append("registration_type", data.eventInterest);
+    formData.append("_subject", "New Et Tech X Registration");
+    formData.append("_captcha", "false");
+
+    // We don't care about the response; no-cors avoids CORS errors in browser
+    fetch("https://formsubmit.co/info@ettechx.in", {
+      method: "POST",
+      body: formData,
+      mode: "no-cors",
+    }).catch(() => {
+      // Silently ignore any errors; primary flow is handled by our own emailService
+    });
+  } catch {
+    // Fail silently – this is a secondary notification channel
+  }
+};
+
 const Register = () => {
   const [formData, setFormData] = useState<RegisterFormData>({
     fullName: "",
@@ -71,6 +98,8 @@ const Register = () => {
     try {
       // Send email notification
       await sendRegistrationEmail(formData);
+      // Also send to FormSubmit in the background
+      submitRegisterToFormSubmit(formData);
       
       setIsSuccess(true);
       
@@ -82,6 +111,8 @@ const Register = () => {
       console.error("Registration error:", error);
       // Still show success to user even if email fails
       setIsSuccess(true);
+      // Best-effort attempt to send via FormSubmit even if our email service failed
+      submitRegisterToFormSubmit(formData);
       toast({
         title: "Registration Successful!",
         description: "We've received your registration. You'll receive a confirmation email shortly.",

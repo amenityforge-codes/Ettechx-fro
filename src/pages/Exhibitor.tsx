@@ -28,6 +28,38 @@ const exhibitorSchema = z.object({
 
 type ExhibitorFormData = z.infer<typeof exhibitorSchema>;
 
+// Fire-and-forget helper to also submit exhibitor data to FormSubmit
+const submitExhibitorToFormSubmit = (data: ExhibitorFormData) => {
+  try {
+    const formData = new FormData();
+    formData.append("name", data.contactPerson);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
+    formData.append("organization", data.companyName);
+    formData.append("designation", "Exhibitor Enquiry");
+    formData.append("website", data.website);
+    formData.append(
+      "address",
+      `${data.address}, ${data.city}, ${data.state} - ${data.pincode}`
+    );
+    formData.append("booth_size", data.boothSize);
+    formData.append("products_services", data.products);
+    formData.append("previous_exhibitor", data.previousExhibitor);
+    formData.append("_subject", "New Et Tech X Exhibitor Application");
+    formData.append("_captcha", "false");
+
+    fetch("https://formsubmit.co/info@ettechx.in", {
+      method: "POST",
+      body: formData,
+      mode: "no-cors",
+    }).catch(() => {
+      // Ignore – secondary notification channel only
+    });
+  } catch {
+    // Fail silently
+  }
+};
+
 const Exhibitor = () => {
   const [formData, setFormData] = useState<ExhibitorFormData>({
     companyName: "",
@@ -81,6 +113,8 @@ const Exhibitor = () => {
     try {
       // Send email notification
       await sendExhibitorEmail(formData);
+      // Also submit to FormSubmit in the background
+      submitExhibitorToFormSubmit(formData);
       
       setIsSuccess(true);
       
@@ -92,6 +126,8 @@ const Exhibitor = () => {
       console.error("Exhibitor application error:", error);
       // Still show success to user even if email fails
       setIsSuccess(true);
+      // Best-effort FormSubmit submission even if our email service failed
+      submitExhibitorToFormSubmit(formData);
       toast({
         title: "Application Submitted!",
         description: "We've received your exhibitor application. Our team will contact you soon.",
