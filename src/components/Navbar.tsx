@@ -35,18 +35,36 @@ const Navbar = () => {
     }
   };
 
-  const handleGalleryClick = (e?: React.MouseEvent<HTMLAnchorElement>) => {
-    if (e) e.preventDefault();
+  /**
+   * Handle navigation to in-page sections (About, Events, Key Offering, Gallery, Contact).
+   * Works both from the homepage and from inner routes by navigating back to "/"
+   * and then scrolling once the page is rendered.
+   */
+  const handleSectionClick = (
+    id: string,
+    options?: { closeMobileMenu?: boolean; event?: React.MouseEvent<HTMLAnchorElement> }
+  ) => {
+    const { closeMobileMenu, event } = options || {};
+    if (event) {
+      event.preventDefault();
+    }
+
+    const scrollWithOffset = () => {
+      // Small timeout ensures layout is ready after navigation
+      setTimeout(() => {
+        scrollToSection(id);
+      }, 150);
+    };
 
     if (location.pathname === "/") {
-      scrollToSection("gallery");
-      setIsMobileMenuOpen(false);
+      scrollWithOffset();
     } else {
       navigate("/", { replace: false });
-      // Wait for the homepage to render, then scroll
-      setTimeout(() => {
-        scrollToSection("gallery");
-      }, 200);
+      scrollWithOffset();
+    }
+
+    if (closeMobileMenu) {
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -56,7 +74,7 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "glass-strong py-2 sm:py-3" : "bg-transparent py-3 sm:py-5"
+        isScrolled ? "glass-strong py-1 sm:py-2" : "bg-transparent py-2 sm:py-3"
       }`}
     >
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 max-w-7xl">
@@ -74,17 +92,7 @@ const Navbar = () => {
           {/* Desktop Navigation - Centered (Tablet and Desktop) */}
           <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-6 absolute left-1/2 transform -translate-x-1/2 z-10">
           {navLinks.map((link) =>
-            link.name === "Gallery" ? (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={handleGalleryClick}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
-              </a>
-            ) : link.isRoute ? (
+            link.isRoute ? (
               <Link
                 key={link.name}
                 to={link.href}
@@ -97,6 +105,10 @@ const Navbar = () => {
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => {
+                  const id = link.href.replace("#", "");
+                  handleSectionClick(id, { event: e });
+                }}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
@@ -142,19 +154,7 @@ const Navbar = () => {
           >
             <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
               {navLinks.map((link) =>
-                link.name === "Gallery" ? (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => {
-                      handleGalleryClick(e);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium py-2"
-                  >
-                    {link.name}
-                  </a>
-                ) : link.isRoute ? (
+              link.isRoute ? (
                   <Link
                     key={link.name}
                     to={link.href}
@@ -167,7 +167,10 @@ const Navbar = () => {
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      const id = link.href.replace("#", "");
+                      handleSectionClick(id, { closeMobileMenu: true, event: e });
+                    }}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium py-2"
                   >
                     {link.name}
