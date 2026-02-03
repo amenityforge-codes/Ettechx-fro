@@ -1,7 +1,8 @@
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { speakerGroups } from "@/lib/speakersData";
+import { featuredSpeakers, type Speaker } from "@/lib/speakersData";
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -51,85 +52,8 @@ const SpeakersSection = () => {
           </p>
         </motion.div>
 
-        {/* Speakers Groups */}
-        <div className="space-y-16">
-          {speakerGroups.map((group) => (
-            <div key={group.id}>
-              <motion.h3
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-6 text-left"
-              >
-                {group.label}
-              </motion.h3>
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-                {group.speakers.map((speaker) => (
-            <motion.div
-              key={speaker.name}
-              variants={itemVariants}
-              whileHover={{ y: -8 }}
-              className="group relative"
-            >
-                    <div
-                      className={`relative bg-card rounded-2xl border ${speaker.borderAccent} overflow-hidden shadow-card transition-all duration-500 hover:shadow-elevated`}
-                    >
-                {/* Colorful accent background */}
-                      <div
-                        className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-br ${speaker.accentColor} opacity-90`}
-                      />
-                
-                {/* Decorative shapes */}
-                <div className="absolute top-4 right-4 w-16 h-16 rounded-full bg-white/10 blur-xl" />
-                <div className="absolute top-16 left-4 w-8 h-8 rounded-full bg-white/10 blur-lg" />
-
-                {/* Content */}
-                <div className="relative pt-12 pb-6 px-6">
-                  {/* Profile Image */}
-                  <div className="relative w-20 h-20 mx-auto mb-4">
-                          <div
-                            className={`absolute inset-0 rounded-full bg-gradient-to-br ${speaker.accentColor} p-1`}
-                          >
-                      <div className="w-full h-full rounded-full overflow-hidden bg-card">
-                        <img
-                          src={speaker.image}
-                          alt={speaker.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Info */}
-                  <div className="text-center">
-                    <h3 className="font-display text-xl font-bold text-foreground mb-1">
-                      {speaker.name}
-                    </h3>
-                    {(speaker.designation || speaker.organization) && (
-                      <div className="text-muted-foreground text-sm mb-4">
-                        {speaker.designation && <p>{speaker.designation}</p>}
-                        {speaker.organization && <p>{speaker.organization}</p>}
-                      </div>
-                    )}
-
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-            </div>
-          ))}
-        </div>
+        {/* Featured Speakers Carousel (homepage only) */}
+        <FeaturedSpeakersCarousel />
 
         {/* View All CTA */}
         <motion.div
@@ -151,3 +75,137 @@ const SpeakersSection = () => {
 };
 
 export default SpeakersSection;
+
+const FeaturedSpeakersCarousel = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides: Speaker[][] = useMemo(() => {
+    const chunks: Speaker[][] = [];
+    for (let i = 0; i < featuredSpeakers.length; i += 3) {
+      chunks.push(featuredSpeakers.slice(i, i + 3));
+    }
+    return chunks;
+  }, []);
+
+  const totalSlides = slides.length;
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+
+  if (totalSlides === 0) return null;
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden">
+        <motion.div
+          className="flex"
+          animate={{ x: `-${currentSlide * 100}%` }}
+          transition={{ type: "spring", stiffness: 70, damping: 20 }}
+        >
+          {slides.map((slide, slideIndex) => (
+            <div
+              key={slideIndex}
+              className="min-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {slide.map((speaker) => (
+                <motion.div
+                  key={speaker.name}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover={{ y: -8 }}
+                  className="group relative"
+                >
+                  <div
+                    className={`relative bg-card rounded-2xl border ${speaker.borderAccent} overflow-hidden shadow-card transition-all duration-500 hover:shadow-elevated`}
+                  >
+                    {/* Colorful accent background */}
+                    <div
+                      className={`absolute top-0 left-0 right-0 h-32 bg-gradient-to-br ${speaker.accentColor} opacity-90`}
+                    />
+
+                    {/* Decorative shapes */}
+                    <div className="absolute top-4 right-4 w-16 h-16 rounded-full bg-white/10 blur-xl" />
+                    <div className="absolute top-16 left-4 w-8 h-8 rounded-full bg-white/10 blur-lg" />
+
+                    {/* Content */}
+                    <div className="relative pt-12 pb-6 px-6">
+                      {/* Profile Image */}
+                      <div className="relative w-20 h-20 mx-auto mb-4">
+                        <div
+                          className={`absolute inset-0 rounded-full bg-gradient-to-br ${speaker.accentColor} p-1`}
+                        >
+                          <div className="w-full h-full rounded-full overflow-hidden bg-card">
+                            <img
+                              src={speaker.image}
+                              alt={speaker.name}
+                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Info */}
+                      <div className="text-center">
+                        <h3 className="font-display text-xl font-bold text-foreground mb-1">
+                          {speaker.name}
+                        </h3>
+                        {(speaker.designation || speaker.organization) && (
+                          <div className="text-muted-foreground text-sm mb-4">
+                            {speaker.designation && <p>{speaker.designation}</p>}
+                            {speaker.organization && <p>{speaker.organization}</p>}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Carousel controls */}
+      {totalSlides > 1 && (
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handlePrev}
+            aria-label="Previous speakers"
+          >
+            ‹
+          </Button>
+          <div className="flex gap-2">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`h-2 w-2 rounded-full transition-colors ${
+                  index === currentSlide ? "bg-secondary" : "bg-muted-foreground/30"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleNext}
+            aria-label="Next speakers"
+          >
+            ›
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};

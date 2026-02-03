@@ -12,25 +12,74 @@ interface PartnerLogo {
 
 const partners: PartnerLogo[] = [
   // Gold Partners
-  { name: "SCHOOL SERV (INDIA) SOLUTIONS PRIVATE LIMITED", path: "/logos/Schoolserv_Logo - Vinod Kakumanu.png", type: "image", tier: "gold" },
+  {
+    name: "SCHOOL SERV (INDIA) SOLUTIONS PRIVATE LIMITED",
+    path: "/logos/School Serv.jpg",
+    type: "image",
+    tier: "gold",
+  },
 
-  // Silver Partners
-  { name: "MyClassboard Educational Solutions Private Limited", path: "/logos/My Envelope .zip - 2 - Mahaveer Uniforms.png", type: "image", tier: "silver" },
-  { name: "PEARSON INDIA EDUCATION SERVICES PRIVATE", path: "/logos/PEARSON_LOGO_PURPLE_RGB - EEGPL INDIA.png", type: "image", tier: "silver" },
-  { name: "EVO11VE PRIVATE LIMITED", path: "/logos/EZROOTS-MAIN-LOGO - No name - EZROOTS.png", type: "image", tier: "silver" },
-  { name: "RANKGURU TECHNOLOGY SOLUTIONS PRIVATE LIMITED", path: "/logos/Logic Logo_black - Prachi M.png", type: "image", tier: "silver" },
-  { name: "PARAN PARA EDUCATION POLICY PRIVATE LIMITED", path: "/logos/Primary Logo - Barbie Batra.jpg", type: "image", tier: "silver" },
+  // Silver Partners (ONLY using files from LOGO(s)/image)
+  {
+    name: "MyClassboard Educational Solutions Private Limited",
+    path: "/logos/MCB.jpg",
+    type: "image",
+    tier: "silver",
+  },
+  {
+    name: "PEARSON INDIA EDUCATION SERVICES PRIVATE",
+    path: "/logos/Pearson.jpg",
+    type: "image",
+    tier: "silver",
+  },
+  {
+    name: "EVO11VE PRIVATE LIMITED",
+    path: "/logos/Evo11ve.jpg",
+    type: "image",
+    tier: "silver",
+  },
+  {
+    name: "PARAN PARA EDUCATION POLICY PRIVATE LIMITED",
+    path: "/logos/paranpara.jpg",
+    type: "image",
+    tier: "silver",
+  },
 
-  // K12 Partners (no stall)
-  { name: "Ryan Edunation (no stall)", path: "/logos/ryan-group-logo_1628517995 - Sachin Gupta.png", type: "image", tier: "k12" },
-  { name: "Possibility Edutech Pvt Ltd (no stall)", path: "/logos/PrinceBoard - Pallav Singh.png", type: "image", tier: "k12" },
-  { name: "Altus Learning Pvt Ltd (no stall)", path: "/logos/Asliprep logo.png", type: "image", tier: "k12" },
+  // K12 Partners (no stall) - from attached image folder
+  {
+    name: "Ryan Edunation (no stall)",
+    path: "/logos/Ryan Edunation.jpg",
+    type: "image",
+    tier: "k12",
+  },
+  {
+    name: "Possibility Edutech Pvt Ltd (no stall)",
+    path: "/logos/possibility.JPG",
+    type: "image",
+    tier: "k12",
+  },
+  {
+    name: "Altus Learning Pvt Ltd (no stall)",
+    path: "/logos/Altus Learning Pvt Ltd.JPG",
+    type: "image",
+    tier: "k12",
+  },
 
-  // K12 Partners
-  { name: "jubilee hills public school", path: "/logos/JHPS AD LOGO white - Sachin Gupta.png", type: "image", tier: "k12" },
+  // K12 Partner
+  {
+    name: "jubilee hills public school",
+    path: "/logos/JHPS K12.jpg",
+    type: "image",
+    tier: "k12",
+  },
 
-  // University Partners
-  { name: "Amrita Vishwa Vidyapeetham", path: "/logos/abhi creations logo - Abhi Creations.jpeg", type: "image", tier: "university" },
+  // University Partner
+  {
+    name: "Amrita Vishwa Vidyapeetham",
+    path: "/logos/Amrita University.png",
+    type: "image",
+    tier: "university",
+  },
 ];
 
 const getTierStyles = (tier: string) => {

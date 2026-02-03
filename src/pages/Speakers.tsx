@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft } from "lucide-react";
-import { allSpeakers } from "@/lib/speakersData";
+import { allSpeakers, extraSpeakerImageFiles } from "@/lib/speakersData";
 
 const Speakers = () => {
   useEffect(() => {
@@ -60,7 +60,7 @@ const Speakers = () => {
               </p>
             </motion.div>
 
-            {/* All Speakers Grid */}
+            {/* All Speakers Grid (structured cards from speakersData) */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -125,6 +125,60 @@ const Speakers = () => {
                 </motion.div>
               ))}
             </motion.div>
+
+            {/* Extra Speaker Images Gallery (from Speakers images folder) */}
+            {extraSpeakerImageFiles.length > 0 && (
+              <div className="mt-20">
+                <motion.h2
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  className="font-display text-3xl md:text-4xl font-bold text-foreground mb-6 text-center"
+                >
+                  More Speakers
+                </motion.h2>
+                <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+                  Additional invited speakers and contributors at ET Tech X.
+                </p>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+                >
+                  {extraSpeakerImageFiles.map((file, index) => {
+                    const baseName = file.replace(/\.[^.]+$/, "");
+                    const label = baseName
+                      .replace(/[_-]+/g, " ")
+                      .replace(/\s+/g, " ")
+                      .trim();
+
+                    return (
+                      <div
+                        key={`${file}-${index}`}
+                        className="bg-card rounded-2xl border border-border overflow-hidden shadow-card flex flex-col items-center p-4"
+                      >
+                        <div className="w-24 h-24 rounded-full overflow-hidden mb-3 bg-muted">
+                          <img
+                            src={`/speakers/${file}`}
+                            alt={label}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).style.display = "none";
+                            }}
+                          />
+                        </div>
+                        <p className="text-sm font-medium text-center text-foreground">
+                          {label}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </motion.div>
+              </div>
+            )}
           </motion.div>
         </div>
       </section>

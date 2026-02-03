@@ -17,7 +17,12 @@ const AIChatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "👋 Hi there! Welcome to Et Tech X! I'm your AI assistant. The chat service is currently unavailable. Please contact us through other channels for assistance.",
+      text:
+        "👋 Hi there! Welcome to Et Tech X! I'm your AI assistant.\n\n" +
+        "You can ask me about:\n" +
+        "• Exhibiting at ET Tech X\n" +
+        "• Visiting the expo as a visitor\n" +
+        "• Attending as a delegate",
       isBot: true,
     },
   ]);
@@ -55,9 +60,81 @@ const AIChatbot = () => {
     }
   }, [isOpen, hasInteracted]);
 
-  const streamChat = async (userMessages: { role: string; content: string }[]) => {
-    // Chat service is disabled - backend needs to be configured
-    throw new Error("Chat service is currently unavailable. Please configure a backend service.");
+  // Simple rule-based responder for common ET Tech X questions
+  const getBotReply = (userInput: string): string => {
+    const text = userInput.toLowerCase();
+
+    const isGreeting = /\b(hi|hello|hey|namaste)\b/.test(text);
+    const isExhibitor =
+      text.includes("exhibit") ||
+      text.includes("exhibitor") ||
+      text.includes("stall") ||
+      text.includes("booth") ||
+      text.includes("sponsor");
+    const isVisitor =
+      text.includes("visitor") ||
+      text.includes("visit") ||
+      text.includes("ticket") ||
+      text.includes("entry") ||
+      text.includes("pass");
+    const isDelegate =
+      text.includes("delegate") ||
+      text.includes("conference") ||
+      text.includes("sessions") ||
+      text.includes("summit");
+
+    if (isExhibitor) {
+      return (
+        "Exhibitor Inquiry:\n\n" +
+        "Thank you for your interest in exhibiting at ET Tech X! 🎉\n\n" +
+        "We offer a variety of exhibition packages, including booth space and branding opportunities across the expo.\n\n" +
+        "For detailed information on stall sizes, pricing, and sponsorship options, please contact:\n" +
+        "• Sachin Gupta – Exhibition Coordinator\n" +
+        "• Phone / WhatsApp: +91 8008845432\n\n" +
+        "We’d love to have you showcase your solutions at ET Tech X!"
+      );
+    }
+
+    if (isVisitor) {
+      return (
+        "Visitor Inquiry:\n\n" +
+        "We’re thrilled that you’d like to visit ET Tech X! 🙌\n\n" +
+        "At ET Tech X, you can explore the latest in educational technology, meet leading solution providers, and network with school leaders and industry professionals.\n\n" +
+        "For visitor details, including registration, timings, and entry guidelines, please contact our Visitor Support Team at:\n" +
+        "• Phone / WhatsApp: +91 9871676622\n\n" +
+        "We look forward to welcoming you to the expo!"
+      );
+    }
+
+    if (isDelegate) {
+      return (
+        "Delegate Inquiry:\n\n" +
+        "Great to hear you’re interested in attending ET Tech X as a delegate! 🎓\n\n" +
+        "Delegates get access to expert sessions, panel discussions, and special networking opportunities with education leaders.\n\n" +
+        "For delegate registration and package details, please contact:\n" +
+        "• Mr. Sachin Gupta – Delegate Coordinator\n" +
+        "• Phone / WhatsApp: +91 8008845432\n\n" +
+        "We look forward to your valuable participation!"
+      );
+    }
+
+    if (isGreeting) {
+      return (
+        "👋 Hi! I can help with:\n\n" +
+        "• Exhibitor inquiries (stalls, booths, sponsorships)\n" +
+        "• Visitor information (entry, timings, registration)\n" +
+        "• Delegate details (conference passes & sessions)\n\n" +
+        "Just type whether you want to *exhibit*, *visit*, or join as a *delegate*."
+      );
+    }
+
+    // Fallback: show quick contact numbers
+    return (
+      "Thanks for your message! Here are the quickest ways to reach the right team:\n\n" +
+      "• Exhibitors & Delegates – Sachin Gupta: +91 8008845432\n" +
+      "• Visitors & General Queries – Visitor Support: +91 9871676622\n\n" +
+      "You can tell me whether your question is about *exhibiting*, *visiting*, or *delegates* and I’ll share the right details."
+    );
   };
 
   const handleSendMessage = async (e: React.FormEvent) => {
@@ -77,110 +154,25 @@ const AIChatbot = () => {
     setInputValue("");
     setIsLoading(true);
 
-    // Build conversation history for context
-    const conversationHistory = messages
-      .filter((m) => m.id !== 1) // Exclude initial greeting
-      .map((m) => ({
-        role: m.isBot ? "assistant" : "user",
-        content: m.text,
-      }));
-
-    conversationHistory.push({ role: "user", content: userInput });
-
     try {
-      const response = await streamChat(conversationHistory);
-      const reader = response.body!.getReader();
-      const decoder = new TextDecoder();
-      let textBuffer = "";
-      let assistantContent = "";
-      const assistantMessageId = Date.now() + 1;
+      // Small delay for nicer UX
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      const reply = getBotReply(userInput);
 
-      // Add empty assistant message that we'll update
-      setMessages((prev) => [
-        ...prev,
-        { id: assistantMessageId, text: "", isBot: true },
-      ]);
+      const botMessage: Message = {
+        id: Date.now() + 1,
+        text: reply,
+        isBot: true,
+      };
 
-      let streamDone = false;
-
-      while (!streamDone) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        textBuffer += decoder.decode(value, { stream: true });
-
-        let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
-          let line = textBuffer.slice(0, newlineIndex);
-          textBuffer = textBuffer.slice(newlineIndex + 1);
-
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
-
-          const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") {
-            streamDone = true;
-            break;
-          }
-
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
-            if (content) {
-              assistantContent += content;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantMessageId
-                    ? { ...m, text: assistantContent }
-                    : m
-                )
-              );
-            }
-          } catch {
-            // Incomplete JSON, put back and wait for more
-            textBuffer = line + "\n" + textBuffer;
-            break;
-          }
-        }
-      }
-
-      // Final flush
-      if (textBuffer.trim()) {
-        for (let raw of textBuffer.split("\n")) {
-          if (!raw) continue;
-          if (raw.endsWith("\r")) raw = raw.slice(0, -1);
-          if (raw.startsWith(":") || raw.trim() === "") continue;
-          if (!raw.startsWith("data: ")) continue;
-          const jsonStr = raw.slice(6).trim();
-          if (jsonStr === "[DONE]") continue;
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content as string | undefined;
-            if (content) {
-              assistantContent += content;
-              setMessages((prev) =>
-                prev.map((m) =>
-                  m.id === assistantMessageId
-                    ? { ...m, text: assistantContent }
-                    : m
-                )
-              );
-            }
-          } catch {
-            /* ignore */
-          }
-        }
-      }
+      setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
       console.error("Chat error:", error);
       toast({
         title: "Error",
-        description: error instanceof Error ? error.message : "Failed to send message",
+        description: "Sorry, something went wrong. Please contact us by phone or WhatsApp.",
         variant: "destructive",
       });
-      // Remove the failed message attempt
-      setMessages((prev) => prev.filter((m) => m.id !== Date.now() + 1));
     } finally {
       setIsLoading(false);
     }
