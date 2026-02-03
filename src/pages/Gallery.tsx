@@ -141,27 +141,27 @@ const Gallery = () => {
                                 };
 
                                 return (
-                                  <motion.div
-                                    key={imgIndex}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    transition={{ duration: 0.4, delay: imgIndex * 0.05 }}
-                                    whileHover={{ scale: 1.05 }}
+                                <motion.div
+                                  key={imgIndex}
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ duration: 0.4, delay: imgIndex * 0.05 }}
+                                  whileHover={{ scale: 1.05 }}
                                     className={`group relative cursor-pointer rounded-lg overflow-hidden border-2 ${getBorderColor()} ${getBgGradient()} shadow-md hover:shadow-lg aspect-square transition-all duration-300`}
-                                    onClick={() => setSelectedImage(image.src)}
-                                  >
-                                    <img
-                                      src={image.src}
-                                      alt={image.alt}
-                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                      loading="lazy"
-                                      decoding="async"
-                                      onError={(e) => {
-                                        (e.target as HTMLImageElement).src = "/placeholder.svg";
-                                      }}
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                  </motion.div>
+                                  onClick={() => setSelectedImage(image.src)}
+                                >
+                                  <img
+                                    src={image.src}
+                                    alt={image.alt}
+                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    loading="lazy"
+                                    decoding="async"
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).src = "/placeholder.svg";
+                                    }}
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                </motion.div>
                                 );
                               })}
                             </div>

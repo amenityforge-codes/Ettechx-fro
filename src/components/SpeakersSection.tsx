@@ -24,7 +24,7 @@ import { speakerGroups } from "@/lib/speakersData";
 
 const SpeakersSection = () => {
   return (
-    <section id="speakers" className="py-16 md:py-20 relative overflow-hidden">
+    <section id="speakers" className="py-24 relative overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-secondary/5 blur-3xl pointer-events-none" />
@@ -37,7 +37,7 @@ const SpeakersSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-16"
         >
           <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/10 text-secondary text-sm font-medium mb-4">
             Meet The Experts
@@ -68,8 +68,7 @@ const SpeakersSection = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+          animate="visible"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
         >
                 {group.speakers.map((speaker) => (
