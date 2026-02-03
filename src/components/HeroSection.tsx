@@ -13,10 +13,10 @@ const HeroSection = () => {
   ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-hero">
+    <section className="relative min-h-screen overflow-hidden bg-gradient-hero">
       <FloatingShapes />
       
-      <div className="container mx-auto px-3 sm:px-4 pt-20 sm:pt-24 pb-12 sm:pb-16 relative z-10 max-w-7xl">
+      <div className="container mx-auto px-3 sm:px-4 pt-4 sm:pt-8 md:pt-12 pb-12 sm:pb-16 relative z-10 max-w-7xl">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
           {/* Logo/Brand at Top */}
@@ -24,7 +24,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="mb-4 sm:mb-6"
+            className="mb-4 sm:mb-6 -mt-32 sm:-mt-28 md:-mt-32"
           >
             <h1 className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-2 sm:mb-3 px-2">
               <span className="text-foreground">ET TECH</span>{" "}

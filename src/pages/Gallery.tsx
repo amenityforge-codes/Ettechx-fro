@@ -116,29 +116,54 @@ const Gallery = () => {
 
                             {/* Images Grid */}
                             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                              {category.images.map((image, imgIndex) => (
-                                <motion.div
-                                  key={imgIndex}
-                                  initial={{ opacity: 0, scale: 0.9 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  transition={{ duration: 0.4, delay: imgIndex * 0.05 }}
-                                  whileHover={{ scale: 1.05 }}
-                                  className="group relative cursor-pointer rounded-lg overflow-hidden border border-border bg-card shadow-md aspect-square"
-                                  onClick={() => setSelectedImage(image.src)}
-                                >
-                                  <img
-                                    src={image.src}
-                                    alt={image.alt}
-                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                    loading="lazy"
-                                    decoding="async"
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).src = "/placeholder.svg";
-                                    }}
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                </motion.div>
-                              ))}
+                              {category.images.map((image, imgIndex) => {
+                                // Determine border color based on category
+                                const getBorderColor = () => {
+                                  if (category.name === "Awards") {
+                                    return "border-gold/40 hover:border-gold/60";
+                                  } else if (category.name === "Conference") {
+                                    return "border-primary/40 hover:border-primary/60";
+                                  } else if (category.name === "Expo") {
+                                    return "border-accent/40 hover:border-accent/60";
+                                  }
+                                  return "border-border";
+                                };
+
+                                const getBgGradient = () => {
+                                  if (category.name === "Awards") {
+                                    return "bg-gradient-to-br from-gold/5 to-gold/10";
+                                  } else if (category.name === "Conference") {
+                                    return "bg-gradient-to-br from-primary/5 to-primary/10";
+                                  } else if (category.name === "Expo") {
+                                    return "bg-gradient-to-br from-accent/5 to-accent/10";
+                                  }
+                                  return "bg-card";
+                                };
+
+                                return (
+                                  <motion.div
+                                    key={imgIndex}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.4, delay: imgIndex * 0.05 }}
+                                    whileHover={{ scale: 1.05 }}
+                                    className={`group relative cursor-pointer rounded-lg overflow-hidden border-2 ${getBorderColor()} ${getBgGradient()} shadow-md hover:shadow-lg aspect-square transition-all duration-300`}
+                                    onClick={() => setSelectedImage(image.src)}
+                                  >
+                                    <img
+                                      src={image.src}
+                                      alt={image.alt}
+                                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                      loading="lazy"
+                                      decoding="async"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).src = "/placeholder.svg";
+                                      }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                  </motion.div>
+                                );
+                              })}
                             </div>
                           </motion.div>
                         );

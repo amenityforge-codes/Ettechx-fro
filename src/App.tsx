@@ -16,6 +16,9 @@ import SpringSummit from "./pages/SpringSummit";
 import AutumnConference from "./pages/AutumnConference";
 import Gallery from "./pages/Gallery";
 import Partners from "./pages/Partners";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import RefundPolicy from "./pages/RefundPolicy";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import GalleryManager from "./pages/GalleryManager";
@@ -46,6 +49,9 @@ const App = () => (
             <Route path="/autumn-conference" element={<AutumnConference />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/partners" element={<Partners />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/refund-policy" element={<RefundPolicy />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/gallery" element={<GalleryManager />} />
