@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Wrench, Users, Calendar, MapPin, BookOpen } from "lucide-react";
-import workshopsImage from "@/assets/events/workshops-image.jpg";
 
 const Workshops = () => {
   useEffect(() => {
@@ -95,7 +94,7 @@ const Workshops = () => {
                 
                 <div className="w-full md:w-96 h-64 md:h-80 rounded-2xl overflow-hidden">
                   <img
-                    src={workshopsImage}
+                    src="/Workshop.jpeg"
                     alt="Workshops"
                     className="w-full h-full object-cover"
                     loading="lazy"

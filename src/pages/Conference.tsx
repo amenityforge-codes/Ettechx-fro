@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Mic2, Users, Calendar, MapPin, Clock } from "lucide-react";
-import conferenceImage from "@/assets/events/conference-image.jpg";
 
 const Conference = () => {
   useEffect(() => {
@@ -95,7 +94,7 @@ const Conference = () => {
                 
                 <div className="w-full md:w-96 h-64 md:h-80 rounded-2xl overflow-hidden">
                   <img
-                    src={conferenceImage}
+                    src="/Conference.jpeg"
                     alt="Conference Sessions"
                     className="w-full h-full object-cover"
                     loading="lazy"

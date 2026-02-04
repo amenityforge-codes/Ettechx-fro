@@ -16,9 +16,8 @@ const HeroSection = () => {
     <section className="relative min-h-screen overflow-hidden bg-gradient-hero">
       <FloatingShapes />
       
-      {/* User preference: hero almost touching navbar (very strong negative margin). 
-          Note: on some small devices this may visually overlap the navbar. */}
-      <div className="container mx-auto px-3 sm:px-4 pt-0 sm:pt-1 md:pt-2 -mt-8 sm:-mt-10 md:-mt-12 pb-12 sm:pb-16 relative z-10 max-w-7xl">
+      {/* Hero under fixed navbar – add comfortable space below nav */}
+      <div className="container mx-auto px-3 sm:px-4 pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16 relative z-10 max-w-7xl">
         <div className="flex flex-col items-center text-center max-w-5xl mx-auto">
           
           {/* Logo/Brand at Top */}
@@ -28,11 +27,11 @@ const HeroSection = () => {
             transition={{ duration: 0.6 }}
             className="mb-4 sm:mb-6"
           >
-            <h1 className="font-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-2 sm:mb-3 px-2">
+            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold leading-tight mb-3 sm:mb-4 px-2">
               <span className="text-foreground">ET TECH</span>{" "}
               <span className="text-gradient-primary">X</span>
             </h1>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground font-medium px-2">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground font-medium px-2">
               Educational and Training Resources & Tech Expo
             </p>
           </motion.div>
@@ -50,23 +49,23 @@ const HeroSection = () => {
             </span>
           </motion.div>
 
-          {/* Hero Image */}
+          {/* Hero Image - Full Page Style */}
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            initial={{ opacity: 0, y: 30, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-4xl mx-auto mb-6 sm:mb-10 px-2 sm:px-0"
+            className="relative w-full mb-6 sm:mb-10 h-[80vh] sm:h-[80vh] md:h-[85vh] lg:h-[90vh] px-0"
           >
             {/* Decorative elements behind image */}
             <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 lg:-top-8 lg:-left-8 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-primary/20 to-secondary/20 blur-sm overflow-hidden" />
             <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 lg:-bottom-8 lg:-right-8 w-full h-full rounded-2xl md:rounded-3xl bg-gradient-to-br from-accent/20 to-gold/20 blur-sm overflow-hidden" />
             
             {/* Main Image Container */}
-            <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-2 border-border/50">
+            <div className="relative h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-2 border-border/50 max-w-none">
               <img
                 src="/Hero%20.jpeg"
                 alt="EdTech innovation showcasing students and professionals using advanced learning technology with VR headsets and digital displays"
-                className="w-full h-auto object-cover max-h-[280px] sm:max-h-[350px] md:max-h-[450px] lg:max-h-[500px]"
+                className="w-full h-full object-cover"
                 loading="eager"
                 decoding="async"
                 fetchPriority="high"

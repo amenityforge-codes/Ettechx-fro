@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -77,9 +77,8 @@ const SpeakersSection = () => {
 export default SpeakersSection;
 
 const FeaturedSpeakersCarousel = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides: Speaker[][] = useMemo(() => {
+  // Base slides (groups of speakers)
+  const baseSlides: Speaker[][] = useMemo(() => {
     const chunks: Speaker[][] = [];
     for (let i = 0; i < featuredSpeakers.length; i += 3) {
       chunks.push(featuredSpeakers.slice(i, i + 3));
@@ -87,25 +86,80 @@ const FeaturedSpeakersCarousel = () => {
     return chunks;
   }, []);
 
-  const totalSlides = slides.length;
+  const totalSlides = baseSlides.length;
+
+  // Create cloned slides at start and end for seamless looping
+  const slides = useMemo(() => {
+    if (totalSlides === 0) return [] as Speaker[][];
+    if (totalSlides === 1) return baseSlides;
+    return [baseSlides[totalSlides - 1], ...baseSlides, baseSlides[0]];
+  }, [baseSlides, totalSlides]);
+
+  const [activeIndex, setActiveIndex] = useState(totalSlides === 0 ? 0 : 1); // start at first real slide
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handlePrev = () => {
-    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+    if (totalSlides <= 1) return;
+    setIsTransitioning(true);
+    setActiveIndex((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+    if (totalSlides <= 1) return;
+    setIsTransitioning(true);
+    setActiveIndex((prev) => prev + 1);
+  };
+
+  // Auto-play loop similar to testimonials (with seamless looping)
+  useEffect(() => {
+    if (totalSlides <= 1) return;
+
+    const intervalId = window.setInterval(() => {
+      setIsTransitioning(true);
+      setActiveIndex((prev) => prev + 1);
+    }, 8000); // change slide every 8 seconds
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [totalSlides]);
+
+  // When CSS transition ends, snap from cloned slides back to real ones
+  const handleTransitionEnd = () => {
+    if (totalSlides <= 1) return;
+
+    // Moved to leading clone (index 0) → snap to last real slide
+    if (activeIndex === 0) {
+      setIsTransitioning(false);
+      setActiveIndex(totalSlides);
+      return;
+    }
+
+    // Moved to trailing clone (last index) → snap to first real slide
+    if (activeIndex === slides.length - 1) {
+      setIsTransitioning(false);
+      setActiveIndex(1);
+      return;
+    }
+
+    setIsTransitioning(false);
   };
 
   if (totalSlides === 0) return null;
 
+  // For dots, map activeIndex (with clones) back to 0-based real slide index
+  const currentRealIndex =
+    totalSlides <= 1 ? 0 : (activeIndex - 1 + totalSlides) % totalSlides;
+
   return (
     <div className="relative">
       <div className="overflow-hidden">
-        <motion.div
-          className="flex"
-          animate={{ x: `-${currentSlide * 100}%` }}
-          transition={{ type: "spring", stiffness: 70, damping: 20 }}
+        <div
+          className={`flex ${
+            isTransitioning ? "transition-transform duration-500 ease-out" : ""
+          }`}
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+          onTransitionEnd={handleTransitionEnd}
         >
           {slides.map((slide, slideIndex) => (
             <div
@@ -170,7 +224,7 @@ const FeaturedSpeakersCarousel = () => {
               ))}
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Carousel controls */}
@@ -185,12 +239,18 @@ const FeaturedSpeakersCarousel = () => {
             ‹
           </Button>
           <div className="flex gap-2">
-            {slides.map((_, index) => (
+            {baseSlides.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
+                onClick={() => {
+                  if (totalSlides <= 1) return;
+                  setIsTransitioning(true);
+                  setActiveIndex(index + 1); // +1 to account for leading clone
+                }}
                 className={`h-2 w-2 rounded-full transition-colors ${
-                  index === currentSlide ? "bg-secondary" : "bg-muted-foreground/30"
+                  index === currentRealIndex
+                    ? "bg-secondary"
+                    : "bg-muted-foreground/30"
                 }`}
                 aria-label={`Go to slide ${index + 1}`}
               />

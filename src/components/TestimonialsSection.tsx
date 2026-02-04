@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 
@@ -86,17 +86,27 @@ const testimonials = [
 ];
 
 const TestimonialsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  // We create a cloned first and last slide so transitions can loop seamlessly
+  const extendedTestimonials = [
+    testimonials[testimonials.length - 1],
+    ...testimonials,
+    testimonials[0],
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(1); // start from first real slide
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
   const minSwipeDistance = 50; // Minimum distance in pixels to trigger a swipe
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setIsTransitioning(true);
+    setActiveIndex((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    setIsTransitioning(true);
+    setActiveIndex((prev) => prev + 1);
   };
 
   const onTouchStart = (e: React.TouchEvent) => {
@@ -123,8 +133,40 @@ const TestimonialsSection = () => {
     }
   };
 
+  // After each transition, if we're on a cloned slide, jump instantly to the real one
+  const handleTransitionEnd = () => {
+    // If we've moved to the first cloned slide (index 0), jump to the real last slide
+    if (activeIndex === 0) {
+      setIsTransitioning(false);
+      setActiveIndex(testimonials.length);
+      return;
+    }
+
+    // If we've moved to the last cloned slide (index extendedTestimonials.length - 1),
+    // jump back to the real first slide
+    if (activeIndex === extendedTestimonials.length - 1) {
+      setIsTransitioning(false);
+      setActiveIndex(1);
+      return;
+    }
+
+    setIsTransitioning(false);
+  };
+
+  // Auto-play loop for testimonials
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setIsTransitioning(true);
+      setActiveIndex((prev) => prev + 1);
+    }, 8000); // change slide every 8 seconds
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-background" id="testimonials">
+    <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-background via-muted/40 to-background" id="testimonials">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -147,7 +189,7 @@ const TestimonialsSection = () => {
         </motion.div>
 
         {/* Testimonials Carousel */}
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-6xl mx-auto">
           <div 
             className="overflow-visible touch-pan-y py-4 sm:py-6"
             onTouchStart={onTouchStart}
@@ -155,12 +197,13 @@ const TestimonialsSection = () => {
             onTouchEnd={onTouchEnd}
           >
             <div
-              className="flex transition-transform duration-500 ease-out"
+              className={`flex ${isTransitioning ? "transition-transform duration-500 ease-out" : ""}`}
               style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+              onTransitionEnd={handleTransitionEnd}
             >
-              {testimonials.map((testimonial) => (
+              {extendedTestimonials.map((testimonial, idx) => (
             <motion.div
-              key={testimonial.id}
+              key={`${testimonial.id}-${idx}`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
@@ -221,9 +264,14 @@ const TestimonialsSection = () => {
                 <button
                   key={index}
                   type="button"
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => {
+                    setIsTransitioning(true);
+                    setActiveIndex(index + 1); // +1 because of leading clone
+                  }}
                   className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-colors ${
-                    index === activeIndex ? "bg-primary" : "bg-muted-foreground/30"
+                    ((activeIndex - 1 + testimonials.length) % testimonials.length) === index
+                      ? "bg-primary"
+                      : "bg-muted-foreground/30"
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />

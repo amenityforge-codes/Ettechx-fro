@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Award, Trophy, Star, Users, Calendar, MapPin } from "lucide-react";
-import awardsImage from "@/assets/events/awards-image.jpg";
 
 const Awards = () => {
   useEffect(() => {
@@ -95,7 +94,7 @@ const Awards = () => {
                 
                 <div className="w-full md:w-96 h-64 md:h-80 rounded-2xl overflow-hidden">
                   <img
-                    src={awardsImage}
+                    src="/Awards.jpeg"
                     alt="Awards Ceremony"
                     className="w-full h-full object-cover"
                     loading="lazy"

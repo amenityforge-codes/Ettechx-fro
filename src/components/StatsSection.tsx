@@ -266,7 +266,6 @@ const StatsSection = () => {
                 href="/ET%20TECH%20X%202025%20Show%20Directory_compressed.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                download="ET TECH X 2025 Show Directory.pdf"
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="group rounded-2xl bg-card border border-primary/20 shadow-card p-4 flex flex-col justify-between"
               >
@@ -288,7 +287,7 @@ const StatsSection = () => {
                   size="sm"
                   className="w-full justify-between group-hover:shadow-glow-primary"
                 >
-                  Download Overview
+                  View Here
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.a>

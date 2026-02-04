@@ -282,24 +282,6 @@ html {
   }
 }
 
-/* Fix navbar overlap and responsive issues */
-/* Ensure first section accounts for fixed navbar */
-section:first-of-type {
-  padding-top: 5rem !important;
-}
-
-@media (min-width: 640px) {
-  section:first-of-type {
-    padding-top: 6rem !important;
-  }
-}
-
-@media (min-width: 1024px) {
-  section:first-of-type {
-    padding-top: 7rem !important;
-  }
-}
-
 /* Fix navbar z-index and positioning */
 nav {
   position: fixed !important;

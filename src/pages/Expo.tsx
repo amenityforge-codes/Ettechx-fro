@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Store, Users, Calendar, MapPin, Package } from "lucide-react";
-import expoImage from "@/assets/events/expo-image.jpg";
 
 const Expo = () => {
   useEffect(() => {
@@ -102,7 +101,7 @@ const Expo = () => {
                 
                 <div className="w-full md:w-96 h-64 md:h-80 rounded-2xl overflow-hidden">
                   <img
-                    src={expoImage}
+                    src="/expo.jpeg"
                     alt="Expo Exhibition"
                     className="w-full h-full object-cover"
                     loading="lazy"
