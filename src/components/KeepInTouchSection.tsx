@@ -12,13 +12,13 @@ const contacts = [
     avatarColor: "from-orange-400 to-amber-500",
   },
   {
-    name: "Ms. Simran Kashyap",
-    initial: "S",
-    role: "Asst. Manager",
-    phoneLabel: "+91-9650615197",
-    phoneHref: "tel:+919650615197",
-    email: "simran@ettechx.com",
-    avatarColor: "from-sky-400 to-indigo-500",
+    name: "Mr. Pallav Singh",
+    initial: "P",
+    role: "Sr. Director",
+    phoneLabel: "+91-8130990660",
+    phoneHref: "tel:+918130990660",
+    email: "pallav@ettechx.com",
+    avatarColor: "from-fuchsia-500 to-violet-500",
   },
   {
     name: "Mr. Tanmay Sharma",
@@ -30,15 +30,6 @@ const contacts = [
     avatarColor: "from-amber-400 to-orange-500",
   },
   {
-    name: "Mr. Pallav Singh",
-    initial: "P",
-    role: "Sr. Director",
-    phoneLabel: "+91-8130990660",
-    phoneHref: "tel:+918130990660",
-    email: "pallav@ettechx.com",
-    avatarColor: "from-fuchsia-500 to-violet-500",
-  },
-  {
     name: "Ms. Ritu Siddiqui",
     initial: "R",
     role: "Sr. Director",
@@ -46,6 +37,15 @@ const contacts = [
     phoneHref: "tel:+918130990664",
     email: "ritu@ettechx.com",
     avatarColor: "from-emerald-400 to-teal-500",
+  },
+  {
+    name: "Ms. Simran Kashyap",
+    initial: "S",
+    role: "Asst. Manager",
+    phoneLabel: "+91-9650615197",
+    phoneHref: "tel:+919650615197",
+    email: "simran@ettechx.com",
+    avatarColor: "from-sky-400 to-indigo-500",
   },
 ];
 

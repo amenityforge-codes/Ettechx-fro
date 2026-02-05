@@ -293,7 +293,9 @@ const StatsSection = () => {
               </motion.a>
 
               <motion.a
-                href="#"
+                href="/Post%20show%20report%202025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ y: -4, scale: 1.02 }}
                 className="group rounded-2xl bg-card border border-secondary/20 shadow-card p-4 flex flex-col justify-between"
               >
@@ -315,7 +317,7 @@ const StatsSection = () => {
                   size="sm"
                   className="w-full justify-between"
                 >
-                  View Insights
+                  View Report
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.a>
