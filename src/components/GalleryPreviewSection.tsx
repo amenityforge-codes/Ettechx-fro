@@ -51,9 +51,8 @@ const GalleryPreviewSection = () => {
             Our <span className="text-gradient-primary">Gallery</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {latestYearName 
-              ? `Explore moments from ${latestYearName} and previous events` 
-              : "Explore photos and videos from Et Tech X events, conferences, and exhibitions"}
+            Explore moments from the 7th Edition of ET TECH X and previous
+            landmark events.
           </p>
         </motion.div>
 
@@ -96,7 +95,7 @@ const GalleryPreviewSection = () => {
             <div className="mb-10">
               <div className="flex items-baseline justify-between mb-6">
                 <h3 className="font-display text-2xl font-bold text-foreground">
-                  {latestYearName && `Latest from ${latestYearName}`}
+                  7th Edition of ET TECH X
                 </h3>
               </div>
               <motion.div
