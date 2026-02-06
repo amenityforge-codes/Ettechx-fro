@@ -28,7 +28,7 @@ export const iconMap = {
 export const defaultGalleryData: GalleryYear[] = [
   {
     year: "2026-jan",
-    displayName: "January 2026",
+    displayName: "7th Edition Jan 2026",
     categories: [
       {
         name: "Awards",
@@ -89,7 +89,7 @@ export const defaultGalleryData: GalleryYear[] = [
   },
   {
     year: "2024-25-jan",
-    displayName: "January 2024-25",
+    displayName: "6th Edition Jan 2025",
     categories: [
       {
         name: "Awards",
@@ -144,7 +144,7 @@ export const defaultGalleryData: GalleryYear[] = [
   },
   {
     year: "2024-jan",
-    displayName: "January 2024",
+    displayName: "5th Edition Jan 2024",
     categories: [
       {
         name: "Awards",
@@ -201,7 +201,7 @@ export const defaultGalleryData: GalleryYear[] = [
   },
   {
     year: "2023-24-dec",
-    displayName: "December 2023-24",
+    displayName: "5th Edition Dec 2023",
     categories: [
       {
         name: "Awards",
@@ -256,7 +256,7 @@ export const defaultGalleryData: GalleryYear[] = [
   },
   {
     year: "2023",
-    displayName: "2023",
+    displayName: "4th Edition Nov 2023 Delhi Edition",
     categories: [
       {
         name: "Awards",
@@ -307,7 +307,7 @@ export const defaultGalleryData: GalleryYear[] = [
   },
   {
     year: "2022",
-    displayName: "2022",
+    displayName: "3rd Edition",
     categories: [
       {
         name: "Awards",
@@ -358,7 +358,7 @@ export const defaultGalleryData: GalleryYear[] = [
   },
   {
     year: "2019",
-    displayName: "2019",
+    displayName: "ET Tech X Edition",
     categories: [
       {
         name: "Awards",
@@ -414,6 +414,8 @@ export const defaultGalleryData: GalleryYear[] = [
   },
 ];
 
+// Legacy localStorage functions (kept for backward compatibility)
+// New code should use galleryApi.ts instead
 export const loadGalleryData = (): GalleryYear[] => {
   const stored = localStorage.getItem("gallery_data");
   if (stored) {

@@ -19,6 +19,13 @@ import {
   GalleryCategory, 
   iconMap 
 } from "@/lib/galleryData";
+import {
+  fetchGalleryData,
+  saveGalleryData as saveGalleryDataApi,
+  uploadImage as uploadImageApi,
+  deleteImage as deleteImageApi,
+  deleteYear as deleteYearApi,
+} from "@/lib/galleryApi";
 import { Link } from "react-router-dom";
 
 const GalleryManager = () => {
@@ -47,9 +54,22 @@ const GalleryManager = () => {
     loadData();
   }, [isAuthenticated, navigate]);
 
-  const loadData = () => {
-    const data = loadGalleryData();
-    setGalleryData(data);
+  const loadData = async () => {
+    try {
+      // Try API first, fallback to localStorage
+      const data = await fetchGalleryData();
+      if (data && data.length > 0) {
+        setGalleryData(data);
+      } else {
+        // Fallback to localStorage
+        const localData = loadGalleryData();
+        setGalleryData(localData);
+      }
+    } catch (error) {
+      console.error('Failed to load from API, using localStorage:', error);
+      const localData = loadGalleryData();
+      setGalleryData(localData);
+    }
   };
 
   const handleLogout = () => {
@@ -61,13 +81,26 @@ const GalleryManager = () => {
     });
   };
 
-  const saveData = (data: GalleryYear[]) => {
-    saveGalleryData(data);
-    setGalleryData(data);
-    toast({
-      title: "Success",
-      description: "Gallery updated successfully",
-    });
+  const saveData = async (data: GalleryYear[]) => {
+    try {
+      // Try API first
+      await saveGalleryDataApi(data);
+      setGalleryData(data);
+      toast({
+        title: "Success",
+        description: "Gallery updated successfully",
+      });
+    } catch (error) {
+      // Fallback to localStorage
+      console.error('Failed to save to API, using localStorage:', error);
+      saveGalleryData(data);
+      setGalleryData(data);
+      toast({
+        title: "Saved (Local)",
+        description: "Gallery saved locally. API unavailable.",
+        variant: "default",
+      });
+    }
   };
 
   // Year Management
@@ -93,10 +126,21 @@ const GalleryManager = () => {
     setEditingYear(null);
   };
 
-  const deleteYear = (yearId: string) => {
+  const deleteYear = async (yearId: string) => {
     if (confirm("Are you sure you want to delete this year and all its contents?")) {
-      const updated = galleryData.filter(y => y.year !== yearId);
-      saveData(updated);
+      try {
+        await deleteYearApi(yearId);
+        const updated = galleryData.filter(y => y.year !== yearId);
+        setGalleryData(updated);
+        toast({
+          title: "Success",
+          description: "Year deleted successfully",
+        });
+      } catch (error) {
+        // Fallback: just remove from local state
+        const updated = galleryData.filter(y => y.year !== yearId);
+        saveData(updated);
+      }
     }
   };
 
@@ -182,7 +226,7 @@ const GalleryManager = () => {
     }
   };
 
-  const addImage = (yearId: string, categoryName: string) => {
+  const addImage = async (yearId: string, categoryName: string) => {
     // Check if either file or URL is provided
     if (!selectedFile && !filePreview && !newImageUrl) {
       toast({
@@ -193,7 +237,37 @@ const GalleryManager = () => {
       return;
     }
 
-    const imageSrc = filePreview || newImageUrl;
+    let imageSrc = newImageUrl;
+
+    // If file is selected, upload it first
+    if (selectedFile) {
+      try {
+        toast({
+          title: "Uploading...",
+          description: "Please wait while we upload your image",
+        });
+        
+        const yearData = galleryData.find(y => y.year === yearId);
+        const result = await uploadImageApi(selectedFile, yearId, categoryName);
+        imageSrc = result.url;
+        
+        toast({
+          title: "Uploaded",
+          description: "Image uploaded successfully",
+        });
+      } catch (error) {
+        toast({
+          title: "Upload Failed",
+          description: error instanceof Error ? error.message : "Failed to upload image. Using preview URL.",
+          variant: "destructive",
+        });
+        // Fallback to preview if upload fails
+        imageSrc = filePreview || newImageUrl;
+      }
+    } else {
+      // Use preview or URL
+      imageSrc = filePreview || newImageUrl;
+    }
 
     const updated = galleryData.map(y => {
       if (y.year === yearId) {
@@ -218,7 +292,7 @@ const GalleryManager = () => {
       }
       return y;
     });
-    saveData(updated);
+    await saveData(updated);
     
     // Reset form
     setNewImageUrl("");
@@ -231,7 +305,21 @@ const GalleryManager = () => {
     if (fileInput) fileInput.value = "";
   };
 
-  const deleteImage = (yearId: string, categoryName: string, imageIndex: number) => {
+  const deleteImage = async (yearId: string, categoryName: string, imageIndex: number) => {
+    const yearData = galleryData.find(y => y.year === yearId);
+    const category = yearData?.categories.find(c => c.name === categoryName);
+    const imageToDelete = category?.images[imageIndex];
+    
+    // Delete file from server if it's a server path
+    if (imageToDelete?.src && imageToDelete.src.startsWith('/gallery/')) {
+      try {
+        await deleteImageApi(imageToDelete.src);
+      } catch (error) {
+        console.error('Failed to delete image file:', error);
+        // Continue with removing from data even if file deletion fails
+      }
+    }
+    
     const updated = galleryData.map(y => {
       if (y.year === yearId) {
         return {
@@ -249,7 +337,7 @@ const GalleryManager = () => {
       }
       return y;
     });
-    saveData(updated);
+    await saveData(updated);
   };
 
   return (
