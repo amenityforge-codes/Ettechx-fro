@@ -29,12 +29,29 @@ The server will run on `http://localhost:3001` by default.
 
 ### 3. Environment Variables
 
-Create a `.env` file in the `server` directory (optional):
+Create a `.env` file in the `server` directory:
 
 ```env
 PORT=3001
 NODE_ENV=production
+
+# Cloudinary Configuration (Optional - for cloud image storage)
+# If not provided, images will be saved locally in public/ folder
+# Get these from: https://console.cloudinary.com/settings/api
+CLOUDINARY_CLOUD_NAME=your_cloud_name_here
+CLOUDINARY_API_KEY=your_api_key_here
+CLOUDINARY_API_SECRET=your_api_secret_here
 ```
+
+**To use Cloudinary (Recommended for Railway):**
+1. Sign up at [cloudinary.com](https://cloudinary.com) (free tier: 25GB storage)
+2. Go to Dashboard → Settings → API Keys
+3. Copy your:
+   - **Cloud Name** (e.g., `df9y9tlr0`)
+   - **API Key** (e.g., `123456789012345`)
+   - **API Secret** (e.g., `abcdefghijklmnopqrstuvwxyz123456`)
+4. Add them to your `.env` file
+5. On Railway, add these as environment variables in your service settings
 
 ### 4. API Endpoints
 

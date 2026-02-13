@@ -17,7 +17,8 @@ import {
   saveGalleryData, 
   GalleryYear, 
   GalleryCategory, 
-  iconMap 
+  iconMap,
+  defaultGalleryData
 } from "@/lib/galleryData";
 import {
   fetchGalleryData,
@@ -55,20 +56,57 @@ const GalleryManager = () => {
   }, [isAuthenticated, navigate]);
 
   const loadData = async () => {
+    let apiData: GalleryYear[] = [];
+    
     try {
-      // Try API first, fallback to localStorage
-      const data = await fetchGalleryData();
-      if (data && data.length > 0) {
-        setGalleryData(data);
-      } else {
-        // Fallback to localStorage
-        const localData = loadGalleryData();
-        setGalleryData(localData);
-      }
+      // Try API first
+      apiData = await fetchGalleryData();
     } catch (error) {
-      console.error('Failed to load from API, using localStorage:', error);
+      console.error('Failed to load from API, using defaults:', error);
+    }
+    
+    // Always merge with default data to ensure all old data is shown
+    if (apiData && apiData.length > 0) {
+      // Merge API data with default data (avoid duplicates by checking year IDs)
+      const apiYearIds = new Set(apiData.map(y => y.year));
+      const additionalDefaultYears = defaultGalleryData.filter(y => !apiYearIds.has(y.year));
+      const mergedData = [...apiData, ...additionalDefaultYears];
+      setGalleryData(mergedData);
+    } else {
+      // No API data, use localStorage or default data
       const localData = loadGalleryData();
-      setGalleryData(localData);
+      const dataToUse = localData.length > 0 ? localData : defaultGalleryData;
+      setGalleryData(dataToUse);
+    }
+  };
+
+  const migrateDefaultData = async () => {
+    if (confirm("This will load all default gallery data into the backend. This will add them to your existing gallery. Continue?")) {
+      try {
+        // Get current gallery data from API
+        const currentData = await fetchGalleryData();
+        
+        // Merge with default data (avoid duplicates by checking year IDs)
+        const existingYearIds = new Set(currentData.map(y => y.year));
+        const defaultYearsToAdd = defaultGalleryData.filter(y => !existingYearIds.has(y.year));
+        
+        // Combine: keep existing years, add new default years
+        const mergedData = [...currentData, ...defaultYearsToAdd];
+        
+        await saveGalleryDataApi(mergedData);
+        setGalleryData(mergedData);
+        toast({
+          title: "Success",
+          description: `Loaded ${defaultYearsToAdd.length} default gallery years with ${defaultYearsToAdd.reduce((sum, y) => sum + y.categories.reduce((catSum, c) => catSum + c.images.length, 0), 0)} images`,
+        });
+      } catch (error) {
+        console.error('Failed to migrate data:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load default gallery data. Make sure the server is running.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -362,6 +400,10 @@ const GalleryManager = () => {
                 </p>
               </div>
               <div className="flex items-center gap-3">
+                <Button onClick={migrateDefaultData} variant="outline" className="gap-2">
+                  <FolderPlus className="w-4 h-4" />
+                  Load All Default Gallery Data
+                </Button>
                 <Button onClick={addNewYear} variant="hero" className="gap-2">
                   <Plus className="w-4 h-4" />
                   Add Year

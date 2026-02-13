@@ -23,6 +23,7 @@ import RefundPolicy from "./pages/RefundPolicy";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import GalleryManager from "./pages/GalleryManager";
+import SpeakersManager from "./pages/SpeakersManager";
 import NotFound from "./pages/NotFound";
 import AIChatbot from "./components/AIChatbot";
 import ScrollToTop from "./components/ScrollToTop";
@@ -57,6 +58,7 @@ const App = () => (
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/gallery" element={<GalleryManager />} />
+            <Route path="/admin/speakers" element={<SpeakersManager />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { X, ChevronDown, ChevronUp, Lock } from "lucide-react";
-import { loadGalleryData, iconMap, GalleryYear } from "@/lib/galleryData";
+import { loadGalleryData, iconMap, GalleryYear, defaultGalleryData } from "@/lib/galleryData";
+import { fetchGalleryData } from "@/lib/galleryApi";
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -14,12 +15,48 @@ const Gallery = () => {
   useEffect(() => {
     document.title = "Gallery - Et Tech X";
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const data = loadGalleryData();
-    setGalleryData(data);
-    if (data.length > 0) {
-      setExpandedYear(data[0].year);
-    }
+    loadData();
   }, []);
+
+  const loadData = async () => {
+    // Start with default data to ensure old data is always shown
+    let finalData = [...defaultGalleryData];
+    
+    try {
+      // Try to get API data
+      const apiData = await fetchGalleryData();
+      if (apiData && apiData.length > 0) {
+        // Merge: API data takes priority, add default years that aren't in API
+        const apiYearIds = new Set(apiData.map(y => y.year));
+        const additionalDefaultYears = defaultGalleryData.filter(y => !apiYearIds.has(y.year));
+        finalData = [...apiData, ...additionalDefaultYears];
+      }
+    } catch (error) {
+      console.error('Failed to load from API, using defaults:', error);
+      // On error, still use defaults
+    }
+    
+    // Also check localStorage for any custom data
+    try {
+      const localData = loadGalleryData();
+      if (localData && localData.length > 0) {
+        // Merge localStorage data with final data
+        const finalYearIds = new Set(finalData.map(y => y.year));
+        const additionalLocalYears = localData.filter(y => !finalYearIds.has(y.year));
+        if (additionalLocalYears.length > 0) {
+          finalData = [...finalData, ...additionalLocalYears];
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load from localStorage:', error);
+    }
+    
+    // Set the final merged data
+    setGalleryData(finalData);
+    if (finalData.length > 0) {
+      setExpandedYear(finalData[0].year);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
