@@ -38,7 +38,7 @@ const submitRegisterToFormSubmit = (data: RegisterFormData) => {
     formData.append("_captcha", "false");
 
     // We don't care about the response; no-cors avoids CORS errors in browser
-    fetch("https://formsubmit.co/info@ettechx.in", {
+    fetch("https://formsubmit.co/info@ettechx.com", {
       method: "POST",
       body: formData,
       mode: "no-cors",

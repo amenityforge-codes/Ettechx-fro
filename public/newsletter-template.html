@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ET TECH X Newsletter</title>
+    <!--[if mso]>
+    <style type="text/css">
+        body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
+    </style>
+    <![endif]-->
+</head>
+<body style="margin: 0; padding: 0; background-color: #f5f5f5; font-family: Arial, Helvetica, sans-serif;">
+    <!-- Main Wrapper Table -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f5;">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <!-- Email Container (600px max width) -->
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="email-container" style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+                    
+                    <!-- ==================== 1. HEADER SECTION ==================== -->
+                    <tr>
+                        <td style="padding: 0;">
+                            <!-- Banner Image -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td style="padding: 0;">
+                                        <img src="{{banner_image_url}}" alt="ET TECH X Newsletter Banner" width="600" style="display: block; width: 100%; max-width: 600px; height: auto; border: 0; outline: none; text-decoration: none;" />
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- Newsletter Title and Issue Info -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0B1C2D;">
+                                <tr>
+                                    <td align="center" style="padding: 30px 20px;">
+                                        <h1 style="margin: 0; font-size: 28px; font-weight: bold; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">ET TECH X Newsletter</h1>
+                                        <p style="margin: 10px 0 0 0; font-size: 14px; color: #cccccc; font-family: Arial, Helvetica, sans-serif;">Issue {{issue_number}} | {{month}} {{year}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ==================== 2. MAIN BANNER CONTENT ==================== -->
+                    <tr>
+                        <td style="padding: 40px 30px; background-color: #ffffff;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 20px;">
+                                        <h2 style="margin: 0; font-size: 24px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif; line-height: 1.4;">{{main_banner_heading}}</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-bottom: 30px;">
+                                        <p style="margin: 0; font-size: 16px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6; max-width: 500px;">{{main_banner_description}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td align="center" style="background-color: #0B1C2D; border-radius: 8px;">
+                                                    <a href="{{main_banner_cta_link}}" style="display: inline-block; padding: 14px 32px; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 8px;">{{main_banner_cta_text}}</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ==================== 3. FEATURED ARTICLES SECTION ==================== -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px; background-color: #ffffff;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 30px;">
+                                        <h2 style="margin: 0; font-size: 22px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif;">Featured Articles</h2>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <!-- Article 1 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 30px; background-color: #f9f9f9; border-radius: 8px; overflow: hidden;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <img src="{{article1_image}}" alt="{{article1_title}}" width="100%" style="display: block; width: 100%; max-width: 540px; height: auto; border: 0; border-radius: 8px;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 10px;">
+                                                    <h3 style="margin: 0; font-size: 20px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif; line-height: 1.3;">{{article1_title}}</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <p style="margin: 0; font-size: 15px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6;">{{article1_desc}}</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td align="left" style="background-color: #0B1C2D; border-radius: 6px;">
+                                                                <a href="{{article1_link}}" style="display: inline-block; padding: 10px 24px; font-size: 14px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 6px;">Read More</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Article 2 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 30px; background-color: #f9f9f9; border-radius: 8px; overflow: hidden;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <img src="{{article2_image}}" alt="{{article2_title}}" width="100%" style="display: block; width: 100%; max-width: 540px; height: auto; border: 0; border-radius: 8px;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 10px;">
+                                                    <h3 style="margin: 0; font-size: 20px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif; line-height: 1.3;">{{article2_title}}</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <p style="margin: 0; font-size: 15px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6;">{{article2_desc}}</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td align="left" style="background-color: #0B1C2D; border-radius: 6px;">
+                                                                <a href="{{article2_link}}" style="display: inline-block; padding: 10px 24px; font-size: 14px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 6px;">Read More</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <!-- Article 3 -->
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 30px; background-color: #f9f9f9; border-radius: 8px; overflow: hidden;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <img src="{{article3_image}}" alt="{{article3_title}}" width="100%" style="display: block; width: 100%; max-width: 540px; height: auto; border: 0; border-radius: 8px;" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 10px;">
+                                                    <h3 style="margin: 0; font-size: 20px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif; line-height: 1.3;">{{article3_title}}</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding-bottom: 15px;">
+                                                    <p style="margin: 0; font-size: 15px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6;">{{article3_desc}}</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td align="left" style="background-color: #0B1C2D; border-radius: 6px;">
+                                                                <a href="{{article3_link}}" style="display: inline-block; padding: 10px 24px; font-size: 14px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 6px;">Read More</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ==================== 4. OPTIONAL ADVERTISEMENT SECTION ==================== -->
+                    <!-- START optional_ads_section -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px; background-color: #ffffff;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9f9f9; border-radius: 8px; overflow: hidden;">
+                                <tr>
+                                    <td align="center" style="padding: 20px;">
+                                        <a href="{{ad_link}}" style="display: block; text-decoration: none;">
+                                            <img src="{{ad_image}}" alt="Advertisement" width="100%" style="display: block; width: 100%; max-width: 540px; height: auto; border: 0; border-radius: 8px;" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- END optional_ads_section -->
+
+                    <!-- ==================== 5. MULTIPLE ARTICLES SECTION ==================== -->
+                    <!-- Repeat this block dynamically -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px; background-color: #ffffff;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9f9f9; border-radius: 8px; overflow: hidden;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td class="mobile-stack" width="40%" style="padding-right: 15px; padding-bottom: 15px; vertical-align: top;">
+                                                    <img src="{{loop_article_image}}" alt="{{loop_article_title}}" width="100%" style="display: block; width: 100%; max-width: 200px; height: auto; border: 0; border-radius: 8px;" />
+                                                </td>
+                                                <td class="mobile-stack" width="60%" style="vertical-align: top;">
+                                                    <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif; line-height: 1.3;">{{loop_article_title}}</h3>
+                                                    <p style="margin: 0 0 15px 0; font-size: 14px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6;">{{loop_article_desc}}</p>
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td align="left" style="background-color: #0B1C2D; border-radius: 6px;">
+                                                                <a href="{{loop_article_link}}" style="display: inline-block; padding: 8px 20px; font-size: 13px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 6px;">Read More</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- End repeatable block -->
+
+                    <!-- ==================== 6. OPTIONAL YOUTUBE SECTION ==================== -->
+                    <!-- START optional_youtube_section -->
+                    <tr>
+                        <td style="padding: 0 30px 40px 30px; background-color: #ffffff;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f9f9f9; border-radius: 8px; overflow: hidden;">
+                                <tr>
+                                    <td align="center" style="padding: 30px 20px;">
+                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td align="center" style="padding-bottom: 20px;">
+                                                    <a href="{{youtube_link}}" style="display: block; text-decoration: none;">
+                                                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                                            <tr>
+                                                                <td align="center" style="position: relative;">
+                                                                    <img src="{{youtube_thumbnail}}" alt="{{youtube_title}}" width="100%" style="display: block; width: 100%; max-width: 540px; height: auto; border: 0; border-radius: 8px;" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center" style="padding-top: 15px;">
+                                                                    <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="background-color: #0B1C2D; border-radius: 50%; width: 60px; height: 60px;">
+                                                                        <tr>
+                                                                            <td align="center" valign="middle" style="height: 60px;">
+                                                                                <span style="color: #ffffff; font-size: 24px; font-family: Arial, Helvetica, sans-serif;">▶</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" style="padding-bottom: 20px;">
+                                                    <h3 style="margin: 0; font-size: 20px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif;">{{youtube_title}}</h3>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center">
+                                                    <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                                        <tr>
+                                                            <td align="center" style="background-color: #0B1C2D; border-radius: 8px;">
+                                                                <a href="{{youtube_link}}" style="display: inline-block; padding: 12px 28px; font-size: 15px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 8px;">Watch Now</a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- END optional_youtube_section -->
+
+                    <!-- ==================== 7. THANK YOU + FEEDBACK SECTION ==================== -->
+                    <tr>
+                        <td style="padding: 40px 30px; background-color: #f9f9f9;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 20px;">
+                                        <h2 style="margin: 0; font-size: 22px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif;">Thank You for Reading!</h2>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-bottom: 25px;">
+                                        <p style="margin: 0; font-size: 15px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6;">We value your feedback and would love to hear from you.</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td align="center" style="background-color: #0B1C2D; border-radius: 8px;">
+                                                    <a href="{{feedback_link}}" style="display: inline-block; padding: 12px 28px; font-size: 15px; font-weight: bold; color: #ffffff; text-decoration: none; font-family: Arial, Helvetica, sans-serif; border-radius: 8px;">Share Your Feedback</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ==================== 8. OFFICE ADDRESS & CONTACT SECTION ==================== -->
+                    <tr>
+                        <td style="padding: 40px 30px; background-color: #ffffff; border-top: 1px solid #e5e5e5;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 20px;">
+                                        <h3 style="margin: 0; font-size: 18px; font-weight: bold; color: #0B1C2D; font-family: Arial, Helvetica, sans-serif;">Contact Us</h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-bottom: 10px;">
+                                        <p style="margin: 0; font-size: 14px; color: #666666; font-family: Arial, Helvetica, sans-serif; line-height: 1.6;">{{office_address}}</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-bottom: 10px;">
+                                        <p style="margin: 0; font-size: 14px; color: #666666; font-family: Arial, Helvetica, sans-serif;">
+                                            <a href="tel:{{contact_number}}" style="color: #0B1C2D; text-decoration: none; font-family: Arial, Helvetica, sans-serif;">{{contact_number}}</a>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <p style="margin: 0; font-size: 14px; color: #666666; font-family: Arial, Helvetica, sans-serif;">
+                                            <a href="{{website_link}}" style="color: #0B1C2D; text-decoration: none; font-family: Arial, Helvetica, sans-serif;">{{website_link}}</a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ==================== 9. DISCLAIMER SECTION ==================== -->
+                    <tr>
+                        <td style="padding: 20px 30px; background-color: #f9f9f9; border-top: 1px solid #e5e5e5;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center">
+                                        <p style="margin: 0; font-size: 11px; color: #999999; font-family: Arial, Helvetica, sans-serif; line-height: 1.5;">{{disclaimer_text}}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- ==================== 10. FOOTER ==================== -->
+                    <tr>
+                        <td style="padding: 30px; background-color: #0B1C2D;">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                                <tr>
+                                    <td align="center" style="padding-bottom: 20px;">
+                                        <p style="margin: 0; font-size: 16px; font-weight: bold; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">ET TECH X</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="padding-bottom: 20px;">
+                                        <!-- Social Media Icons -->
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                                            <tr>
+                                                <td style="padding: 0 10px;">
+                                                    <a href="{{instagram_link}}" style="display: inline-block; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.2); border-radius: 50%; text-align: center; line-height: 40px; text-decoration: none;">
+                                                        <span style="color: #ffffff; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">📷</span>
+                                                    </a>
+                                                </td>
+                                                <td style="padding: 0 10px;">
+                                                    <a href="{{linkedin_link}}" style="display: inline-block; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.2); border-radius: 50%; text-align: center; line-height: 40px; text-decoration: none;">
+                                                        <span style="color: #ffffff; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">💼</span>
+                                                    </a>
+                                                </td>
+                                                <td style="padding: 0 10px;">
+                                                    <a href="{{youtube_channel_link}}" style="display: inline-block; width: 40px; height: 40px; background-color: rgba(255, 255, 255, 0.2); border-radius: 50%; text-align: center; line-height: 40px; text-decoration: none;">
+                                                        <span style="color: #ffffff; font-size: 18px; font-family: Arial, Helvetica, sans-serif;">▶</span>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <p style="margin: 0; font-size: 12px; color: #cccccc; font-family: Arial, Helvetica, sans-serif;">© {{year}} ET TECH X. All rights reserved.</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Mobile Responsive Styles -->
+    <style type="text/css">
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+            .mobile-full-width {
+                width: 100% !important;
+                display: block !important;
+            }
+            .mobile-hide {
+                display: none !important;
+            }
+            .mobile-center {
+                text-align: center !important;
+            }
+            .mobile-padding {
+                padding: 15px !important;
+            }
+            .mobile-font-large {
+                font-size: 24px !important;
+            }
+            .mobile-font-medium {
+                font-size: 18px !important;
+            }
+            .mobile-font-small {
+                font-size: 14px !important;
+            }
+            .mobile-image-full {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            .mobile-stack {
+                display: block !important;
+                width: 100% !important;
+            }
+        }
+    </style>
+    <!--[if mso]>
+    <style type="text/css">
+        table { border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+        body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
+    </style>
+    <![endif]-->
+</body>
+</html>

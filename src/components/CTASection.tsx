@@ -205,7 +205,7 @@ const CTASection = () => {
                 </div>
               </a>
               <a
-                href="mailto:info@ettechx.in"
+                href="mailto:info@ettechx.com"
                 className="flex items-center gap-3 text-muted-foreground hover:text-secondary transition-colors duration-300 group"
               >
                 <div className="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center group-hover:bg-secondary/20 transition-colors duration-300">
@@ -213,7 +213,7 @@ const CTASection = () => {
                 </div>
                 <div className="text-left">
                   <div className="text-sm text-muted-foreground">Email Us</div>
-                  <div className="font-semibold text-foreground">info@ettechx.in</div>
+                  <div className="font-semibold text-foreground">info@ettechx.com</div>
                 </div>
               </a>
             </motion.div>

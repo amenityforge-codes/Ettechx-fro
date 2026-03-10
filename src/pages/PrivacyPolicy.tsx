@@ -120,7 +120,7 @@ const PrivacyPolicy = () => {
       title: "11. Contact Us",
       content: [
         "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:",
-        "• Email: info@ettechx.in",
+        "• Email: info@ettechx.com",
         "• Address: Et Tech X, India",
         "• Phone: [Contact Number]",
         "We will respond to your inquiry within 30 days."

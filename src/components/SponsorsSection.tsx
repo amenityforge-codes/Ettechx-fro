@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText } from "lucide-react";
+import { fetchSponsorsData, type Sponsor } from "@/lib/sponsorsApi";
 
 interface PartnerLogo {
   name: string;
@@ -10,7 +12,8 @@ interface PartnerLogo {
   tier: "gold" | "silver" | "k12" | "university";
 }
 
-const partners: PartnerLogo[] = [
+// Default partners (fallback)
+const defaultPartners: PartnerLogo[] = [
   // Gold Partners
   {
     name: "SCHOOL SERV (INDIA) SOLUTIONS PRIVATE LIMITED",
@@ -172,6 +175,40 @@ const renderLogo = (partner: PartnerLogo) => {
 };
 
 const SponsorsSection = () => {
+  const [partners, setPartners] = useState<PartnerLogo[]>(defaultPartners);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    loadSponsors();
+  }, []);
+
+  const loadSponsors = async () => {
+    setIsLoading(true);
+    try {
+      const apiSponsors = await fetchSponsorsData();
+      if (apiSponsors && apiSponsors.length > 0) {
+        // Convert API sponsors to PartnerLogo format
+        const converted = apiSponsors.map(s => ({
+          name: s.name,
+          path: s.path,
+          type: s.type,
+          tier: s.tier,
+        }));
+        // Merge with defaults (avoid duplicates by name)
+        const apiNames = new Set(converted.map(p => p.name));
+        const additionalDefaults = defaultPartners.filter(p => !apiNames.has(p.name));
+        setPartners([...converted, ...additionalDefaults]);
+      } else {
+        setPartners(defaultPartners);
+      }
+    } catch (error) {
+      console.error('Failed to load sponsors from API, using defaults:', error);
+      setPartners(defaultPartners);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4">

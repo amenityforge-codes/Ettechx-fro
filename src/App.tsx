@@ -24,6 +24,9 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import GalleryManager from "./pages/GalleryManager";
 import SpeakersManager from "./pages/SpeakersManager";
+import SponsorsManager from "./pages/SponsorsManager";
+import NewsletterManager from "./pages/NewsletterManager";
+import Newsletter from "./pages/Newsletter";
 import NotFound from "./pages/NotFound";
 import AIChatbot from "./components/AIChatbot";
 import ScrollToTop from "./components/ScrollToTop";
@@ -50,6 +53,7 @@ const App = () => (
             <Route path="/spring-summit" element={<SpringSummit />} />
             <Route path="/autumn-conference" element={<AutumnConference />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/newsletter" element={<Newsletter />} />
             <Route path="/partners" element={<Partners />} />
             <Route path="/partnercontractform" element={<PartnerContractFormRedirect />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -59,6 +63,8 @@ const App = () => (
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/gallery" element={<GalleryManager />} />
             <Route path="/admin/speakers" element={<SpeakersManager />} />
+            <Route path="/admin/sponsors" element={<SponsorsManager />} />
+            <Route path="/admin/newsletter" element={<NewsletterManager />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

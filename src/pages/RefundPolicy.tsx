@@ -30,7 +30,7 @@ const RefundPolicy = () => {
         "• Cancellation 7-14 days before event: 50% refund",
         "• Cancellation less than 7 days before event: No refund (except in exceptional circumstances)",
         "• No-show without prior cancellation: No refund",
-        "Refund requests must be submitted in writing via email to info@ettechx.in"
+        "Refund requests must be submitted in writing via email to info@ettechx.com"
       ]
     },
     {
@@ -121,7 +121,7 @@ const RefundPolicy = () => {
       title: "10. Disputed Charges",
       content: [
         "If you believe you have been charged incorrectly:",
-        "• Contact us immediately at info@ettechx.in",
+        "• Contact us immediately at info@ettechx.com",
         "• Provide details of the charge and your registration",
         "• We will investigate and respond within 5 business days",
         "• If the charge is found to be incorrect, a full refund will be issued",
@@ -133,7 +133,7 @@ const RefundPolicy = () => {
       title: "11. Refund Request Procedure",
       content: [
         "To request a refund:",
-        "1. Send an email to info@ettechx.in",
+        "1. Send an email to info@ettechx.com",
         "2. Include your registration confirmation number",
         "3. Provide your full name and contact information",
         "4. State the reason for your refund request",
@@ -146,7 +146,7 @@ const RefundPolicy = () => {
       title: "12. Contact Information",
       content: [
         "For refund inquiries and requests:",
-        "• Email: info@ettechx.in",
+        "• Email: info@ettechx.com",
         "• Subject Line: 'Refund Request - [Your Registration Number]'",
         "• Response Time: Within 2-5 business days",
         "• Phone: [Contact Number] (for urgent matters only)",

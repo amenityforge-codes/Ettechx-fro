@@ -173,7 +173,7 @@ const TermsOfService = () => {
       title: "14. Contact Information",
       content: [
         "If you have any questions about these Terms of Service, please contact us:",
-        "• Email: info@ettechx.in",
+        "• Email: info@ettechx.com",
         "• Address: Et Tech X, India",
         "• Phone: [Contact Number]",
         "We will respond to your inquiries within a reasonable timeframe."

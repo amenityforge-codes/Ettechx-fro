@@ -48,7 +48,7 @@ const submitExhibitorToFormSubmit = (data: ExhibitorFormData) => {
     formData.append("_subject", "New Et Tech X Exhibitor Application");
     formData.append("_captcha", "false");
 
-    fetch("https://formsubmit.co/info@ettechx.in", {
+    fetch("https://formsubmit.co/info@ettechx.com", {
       method: "POST",
       body: formData,
       mode: "no-cors",

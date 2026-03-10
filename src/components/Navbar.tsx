@@ -25,6 +25,7 @@ const Navbar = () => {
     // 'Key Offering' should point to the Four Pillars of Excellence section
     { name: "Key Offering", href: "#events", isRoute: false },
     { name: "Gallery", href: "#gallery", isRoute: false },
+    { name: "Newsletter", href: "/newsletter", isRoute: true },
     { name: "Contact", href: "#contact", isRoute: false },
   ];
 
