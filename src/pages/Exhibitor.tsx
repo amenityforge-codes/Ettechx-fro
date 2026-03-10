@@ -189,8 +189,7 @@ const Exhibitor = () => {
                     Application Submitted!
                   </h2>
                   <p className="text-muted-foreground mb-8">
-                    Thank you for your interest in exhibiting at Et Tech X. We've received your application and our team will contact you at{" "}
-                    <span className="text-primary font-semibold">{formData.email}</span> within 2-3 business days.
+                    Thank you for your interest in exhibiting at Et Tech X. Your application has been submitted successfully.
                   </p>
                   <Link to="/">
                     <Button variant="accent" size="lg">

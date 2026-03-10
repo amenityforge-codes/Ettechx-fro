@@ -174,8 +174,7 @@ const Register = () => {
                     Registration Successful!
                   </h2>
                   <p className="text-muted-foreground mb-8">
-                    Thank you for registering for Et Tech X. We've sent a confirmation email to{" "}
-                    <span className="text-primary font-semibold">{formData.email}</span>
+                    Thank you for registering for Et Tech X. Your details have been submitted successfully.
                   </p>
                   <Link to="/">
                     <Button variant="hero" size="lg">
