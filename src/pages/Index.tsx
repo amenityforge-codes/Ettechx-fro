@@ -13,11 +13,24 @@ import CTASection from "@/components/CTASection";
 import KeepInTouchSection from "@/components/KeepInTouchSection";
 import Footer from "@/components/Footer";
 import PopupAd from "@/components/PopupAd";
+import { applyPageSeo } from "@/lib/seo";
 
 const Index = () => {
   useEffect(() => {
-    // Update document title for SEO
-    document.title = "Et Tech X - India's Premier Educational Technology Expo & Conference 2025";
+    applyPageSeo({
+      title: "ET Tech X | India's Leading EdTech Expo & Conference",
+      description:
+        "ET Tech X is India's premier EdTech expo connecting educators, startups, and innovators through conferences, workshops, and exhibitions.",
+      canonical: "https://www.ettechx.com",
+      schema: {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "ET Tech X | India's Leading EdTech Expo & Conference",
+        description:
+          "ET Tech X is India's premier EdTech expo connecting educators, startups, and innovators through conferences, workshops, and exhibitions.",
+        url: "https://www.ettechx.com",
+      },
+    });
   }, []);
 
   return (
