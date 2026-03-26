@@ -84,9 +84,9 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 max-w-7xl">
-        <div className="flex items-center justify-between relative">
+        <div className="flex items-center justify-between gap-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group shrink-0 z-10">
+        <Link href="/" className="flex items-center gap-2 group shrink-0">
           <img 
             src="/logo.png" 
             alt="Et Tech X Logo" 
@@ -95,8 +95,11 @@ const Navbar = () => {
           />
         </Link>
 
-          {/* Desktop Navigation - Centered (Tablet and Desktop) */}
-          <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-6 absolute left-1/2 transform -translate-x-1/2 z-10">
+          {/* Desktop Navigation
+              Why this structure: using absolute-centering can cause links to sit *under* the CTA buttons
+              (appearing "hidden") when more items are added. A 3-column flex layout avoids overlap. */}
+          <div className="hidden lg:flex flex-1 items-center justify-center min-w-0">
+            <div className="flex items-center justify-center gap-4 xl:gap-6 flex-wrap">
           {navLinks.map((link) =>
             link.isRoute ? (
               <Link
@@ -122,10 +125,11 @@ const Navbar = () => {
               </a>
             )
           )}
-        </div>
+            </div>
+          </div>
 
         {/* CTA Buttons - Desktop Only */}
-        <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0 z-10">
+        <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
           <a href="tel:+917995975959">
           <Button variant="heroOutline" size="sm" className="text-xs xl:text-sm px-3 xl:px-4">
             Call Us
