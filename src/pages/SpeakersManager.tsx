@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -77,15 +77,7 @@ const SpeakersManager = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string>("");
 
-  useEffect(() => {
-    document.title = "Speakers Manager - Admin - Et Tech X";
-    if (!isAuthenticated) {
-      navigate("/admin/login");
-    }
-    loadData();
-  }, [isAuthenticated, navigate]);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       const data = await fetchSpeakersData();
       if (data && data.length > 0) {
@@ -103,7 +95,16 @@ const SpeakersManager = () => {
         variant: "destructive",
       });
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    document.title = "Speakers Manager - Admin - Et Tech X";
+    if (!isAuthenticated) {
+      navigate("/admin/login");
+      return;
+    }
+    void loadData();
+  }, [isAuthenticated, navigate, loadData]);
 
   const handleLogout = () => {
     logout();

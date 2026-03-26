@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, LogIn, UserPlus } from "lucide-react";
 import { allSpeakers as defaultSpeakers, type Speaker } from "@/lib/speakersData";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/useAuth";
 import { fetchSpeakersData, type SpeakerGroup } from "@/lib/speakersApi";
 
 const Speakers = () => {

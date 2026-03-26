@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/useAuth";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -65,15 +65,7 @@ const NewsletterManager = () => {
     isPublished: false,
   });
 
-  useEffect(() => {
-    document.title = "Newsletter Manager - Admin - Et Tech X";
-    if (!isAuthenticated) {
-      navigate("/admin/login");
-    }
-    loadNewsletters();
-  }, [isAuthenticated, navigate]);
-
-  const loadNewsletters = async () => {
+  const loadNewsletters = useCallback(async () => {
     try {
       const data = await fetchNewsletters();
       setNewsletters(data);
@@ -85,7 +77,16 @@ const NewsletterManager = () => {
         variant: "destructive",
       });
     }
-  };
+  }, [toast]);
+
+  useEffect(() => {
+    document.title = "Newsletter Manager - Admin - Et Tech X";
+    if (!isAuthenticated) {
+      navigate("/admin/login");
+      return;
+    }
+    void loadNewsletters();
+  }, [isAuthenticated, navigate, loadNewsletters]);
 
   const handleLogout = () => {
     logout();

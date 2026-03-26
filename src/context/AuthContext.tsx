@@ -1,12 +1,5 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-
-interface AuthContextType {
-  isAuthenticated: boolean;
-  login: (email: string, password: string) => boolean;
-  logout: () => void;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+import { useState, useEffect, ReactNode } from "react";
+import { AuthContext } from "@/context/auth-context";
 
 const ADMIN_EMAIL = "info@ettechx.com";
 const ADMIN_PASSWORD = "Eduexpo@2406";
@@ -41,12 +34,4 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-  return context;
 };
