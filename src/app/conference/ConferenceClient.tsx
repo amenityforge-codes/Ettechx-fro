@@ -1,4 +1,4 @@
 "use client";
 
-export { default } from "@/pages/Conference";
+export { default } from "@/views/Conference";
 

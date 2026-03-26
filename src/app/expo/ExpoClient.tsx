@@ -1,4 +1,4 @@
 "use client";
 
-export { default } from "@/pages/Expo";
+export { default } from "@/views/Expo";
 

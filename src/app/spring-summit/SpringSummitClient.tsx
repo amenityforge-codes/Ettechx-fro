@@ -1,4 +1,4 @@
 "use client";
 
-export { default } from "@/pages/SpringSummit";
+export { default } from "@/views/SpringSummit";
 

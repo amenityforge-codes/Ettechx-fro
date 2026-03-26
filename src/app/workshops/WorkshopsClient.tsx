@@ -1,4 +1,4 @@
 "use client";
 
-export { default } from "@/pages/Workshops";
+export { default } from "@/views/Workshops";
 
