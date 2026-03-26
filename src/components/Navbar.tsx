@@ -26,11 +26,6 @@ const Navbar = () => {
     // 'Key Offering' should point to the Four Pillars of Excellence section
     { name: "Key Offering", href: "#events", isRoute: false },
     { name: "Gallery", href: "#gallery", isRoute: false },
-    // Internal linking between the key money pages improves discoverability and distributes authority.
-    { name: "Expo", href: "/expo", isRoute: true },
-    { name: "Awards", href: "/awards", isRoute: true },
-    { name: "Workshops", href: "/workshops", isRoute: true },
-    { name: "Conference", href: "/conference", isRoute: true },
     { name: "Contact", href: "#contact", isRoute: false },
   ];
 
