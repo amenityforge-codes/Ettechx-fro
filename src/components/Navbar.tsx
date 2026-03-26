@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +26,11 @@ const Navbar = () => {
     // 'Key Offering' should point to the Four Pillars of Excellence section
     { name: "Key Offering", href: "#events", isRoute: false },
     { name: "Gallery", href: "#gallery", isRoute: false },
-    { name: "Newsletter", href: "/newsletter", isRoute: true },
+    // Internal linking between the key money pages improves discoverability and distributes authority.
+    { name: "Expo", href: "/expo", isRoute: true },
+    { name: "Awards", href: "/awards", isRoute: true },
+    { name: "Workshops", href: "/workshops", isRoute: true },
+    { name: "Conference", href: "/conference", isRoute: true },
     { name: "Contact", href: "#contact", isRoute: false },
   ];
 
@@ -57,10 +62,10 @@ const Navbar = () => {
       }, 150);
     };
 
-    if (location.pathname === "/") {
+    if (pathname === "/") {
       scrollWithOffset();
     } else {
-      navigate("/", { replace: false });
+      router.push("/");
       scrollWithOffset();
     }
 
@@ -81,7 +86,7 @@ const Navbar = () => {
       <div className="container mx-auto px-3 sm:px-4 lg:px-6 max-w-7xl">
         <div className="flex items-center justify-between relative">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group shrink-0 z-10">
+        <Link href="/" className="flex items-center gap-2 group shrink-0 z-10">
           <img 
             src="/logo.png" 
             alt="Et Tech X Logo" 
@@ -96,7 +101,7 @@ const Navbar = () => {
             link.isRoute ? (
               <Link
                 key={link.name}
-                to={link.href}
+                href={link.href}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
@@ -126,7 +131,7 @@ const Navbar = () => {
             Call Us
           </Button>
           </a>
-          <Link to="/register">
+          <Link href="/register">
           <Button variant="hero" size="sm" className="text-xs xl:text-sm px-3 xl:px-4">
             Register Now
           </Button>
@@ -158,7 +163,7 @@ const Navbar = () => {
               link.isRoute ? (
                   <Link
                     key={link.name}
-                    to={link.href}
+                    href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium py-2"
                   >
@@ -184,7 +189,7 @@ const Navbar = () => {
                   Call Us
                 </Button>
                 </a>
-                <Link to="/register" className="w-full">
+                <Link href="/register" className="w-full">
                 <Button variant="hero" size="lg" className="w-full">
                   Register Now
                 </Button>

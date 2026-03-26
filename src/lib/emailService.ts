@@ -2,21 +2,24 @@ import emailjs from '@emailjs/browser';
 
 // EmailJS configuration
 // These should be set in your .env file
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || '';
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || '';
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || '';
+// Next.js does not provide `import.meta.env` at runtime like Vite.
+// Use NEXT_PUBLIC_* so these values are available in the browser bundle where EmailJS runs.
+const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || '';
+const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || '';
+const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || '';
 const RECIPIENT_EMAIL = 'info@ettechx.com';
 
 // Initialize EmailJS
-if (EMAILJS_PUBLIC_KEY) {
+// Guard against server-side execution during Next.js build/SSR.
+if (typeof window !== "undefined" && EMAILJS_PUBLIC_KEY) {
   emailjs.init(EMAILJS_PUBLIC_KEY);
 }
 
-interface NewsletterSubscriptionData {
+export interface NewsletterSubscriptionData {
   email: string;
 }
 
-interface RegistrationData {
+export interface RegistrationData {
   fullName: string;
   email: string;
   phone: string;
@@ -26,7 +29,7 @@ interface RegistrationData {
   eventInterest: string;
 }
 
-interface ExhibitorData {
+export interface ExhibitorData {
   companyName: string;
   contactPerson: string;
   email: string;
@@ -41,13 +44,22 @@ interface ExhibitorData {
   previousExhibitor: string;
 }
 
-const formatEmailMessage = (type: 'newsletter' | 'registration' | 'exhibitor', data: any): string => {
+type EmailType = "newsletter" | "registration" | "exhibitor";
+
+// Overloads keep type-safety without using `any` (important for production reliability).
+function formatEmailMessage(type: "newsletter", data: NewsletterSubscriptionData): string;
+function formatEmailMessage(type: "registration", data: RegistrationData): string;
+function formatEmailMessage(type: "exhibitor", data: ExhibitorData): string;
+function formatEmailMessage(
+  type: EmailType,
+  data: NewsletterSubscriptionData | RegistrationData | ExhibitorData,
+): string {
   switch (type) {
     case 'newsletter':
       return `
 New Newsletter Subscription
 
-Email: ${data.email}
+Email: ${(data as NewsletterSubscriptionData).email}
 Subscription Date: ${new Date().toLocaleString()}
       `.trim();
 
@@ -56,17 +68,17 @@ Subscription Date: ${new Date().toLocaleString()}
 New Event Registration
 
 Personal Information:
-- Full Name: ${data.fullName}
-- Email: ${data.email}
-- Phone: ${data.phone}
+- Full Name: ${(data as RegistrationData).fullName}
+- Email: ${(data as RegistrationData).email}
+- Phone: ${(data as RegistrationData).phone}
 
 Organization Details:
-- Organization: ${data.organization}
-- Designation: ${data.designation}
+- Organization: ${(data as RegistrationData).organization}
+- Designation: ${(data as RegistrationData).designation}
 
 Event Details:
-- Number of Attendees: ${data.attendees}
-- Event Interest: ${data.eventInterest}
+- Number of Attendees: ${(data as RegistrationData).attendees}
+- Event Interest: ${(data as RegistrationData).eventInterest}
 
 Registration Date: ${new Date().toLocaleString()}
       `.trim();
@@ -76,24 +88,24 @@ Registration Date: ${new Date().toLocaleString()}
 New Exhibitor Application
 
 Company Information:
-- Company Name: ${data.companyName}
-- Contact Person: ${data.contactPerson}
-- Email: ${data.email}
-- Phone: ${data.phone}
-- Website: ${data.website || 'Not provided'}
+- Company Name: ${(data as ExhibitorData).companyName}
+- Contact Person: ${(data as ExhibitorData).contactPerson}
+- Email: ${(data as ExhibitorData).email}
+- Phone: ${(data as ExhibitorData).phone}
+- Website: ${(data as ExhibitorData).website || 'Not provided'}
 
 Address:
-- Street: ${data.address}
-- City: ${data.city}
-- State: ${data.state}
-- Pincode: ${data.pincode}
+- Street: ${(data as ExhibitorData).address}
+- City: ${(data as ExhibitorData).city}
+- State: ${(data as ExhibitorData).state}
+- Pincode: ${(data as ExhibitorData).pincode}
 
 Exhibition Details:
-- Preferred Booth Size: ${data.boothSize}
-- Previous Exhibitor: ${data.previousExhibitor}
+- Preferred Booth Size: ${(data as ExhibitorData).boothSize}
+- Previous Exhibitor: ${(data as ExhibitorData).previousExhibitor}
 
 Products/Services:
-${data.products}
+${(data as ExhibitorData).products}
 
 Application Date: ${new Date().toLocaleString()}
       `.trim();
@@ -101,7 +113,7 @@ Application Date: ${new Date().toLocaleString()}
     default:
       return '';
   }
-};
+}
 
 export const sendNewsletterEmail = async (data: NewsletterSubscriptionData): Promise<boolean> => {
   try {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Image as ImageIcon, X } from "lucide-react";
 import { loadGalleryData, GalleryImage } from "@/lib/galleryData";
@@ -73,21 +72,7 @@ const GalleryPreviewSection = () => {
               </p>
             </motion.div>
             
-            {/* View All Button - Always visible */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="flex justify-center"
-            >
-              <Link to="/gallery">
-                <Button variant="hero" size="lg" className="group">
-                  View All Gallery
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </motion.div>
+            {/* Note: Full gallery route is intentionally not linked here until it is implemented in App Router. */}
           </>
         ) : (
           <>
@@ -138,21 +123,7 @@ const GalleryPreviewSection = () => {
               </motion.div>
             </div>
 
-            {/* View All Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              viewport={{ once: true }}
-              className="flex justify-center"
-            >
-              <Link to="/gallery">
-                <Button variant="hero" size="lg" className="group">
-                  View All Gallery
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </motion.div>
+            {/* Note: Full gallery route is intentionally not linked here until it is implemented in App Router. */}
           </>
         )}
       </div>

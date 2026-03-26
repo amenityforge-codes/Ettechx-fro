@@ -1,5 +1,7 @@
 // API client for sponsors management
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://ettechx-backend-production.up.railway.app/api';
+import { getApiBaseUrl } from './apiBaseUrl';
+
+const API_BASE_URL = getApiBaseUrl();
 
 export interface Sponsor {
   id: string;

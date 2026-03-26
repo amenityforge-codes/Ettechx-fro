@@ -1,28 +1,13 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Award, Trophy, Star, Users, Calendar, MapPin } from "lucide-react";
-import { applyPageSeo } from "@/lib/seo";
 
 const Awards = () => {
   useEffect(() => {
-    applyPageSeo({
-      title: "Education Awards India | ET Tech X Excellence Awards",
-      description:
-        "Recognizing outstanding educators, institutions, and EdTech innovators shaping the future of education in India.",
-      canonical: "https://www.ettechx.com/awards",
-      schema: {
-        "@context": "https://schema.org",
-        "@type": "WebPage",
-        name: "Education Awards India | ET Tech X Excellence Awards",
-        description:
-          "Recognizing outstanding educators, institutions, and EdTech innovators shaping the future of education in India.",
-        url: "https://www.ettechx.com/awards",
-      },
-    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
@@ -50,7 +35,7 @@ const Awards = () => {
             className="max-w-5xl mx-auto"
           >
             {/* Back Button */}
-            <Link to="/">
+            <Link href="/">
               <Button
                 variant="ghost"
                 className="mb-6 text-muted-foreground hover:text-foreground"
@@ -98,7 +83,7 @@ const Awards = () => {
                     </div>
                   </div>
                   
-                  <Link to="/register">
+                  <Link href="/register">
                     <Button variant="hero" size="lg" className="group">
                       Register for Awards
                       <ArrowLeft className="w-5 h-5 rotate-180 group-hover:translate-x-1 transition-transform" />

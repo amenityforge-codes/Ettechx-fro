@@ -1,13 +1,5 @@
 // API client for speakers management
-// Use Railway server by default, with localhost option for development
-const getApiBaseUrl = () => {
-  // If explicitly set via env variable, use that
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-  // Default to Railway production server
-  return 'https://ettechx-backend-production.up.railway.app/api';
-};
+import { getApiBaseUrl } from './apiBaseUrl';
 
 const API_BASE_URL = getApiBaseUrl();
 

@@ -56,6 +56,11 @@ const Footer = () => {
       { name: "Events", href: "#events" },
       { name: "Schedule", href: "#schedule" },
       { name: "Contact", href: "#contact" },
+      // Internal linking to key commercial pages helps Google crawl and rank them.
+      { name: "Expo", href: "/expo" },
+      { name: "Awards", href: "/awards" },
+      { name: "Workshops", href: "/workshops" },
+      { name: "Conference", href: "/conference" },
       { name: "Media Kit", href: "#" },
       { name: "Past Events", href: "#" },
       { name: "Partners", href: "/partners" },

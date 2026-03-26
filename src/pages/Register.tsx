@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import { ArrowLeft, CheckCircle, Loader2, User, Mail, Phone, Building, Users, Calendar } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
-import { sendRegistrationEmail } from "@/lib/emailService";
+import { sendRegistrationEmail, type RegistrationData } from "@/lib/emailService";
 
 const registerSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -93,13 +93,15 @@ const Register = () => {
       return;
     }
 
+    const validatedData = result.data as RegistrationData;
+
     setIsSubmitting(true);
     
     try {
       // Send email notification
-      await sendRegistrationEmail(formData);
+      await sendRegistrationEmail(validatedData);
       // Also send to FormSubmit in the background
-      submitRegisterToFormSubmit(formData);
+      submitRegisterToFormSubmit(validatedData);
       
       setIsSuccess(true);
       
@@ -112,7 +114,7 @@ const Register = () => {
       // Still show success to user even if email fails
       setIsSuccess(true);
       // Best-effort attempt to send via FormSubmit even if our email service failed
-      submitRegisterToFormSubmit(formData);
+      submitRegisterToFormSubmit(validatedData);
       toast({
         title: "Registration Successful!",
         description: "We've received your registration. You'll receive a confirmation email shortly.",
@@ -141,7 +143,7 @@ const Register = () => {
             className="max-w-2xl mx-auto"
           >
             {/* Back Button */}
-            <Link to="/">
+            <Link href="/">
               <Button
                 variant="ghost"
                 className="mb-6 text-muted-foreground hover:text-foreground"
@@ -176,7 +178,7 @@ const Register = () => {
                   <p className="text-muted-foreground mb-8">
                     Thank you for registering for Et Tech X. Your details have been submitted successfully.
                   </p>
-                  <Link to="/">
+                  <Link href="/">
                     <Button variant="hero" size="lg">
                       Return to Home
                     </Button>

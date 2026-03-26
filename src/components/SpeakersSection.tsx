@@ -1,6 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { featuredSpeakers, type Speaker } from "@/lib/speakersData";
 
@@ -55,20 +54,7 @@ const SpeakersSection = () => {
         {/* Featured Speakers Carousel (homepage only) */}
         <FeaturedSpeakersCarousel />
 
-        {/* View All CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-center mt-12"
-        >
-          <Link to="/speakers">
-            <Button variant="outline" size="lg" className="px-8">
-            View All Speakers
-            </Button>
-          </Link>
-        </motion.div>
+        {/* Note: Full speakers route is intentionally not linked here until it is implemented in App Router. */}
       </div>
     </section>
   );

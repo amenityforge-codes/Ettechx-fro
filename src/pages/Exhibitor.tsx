@@ -9,7 +9,7 @@ import Footer from "@/components/Footer";
 import { ArrowLeft, CheckCircle, Loader2, Building2, Mail, Phone, User, MapPin, Package, Users, Briefcase } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
-import { sendExhibitorEmail } from "@/lib/emailService";
+import { sendExhibitorEmail, type ExhibitorData } from "@/lib/emailService";
 
 const exhibitorSchema = z.object({
   companyName: z.string().min(2, "Company name must be at least 2 characters"),
@@ -108,13 +108,18 @@ const Exhibitor = () => {
       return;
     }
 
+    // Use validated data for downstream actions.
+    // This ensures we always send a fully-shaped payload (no missing required fields),
+    // which is important for type-safety and for consistent email formatting.
+    const validatedData = result.data as ExhibitorData;
+
     setIsSubmitting(true);
     
     try {
       // Send email notification
-      await sendExhibitorEmail(formData);
+      await sendExhibitorEmail(validatedData);
       // Also submit to FormSubmit in the background
-      submitExhibitorToFormSubmit(formData);
+      submitExhibitorToFormSubmit(validatedData);
       
       setIsSuccess(true);
       

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
 
 const AnnualEventsSection = () => {
@@ -14,7 +14,8 @@ const AnnualEventsSection = () => {
         "Join the 7th Edition ET TECH X at Yashobhoomi, Dwaraka, New Delhi for three power-packed days of awards, exhibitions, and future-forward discussions on education technology.",
       gradient: "from-secondary via-coral to-gold",
       accentColor: "secondary",
-      link: "/autumn-conference",
+      // SEO: this route is consolidated into /conference for canonical consistency.
+      link: "/conference",
     },
     {
       id: 2,
@@ -72,7 +73,7 @@ const AnnualEventsSection = () => {
               whileHover={{ scale: 1.02 }}
               className="group relative"
             >
-              <Link to={event.link} className="block h-full">
+              <Link href={event.link} className="block h-full">
               {/* Card */}
                 <div className="relative h-full p-8 md:p-10 rounded-3xl bg-gradient-card border border-border overflow-hidden shadow-card cursor-pointer">
                 {/* Gradient accent bar */}
