@@ -25,7 +25,7 @@ import {
 } from "@/lib/newsletterApi";
 
 const NewsletterManager = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, isReady, logout } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -82,12 +82,12 @@ const NewsletterManager = () => {
 
   useEffect(() => {
     document.title = "Newsletter Manager - Admin - Et Tech X";
-    if (!isAuthenticated) {
+    if (isReady && !isAuthenticated) {
       navigate("/admin/login");
       return;
     }
     void loadNewsletters();
-  }, [isAuthenticated, navigate, loadNewsletters]);
+  }, [isAuthenticated, isReady, navigate, loadNewsletters]);
 
   const handleLogout = () => {
     logout();
@@ -320,6 +320,10 @@ const NewsletterManager = () => {
       setIsUploadingFeatured((prev) => ({ ...prev, [num]: false }));
     }
   };
+
+  if (!isReady) {
+    return null;
+  }
 
   if (!isAuthenticated) {
     return null;

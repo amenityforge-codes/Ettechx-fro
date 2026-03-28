@@ -96,7 +96,7 @@ const defaultSponsors: Sponsor[] = [
 ];
 
 const SponsorsManager = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, isReady, logout } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -132,12 +132,12 @@ const SponsorsManager = () => {
 
   useEffect(() => {
     document.title = "Sponsors Manager - Admin - Et Tech X";
-    if (!isAuthenticated) {
+    if (isReady && !isAuthenticated) {
       navigate("/admin/login");
       return;
     }
     void loadData();
-  }, [isAuthenticated, navigate, loadData]);
+  }, [isAuthenticated, isReady, navigate, loadData]);
 
   const handleLogout = () => {
     logout();
@@ -388,6 +388,9 @@ const SponsorsManager = () => {
     university: sponsorsData.filter(s => s.tier === "university"),
   };
 
+  if (!isReady) {
+    return null;
+  }
   if (!isAuthenticated) {
     return null;
   }

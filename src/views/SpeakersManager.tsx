@@ -59,7 +59,7 @@ const accentStyles = [
 const getAccentStyle = (index: number) => accentStyles[index % accentStyles.length];
 
 const SpeakersManager = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, isReady, logout } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   
@@ -99,12 +99,12 @@ const SpeakersManager = () => {
 
   useEffect(() => {
     document.title = "Speakers Manager - Admin - Et Tech X";
-    if (!isAuthenticated) {
+    if (isReady && !isAuthenticated) {
       navigate("/admin/login");
       return;
     }
     void loadData();
-  }, [isAuthenticated, navigate, loadData]);
+  }, [isAuthenticated, isReady, navigate, loadData]);
 
   const handleLogout = () => {
     logout();
@@ -414,6 +414,9 @@ const SpeakersManager = () => {
     }
   };
 
+  if (!isReady) {
+    return null;
+  }
   if (!isAuthenticated) {
     return null;
   }

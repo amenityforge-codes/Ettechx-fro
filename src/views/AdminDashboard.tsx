@@ -9,20 +9,24 @@ import { Button } from "@/components/ui/button";
 import { Image, Users, Building2, Mail, LogOut, ArrowLeft } from "lucide-react";
 
 const AdminDashboard = () => {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, isReady, logout } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     document.title = "Admin Dashboard - Et Tech X";
-    if (!isAuthenticated) {
+    if (isReady && !isAuthenticated) {
       router.replace("/admin/login");
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, isReady, router]);
 
   const handleLogout = () => {
     logout();
     router.push("/");
   };
+
+  if (!isReady) {
+    return null;
+  }
 
   if (!isAuthenticated) {
     return null;

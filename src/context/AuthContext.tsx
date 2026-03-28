@@ -6,6 +6,7 @@ const ADMIN_PASSWORD = "Eduexpo@2406";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     // Check if user is already logged in (from localStorage)
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (authStatus === "true") {
       setIsAuthenticated(true);
     }
+    setIsReady(true);
   }, []);
 
   const login = (email: string, password: string): boolean => {
@@ -30,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isReady, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
