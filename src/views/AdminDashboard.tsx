@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate, Link } from "react-router-dom";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/useAuth";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,18 +10,18 @@ import { Image, Users, Building2, Mail, LogOut, ArrowLeft } from "lucide-react";
 
 const AdminDashboard = () => {
   const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     document.title = "Admin Dashboard - Et Tech X";
     if (!isAuthenticated) {
-      navigate("/admin/login");
+      router.replace("/admin/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, router]);
 
   const handleLogout = () => {
     logout();
-    navigate("/");
+    router.push("/");
   };
 
   if (!isAuthenticated) {
@@ -48,7 +49,7 @@ const AdminDashboard = () => {
               <div className="flex gap-2">
                 <Button
                   variant="outline"
-                  onClick={() => navigate("/")}
+                  onClick={() => router.push("/")}
                   className="flex items-center gap-2"
                 >
                   <ArrowLeft className="w-4 h-4" />
@@ -83,7 +84,7 @@ const AdminDashboard = () => {
                 <p className="text-muted-foreground mb-6">
                   Upload and manage gallery images, organize by year and category
                 </p>
-                <Link to="/admin/gallery">
+                <Link href="/admin/gallery">
                   <Button className="w-full">
                     Manage Gallery
                   </Button>
@@ -106,7 +107,7 @@ const AdminDashboard = () => {
                 <p className="text-muted-foreground mb-6">
                   Add, edit, and manage speakers and speaker groups
                 </p>
-                <Link to="/admin/speakers">
+                <Link href="/admin/speakers">
                   <Button className="w-full">
                     Manage Speakers
                   </Button>
@@ -129,7 +130,7 @@ const AdminDashboard = () => {
                 <p className="text-muted-foreground mb-6">
                   Add, edit, and manage sponsors and partners
                 </p>
-                <Link to="/admin/sponsors">
+                <Link href="/admin/sponsors">
                   <Button className="w-full">
                     Manage Sponsors
                   </Button>
@@ -152,7 +153,7 @@ const AdminDashboard = () => {
                 <p className="text-muted-foreground mb-6">
                   Create and manage email newsletters
                 </p>
-                <Link to="/admin/newsletter">
+                <Link href="/admin/newsletter">
                   <Button className="w-full">
                     Manage Newsletter
                   </Button>
