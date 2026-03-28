@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,15 +14,15 @@ const AdminLogin = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { login, isAuthenticated } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toast } = useToast();
 
   useEffect(() => {
     document.title = "Admin Login - Et Tech X";
     if (isAuthenticated) {
-      navigate("/admin");
+      router.push("/admin");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const AdminLogin = () => {
           title: "Login Successful",
           description: "Welcome to the admin dashboard.",
         });
-        navigate("/admin");
+        router.push("/admin");
       } else {
         setError("Invalid email or password");
         toast({
