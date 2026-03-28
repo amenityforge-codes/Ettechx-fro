@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SponsorsManagerClient from "./SponsorsManagerClient";
+import AdminShell from "../AdminShell";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SponsorsManagerClient />;
+  return (
+    <AdminShell>
+      <SponsorsManagerClient />
+    </AdminShell>
+  );
 }
 

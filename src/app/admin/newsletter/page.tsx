@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import NewsletterManagerClient from "./NewsletterManagerClient";
+import AdminShell from "../AdminShell";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,10 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <NewsletterManagerClient />;
+  return (
+    <AdminShell>
+      <NewsletterManagerClient />
+    </AdminShell>
+  );
 }
 
