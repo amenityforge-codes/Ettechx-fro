@@ -20,7 +20,7 @@ const AdminLogin = () => {
   useEffect(() => {
     document.title = "Admin Login - Et Tech X";
     if (isAuthenticated) {
-      router.push("/admin");
+      router.replace("/admin");
     }
   }, [isAuthenticated, router]);
 
@@ -39,7 +39,7 @@ const AdminLogin = () => {
           title: "Login Successful",
           description: "Welcome to the admin dashboard.",
         });
-        router.push("/admin");
+        router.replace("/admin");
       } else {
         setError("Invalid email or password");
         toast({
