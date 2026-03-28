@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -103,7 +104,9 @@ const Navbar = () => {
                   className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-primary transition-all duration-300 ${pathname === link.href ? "w-full" : "w-0 group-hover:w-full"}`}
+                />
               </Link>
             ) : (
               <a
@@ -112,11 +115,14 @@ const Navbar = () => {
                 onClick={(e) => {
                   const id = link.href.replace("#", "");
                   handleSectionClick(id, { event: e });
+                  setActiveSection(id);
                 }}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-300 font-medium text-sm xl:text-base relative group whitespace-nowrap px-1"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-primary group-hover:w-full transition-all duration-300" />
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-primary transition-all duration-300 ${pathname === "/" && activeSection === link.href.replace("#", "") ? "w-full" : "w-0 group-hover:w-full"}`}
+                />
               </a>
             )
           )}

@@ -37,6 +37,7 @@ const NewsletterManager = () => {
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [bannerPreview, setBannerPreview] = useState<string>("");
   const [isUploadingBanner, setIsUploadingBanner] = useState(false);
+  const [isUploadingFeatured, setIsUploadingFeatured] = useState<{ [key: number]: boolean }>({});
 
   // Form state
   const [formData, setFormData] = useState<Partial<Newsletter>>({
@@ -289,6 +290,34 @@ const NewsletterManager = () => {
       });
     } finally {
       setIsUploadingBanner(false);
+    }
+  };
+
+  const handleUploadFeaturedArticleImage = async (num: number, file: File) => {
+    setIsUploadingFeatured((prev) => ({ ...prev, [num]: true }));
+    try {
+      toast({
+        title: "Uploading...",
+        description: `Uploading image for Featured Article ${num}`,
+      });
+
+      const result = await uploadBannerImage(file);
+      const key = `article${num}` as keyof typeof formData;
+      const current = (formData[key] as NewsletterArticle) || { image: "", title: "", description: "", link: "" };
+      setFormData({ ...formData, [key]: { ...current, image: result.url } });
+
+      toast({
+        title: "Success",
+        description: `Image uploaded for Featured Article ${num}`,
+      });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: error instanceof Error ? error.message : "Failed to upload image",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingFeatured((prev) => ({ ...prev, [num]: false }));
     }
   };
 
@@ -594,11 +623,30 @@ const NewsletterManager = () => {
                       <h3 className="text-lg font-semibold">Featured Article {num}</h3>
                       <div>
                         <Label>Image URL</Label>
-                        <Input
-                          value={article?.image || ""}
-                          onChange={(e) => setFormData({ ...formData, [`article${num}`]: { ...article, image: e.target.value } })}
-                          placeholder="https://..."
-                        />
+                        <div className="flex gap-2">
+                          <Input
+                            value={article?.image || ""}
+                            onChange={(e) => setFormData({ ...formData, [`article${num}`]: { ...article, image: e.target.value } })}
+                            placeholder="https://..."
+                          />
+                          <label className="inline-flex">
+                            <input
+                              type="file"
+                              accept="image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const f = e.target.files?.[0];
+                                if (f) {
+                                  void handleUploadFeaturedArticleImage(num, f);
+                                  e.currentTarget.value = "";
+                                }
+                              }}
+                            />
+                            <Button type="button" variant="outline" disabled={!!isUploadingFeatured[num]}>
+                              {isUploadingFeatured[num] ? "Uploading..." : "Upload"}
+                            </Button>
+                          </label>
+                        </div>
                       </div>
                       <div>
                         <Label>Title</Label>
