@@ -1,7 +1,8 @@
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { featuredSpeakers, type Speaker } from "@/lib/speakersData";
+import Link from "next/link";
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -73,81 +74,28 @@ const FeaturedSpeakersCarousel = () => {
   }, []);
 
   const totalSlides = baseSlides.length;
-
-  // Create cloned slides at start and end for seamless looping
-  const slides = useMemo(() => {
-    if (totalSlides === 0) return [] as Speaker[][];
-    if (totalSlides === 1) return baseSlides;
-    return [baseSlides[totalSlides - 1], ...baseSlides, baseSlides[0]];
-  }, [baseSlides, totalSlides]);
-
-  const [activeIndex, setActiveIndex] = useState(totalSlides === 0 ? 0 : 1); // start at first real slide
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handlePrev = () => {
     if (totalSlides <= 1) return;
-    setIsTransitioning(true);
-    setActiveIndex((prev) => prev - 1);
+    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
   };
 
   const handleNext = () => {
     if (totalSlides <= 1) return;
-    setIsTransitioning(true);
-    setActiveIndex((prev) => prev + 1);
-  };
-
-  // Auto-play loop similar to testimonials (with seamless looping)
-  useEffect(() => {
-    if (totalSlides <= 1) return;
-
-    const intervalId = window.setInterval(() => {
-      setIsTransitioning(true);
-      setActiveIndex((prev) => prev + 1);
-    }, 8000); // change slide every 8 seconds
-
-    return () => {
-      window.clearInterval(intervalId);
-    };
-  }, [totalSlides]);
-
-  // When CSS transition ends, snap from cloned slides back to real ones
-  const handleTransitionEnd = () => {
-    if (totalSlides <= 1) return;
-
-    // Moved to leading clone (index 0) → snap to last real slide
-    if (activeIndex === 0) {
-      setIsTransitioning(false);
-      setActiveIndex(totalSlides);
-      return;
-    }
-
-    // Moved to trailing clone (last index) → snap to first real slide
-    if (activeIndex === slides.length - 1) {
-      setIsTransitioning(false);
-      setActiveIndex(1);
-      return;
-    }
-
-    setIsTransitioning(false);
+    setActiveIndex((prev) => (prev + 1) % totalSlides);
   };
 
   if (totalSlides === 0) return null;
-
-  // For dots, map activeIndex (with clones) back to 0-based real slide index
-  const currentRealIndex =
-    totalSlides <= 1 ? 0 : (activeIndex - 1 + totalSlides) % totalSlides;
 
   return (
     <div className="relative">
       <div className="overflow-hidden">
         <div
-          className={`flex ${
-            isTransitioning ? "transition-transform duration-500 ease-out" : ""
-          }`}
+          className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-          onTransitionEnd={handleTransitionEnd}
         >
-          {slides.map((slide, slideIndex) => (
+          {baseSlides.map((slide, slideIndex) => (
             <div
               key={slideIndex}
               className="min-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -230,11 +178,10 @@ const FeaturedSpeakersCarousel = () => {
                 key={index}
                 onClick={() => {
                   if (totalSlides <= 1) return;
-                  setIsTransitioning(true);
-                  setActiveIndex(index + 1); // +1 to account for leading clone
+                  setActiveIndex(index);
                 }}
                 className={`h-2 w-2 rounded-full transition-colors ${
-                  index === currentRealIndex
+                  index === activeIndex
                     ? "bg-secondary"
                     : "bg-muted-foreground/30"
                 }`}
@@ -252,6 +199,14 @@ const FeaturedSpeakersCarousel = () => {
           </Button>
         </div>
       )}
+
+      <div className="mt-8 text-center">
+        <Button asChild size="lg" className="rounded-full px-8">
+          <Link href="/speakers" aria-label="View all speakers">
+            View All Speakers
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 };

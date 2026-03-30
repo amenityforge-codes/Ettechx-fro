@@ -10,7 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { 
   Plus, Trash2, Edit2, Save, X, ChevronDown, ChevronUp, 
-  Image as ImageIcon, FolderPlus, ArrowLeft, LogOut 
+  Image as ImageIcon, FolderPlus, LogOut 
 } from "lucide-react";
 import { 
   loadGalleryData, 
@@ -27,7 +27,7 @@ import {
   deleteImage as deleteImageApi,
   deleteYear as deleteYearApi,
 } from "@/lib/galleryApi";
-import { Link } from "react-router-dom";
+import { resolveMediaUrl } from "@/lib/mediaUrl";
 
 const GalleryManager = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -42,7 +42,6 @@ const GalleryManager = () => {
   // Form states
   const [yearDisplayName, setYearDisplayName] = useState("");
   const [categoryName, setCategoryName] = useState("");
-  const [newImageUrl, setNewImageUrl] = useState("");
   const [newImageAlt, setNewImageAlt] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string>("");
@@ -265,46 +264,38 @@ const GalleryManager = () => {
   };
 
   const addImage = async (yearId: string, categoryName: string) => {
-    // Check if either file or URL is provided
-    if (!selectedFile && !filePreview && !newImageUrl) {
+    // File upload is the only supported way to add an image
+    if (!selectedFile) {
       toast({
         title: "Error",
-        description: "Please select an image file or enter a URL",
+        description: "Please select an image file",
         variant: "destructive",
       });
       return;
     }
 
-    let imageSrc = newImageUrl;
+    let imageSrc = "";
 
-    // If file is selected, upload it first
-    if (selectedFile) {
-      try {
-        toast({
-          title: "Uploading...",
-          description: "Please wait while we upload your image",
-        });
-        
-        const yearData = galleryData.find(y => y.year === yearId);
-        const result = await uploadImageApi(selectedFile, yearId, categoryName);
-        imageSrc = result.url;
-        
-        toast({
-          title: "Uploaded",
-          description: "Image uploaded successfully",
-        });
-      } catch (error) {
-        toast({
-          title: "Upload Failed",
-          description: error instanceof Error ? error.message : "Failed to upload image. Using preview URL.",
-          variant: "destructive",
-        });
-        // Fallback to preview if upload fails
-        imageSrc = filePreview || newImageUrl;
-      }
-    } else {
-      // Use preview or URL
-      imageSrc = filePreview || newImageUrl;
+    try {
+      toast({
+        title: "Uploading...",
+        description: "Please wait while we upload your image",
+      });
+
+      const result = await uploadImageApi(selectedFile, yearId, categoryName);
+      imageSrc = result.url;
+
+      toast({
+        title: "Uploaded",
+        description: "Image uploaded successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: error instanceof Error ? error.message : "Failed to upload image.",
+        variant: "destructive",
+      });
+      return;
     }
 
     const updated = galleryData.map(y => {
@@ -333,7 +324,6 @@ const GalleryManager = () => {
     await saveData(updated);
     
     // Reset form
-    setNewImageUrl("");
     setNewImageAlt("");
     setSelectedFile(null);
     setFilePreview("");
@@ -509,7 +499,7 @@ const GalleryManager = () => {
                   {/* Categories */}
                   {expandedYear === yearData.year && (
                     <div className="p-6 space-y-8">
-                      {yearData.categories.map((category) => {
+                      {yearData.categories.map((category, categoryIndex) => {
                         const IconComponent = iconMap[category.icon as keyof typeof iconMap];
                         const isEditing =
                           editingCategory?.yearId === yearData.year &&
@@ -517,7 +507,7 @@ const GalleryManager = () => {
 
                         return (
                           <div
-                            key={category.name}
+                            key={`${yearData.year}-${category.name}-${categoryIndex}`}
                             className="border border-border rounded-xl p-6 bg-muted/20"
                           >
                             {/* Category Header */}
@@ -612,12 +602,12 @@ const GalleryManager = () => {
                                       <Input
                                         id={`file-input-${yearData.year}-${category.name}`}
                                         type="file"
-                                        accept="image/*"
+                                        accept="image/jpeg,image/png,image/gif,image/webp,image/bmp,image/avif,image/heic,image/heif,.jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,.JPG,.JPEG,.PNG,.GIF,.WEBP,.BMP,.AVIF,.HEIC,.HEIF"
                                         onChange={handleFileSelect}
                                         className="cursor-pointer"
                                       />
                                       <p className="text-xs text-muted-foreground mt-1">
-                                        JPG, PNG, GIF, WebP (Max 5MB)
+                                        JPG, JPEG, PNG, GIF, WebP, BMP, AVIF, HEIC (Max 5MB)
                                       </p>
                                     </div>
                                     {filePreview && (
@@ -632,37 +622,6 @@ const GalleryManager = () => {
                                       </div>
                                     )}
                                   </div>
-                                </div>
-
-                                <div className="relative">
-                                  <div className="absolute inset-0 flex items-center">
-                                    <span className="w-full border-t border-border" />
-                                  </div>
-                                  <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="bg-card px-2 text-muted-foreground">Or</span>
-                                  </div>
-                                </div>
-
-                                {/* URL Input */}
-                                <div>
-                                  <Label
-                                    htmlFor={`url-input-${yearData.year}-${category.name}`}
-                                    className="text-xs text-muted-foreground mb-2 block"
-                                  >
-                                    Or Enter Image URL
-                                  </Label>
-                                  <Input
-                                    id={`url-input-${yearData.year}-${category.name}`}
-                                    placeholder="https://example.com/image.jpg or /gallery/2026/image.jpg"
-                                    value={newImageUrl}
-                                    onChange={(e) => {
-                                      setNewImageUrl(e.target.value);
-                                      setFilePreview("");
-                                      setSelectedFile(null);
-                                    }}
-                                    disabled={!!filePreview}
-                                    className="flex-1"
-                                  />
                                 </div>
 
                                 {/* Alt Text */}
@@ -699,7 +658,7 @@ const GalleryManager = () => {
                                   className="group relative aspect-square rounded-lg overflow-hidden border border-border"
                                 >
                                   <img
-                                    src={image.src}
+                                    src={resolveMediaUrl(image.src)}
                                     alt={image.alt}
                                     className="w-full h-full object-cover"
                                     loading="lazy"

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Image as ImageIcon, X } from "lucide-react";
 import { loadGalleryData, GalleryImage } from "@/lib/galleryData";
+import { resolveMediaUrl } from "@/lib/mediaUrl";
 
 const GalleryPreviewSection = () => {
   const [previewImages, setPreviewImages] = useState<GalleryImage[]>([]);
@@ -72,7 +73,14 @@ const GalleryPreviewSection = () => {
               </p>
             </motion.div>
             
-            {/* Note: Full gallery route is intentionally not linked here until it is implemented in App Router. */}
+            <div className="text-center">
+              <Button asChild size="lg" className="rounded-full px-8">
+                <a href="/gallery" aria-label="View all gallery images">
+                  View All
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </div>
           </>
         ) : (
           <>
@@ -80,7 +88,7 @@ const GalleryPreviewSection = () => {
             <div className="mb-10">
               <div className="flex items-baseline justify-between mb-6">
                 <h3 className="font-display text-2xl font-bold text-foreground">
-                  7th Edition of ET TECH X
+                  {latestYearName || "7th Edition of ET TECH X"}
                 </h3>
               </div>
               <motion.div
@@ -99,10 +107,10 @@ const GalleryPreviewSection = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.05 }}
                     className="group relative cursor-pointer rounded-xl overflow-hidden border border-border bg-card shadow-md aspect-square"
-                    onClick={() => setSelectedImage(image.src)}
+                    onClick={() => setSelectedImage(resolveMediaUrl(image.src))}
                   >
                     <img
-                      src={image.src}
+                      src={resolveMediaUrl(image.src)}
                       alt={image.alt}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
@@ -123,7 +131,14 @@ const GalleryPreviewSection = () => {
               </motion.div>
             </div>
 
-            {/* Note: Full gallery route is intentionally not linked here until it is implemented in App Router. */}
+            <div className="text-center">
+              <Button asChild size="lg" className="rounded-full px-8">
+                <a href="/gallery" aria-label="View all gallery images">
+                  View All
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+            </div>
           </>
         )}
       </div>
@@ -152,7 +167,7 @@ const GalleryPreviewSection = () => {
               <X className="w-6 h-6" />
             </button>
             <img
-              src={selectedImage}
+              src={resolveMediaUrl(selectedImage)}
               alt="Gallery Image"
               className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
               loading="lazy"
