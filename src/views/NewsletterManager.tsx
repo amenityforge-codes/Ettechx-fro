@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import NewsletterViewer from "@/components/NewsletterViewer";
 import { 
   Plus, Trash2, Edit2, Save, X, Eye, EyeOff,
-  Mail, ArrowLeft, LogOut, FileText, CheckCircle, Upload, Image as ImageIcon
+  Mail, ArrowLeft, LogOut, CheckCircle, Upload
 } from "lucide-react";
 import {
   fetchNewsletters,
@@ -38,6 +38,9 @@ const NewsletterManager = () => {
   const [bannerPreview, setBannerPreview] = useState<string>("");
   const [isUploadingBanner, setIsUploadingBanner] = useState(false);
   const [isUploadingFeatured, setIsUploadingFeatured] = useState<{ [key: number]: boolean }>({});
+  const [isUploadingAdditional, setIsUploadingAdditional] = useState<{ [key: number]: boolean }>({});
+  const [isUploadingAd, setIsUploadingAd] = useState(false);
+  const [isUploadingYoutubeThumb, setIsUploadingYoutubeThumb] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState<Partial<Newsletter>>({
@@ -321,6 +324,76 @@ const NewsletterManager = () => {
     }
   };
 
+  const handleUploadAdditionalArticleImage = async (index: number, file: File) => {
+    setIsUploadingAdditional((prev) => ({ ...prev, [index]: true }));
+    try {
+      toast({
+        title: "Uploading...",
+        description: `Uploading image for Article ${index + 1}`,
+      });
+
+      const result = await uploadBannerImage(file);
+      const articles = [...(formData.articles || [])];
+      articles[index] = { ...articles[index], image: result.url };
+      setFormData({ ...formData, articles });
+
+      toast({
+        title: "Success",
+        description: `Image uploaded for Article ${index + 1}`,
+      });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: error instanceof Error ? error.message : "Failed to upload image",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingAdditional((prev) => ({ ...prev, [index]: false }));
+    }
+  };
+
+  const handleUploadAdImage = async (file: File) => {
+    setIsUploadingAd(true);
+    try {
+      toast({
+        title: "Uploading...",
+        description: "Uploading advertisement image",
+      });
+      const result = await uploadBannerImage(file);
+      setFormData({ ...formData, ad: { ...formData.ad, image: result.url } });
+      toast({ title: "Success", description: "Advertisement image uploaded" });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: error instanceof Error ? error.message : "Failed to upload image",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingAd(false);
+    }
+  };
+
+  const handleUploadYoutubeThumbnail = async (file: File) => {
+    setIsUploadingYoutubeThumb(true);
+    try {
+      toast({
+        title: "Uploading...",
+        description: "Uploading YouTube thumbnail",
+      });
+      const result = await uploadBannerImage(file);
+      setFormData({ ...formData, youtube: { ...formData.youtube, thumbnail: result.url } });
+      toast({ title: "Success", description: "YouTube thumbnail uploaded" });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: error instanceof Error ? error.message : "Failed to upload thumbnail",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingYoutubeThumb(false);
+    }
+  };
+
   if (!isReady) {
     return null;
   }
@@ -517,7 +590,7 @@ const NewsletterManager = () => {
                         <Input
                           id="banner-file-input"
                           type="file"
-                          accept="image/*"
+                          accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
                           onChange={handleBannerFileSelect}
                           className="cursor-pointer"
                         />
@@ -535,21 +608,11 @@ const NewsletterManager = () => {
                       )}
                     </div>
                     
-                    {/* Or enter URL */}
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t" />
-                      </div>
-                      <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-card px-2 text-muted-foreground">Or enter URL</span>
-                      </div>
-                    </div>
-                    
-                    <Input
-                      value={formData.bannerImageUrl}
-                      onChange={(e) => setFormData({ ...formData, bannerImageUrl: e.target.value })}
-                      placeholder="https://..."
-                    />
+                    {formData.bannerImageUrl && (
+                      <p className="text-xs text-muted-foreground break-all">
+                        Uploaded URL: {formData.bannerImageUrl}
+                      </p>
+                    )}
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     <div>
@@ -626,17 +689,17 @@ const NewsletterManager = () => {
                     <div key={num} className="space-y-4 border-b border-border pb-4">
                       <h3 className="text-lg font-semibold">Featured Article {num}</h3>
                       <div>
-                        <Label>Image URL</Label>
+                        <Label>Image</Label>
+                        {article?.image && (
+                          <div className="mb-2 w-full h-28 rounded border border-border overflow-hidden bg-muted">
+                            <img src={article.image} alt={article.title || `Featured Article ${num}`} className="w-full h-full object-cover" />
+                          </div>
+                        )}
                         <div className="flex gap-2">
-                          <Input
-                            value={article?.image || ""}
-                            onChange={(e) => setFormData({ ...formData, [`article${num}`]: { ...article, image: e.target.value } })}
-                            placeholder="https://..."
-                          />
                           <label className="inline-flex">
                             <input
                               type="file"
-                              accept="image/*"
+                              accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
                               className="hidden"
                               onChange={(e) => {
                                 const f = e.target.files?.[0];
@@ -697,11 +760,31 @@ const NewsletterManager = () => {
                           <Trash2 className="w-4 h-4" />
                         </Button>
                       </div>
-                      <Input
-                        placeholder="Image URL"
-                        value={article.image}
-                        onChange={(e) => updateArticle(index, 'image', e.target.value)}
-                      />
+                      <div className="space-y-2">
+                        <Label>Article Image</Label>
+                        {article.image && (
+                          <div className="w-full h-24 rounded border border-border overflow-hidden bg-muted">
+                            <img src={article.image} alt={article.title || `Article ${index + 1}`} className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        <label className="inline-flex">
+                          <input
+                            type="file"
+                            accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
+                            className="hidden"
+                            onChange={(e) => {
+                              const f = e.target.files?.[0];
+                              if (f) {
+                                void handleUploadAdditionalArticleImage(index, f);
+                                e.currentTarget.value = "";
+                              }
+                            }}
+                          />
+                          <Button type="button" variant="outline" disabled={!!isUploadingAdditional[index]}>
+                            {isUploadingAdditional[index] ? "Uploading..." : "Upload Article Image"}
+                          </Button>
+                        </label>
+                      </div>
                       <Input
                         placeholder="Title"
                         value={article.title}
@@ -738,11 +821,31 @@ const NewsletterManager = () => {
                     </div>
                     {formData.ad?.enabled && (
                       <>
-                        <Input
-                          placeholder="Ad Image URL"
-                          value={formData.ad?.image || ""}
-                          onChange={(e) => setFormData({ ...formData, ad: { ...formData.ad, image: e.target.value } })}
-                        />
+                        <div className="space-y-2">
+                          <Label>Ad Image</Label>
+                          {formData.ad?.image && (
+                            <div className="w-full h-28 rounded border border-border overflow-hidden bg-muted">
+                              <img src={formData.ad.image} alt="Ad preview" className="w-full h-full object-cover" />
+                            </div>
+                          )}
+                          <label className="inline-flex">
+                            <input
+                              type="file"
+                              accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const f = e.target.files?.[0];
+                                if (f) {
+                                  void handleUploadAdImage(f);
+                                  e.currentTarget.value = "";
+                                }
+                              }}
+                            />
+                            <Button type="button" variant="outline" disabled={isUploadingAd}>
+                              {isUploadingAd ? "Uploading..." : "Upload Ad Image"}
+                            </Button>
+                          </label>
+                        </div>
                         <Input
                           placeholder="Ad Link"
                           value={formData.ad?.link || ""}
@@ -764,11 +867,31 @@ const NewsletterManager = () => {
                     </div>
                     {formData.youtube?.enabled && (
                       <>
-                        <Input
-                          placeholder="Thumbnail URL"
-                          value={formData.youtube?.thumbnail || ""}
-                          onChange={(e) => setFormData({ ...formData, youtube: { ...formData.youtube, thumbnail: e.target.value } })}
-                        />
+                        <div className="space-y-2">
+                          <Label>YouTube Thumbnail</Label>
+                          {formData.youtube?.thumbnail && (
+                            <div className="w-full h-28 rounded border border-border overflow-hidden bg-muted">
+                              <img src={formData.youtube.thumbnail} alt="YouTube thumbnail preview" className="w-full h-full object-cover" />
+                            </div>
+                          )}
+                          <label className="inline-flex">
+                            <input
+                              type="file"
+                              accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
+                              className="hidden"
+                              onChange={(e) => {
+                                const f = e.target.files?.[0];
+                                if (f) {
+                                  void handleUploadYoutubeThumbnail(f);
+                                  e.currentTarget.value = "";
+                                }
+                              }}
+                            />
+                            <Button type="button" variant="outline" disabled={isUploadingYoutubeThumb}>
+                              {isUploadingYoutubeThumb ? "Uploading..." : "Upload Thumbnail"}
+                            </Button>
+                          </label>
+                        </div>
                         <Input
                           placeholder="Video Title"
                           value={formData.youtube?.title || ""}
