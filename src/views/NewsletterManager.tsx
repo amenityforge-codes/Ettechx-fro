@@ -23,6 +23,7 @@ import {
   type Newsletter,
   type NewsletterArticle,
 } from "@/lib/newsletterApi";
+import { resolveMediaUrl } from "@/lib/mediaUrl";
 
 const NewsletterManager = () => {
   const { isAuthenticated, isReady, logout } = useAuth();
@@ -146,6 +147,37 @@ const NewsletterManager = () => {
   };
 
   const handleSaveNewsletter = async () => {
+    const requiredFields: Array<{ key: keyof Newsletter; label: string }> = [
+      { key: "bannerImageUrl", label: "Banner Image" },
+      { key: "issueNumber", label: "Issue Number" },
+      { key: "month", label: "Month" },
+      { key: "year", label: "Year" },
+      { key: "mainBannerHeading", label: "Main Banner Heading" },
+      { key: "mainBannerDescription", label: "Main Banner Description" },
+      { key: "mainBannerCtaText", label: "CTA Text" },
+      { key: "mainBannerCtaLink", label: "CTA Link" },
+      { key: "feedbackLink", label: "Feedback Link" },
+      { key: "officeAddress", label: "Office Address" },
+      { key: "contactNumber", label: "Contact Number" },
+      { key: "websiteLink", label: "Website Link" },
+      { key: "disclaimerText", label: "Disclaimer Text" },
+      { key: "instagramLink", label: "Instagram Link" },
+      { key: "linkedinLink", label: "LinkedIn Link" },
+      { key: "youtubeChannelLink", label: "YouTube Channel Link" },
+    ];
+
+    for (const field of requiredFields) {
+      const value = (formData[field.key] as string | undefined)?.toString().trim();
+      if (!value) {
+        toast({
+          title: "Missing Required Field",
+          description: `${field.label} is required`,
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+
     setIsLoading(true);
     try {
       if (selectedNewsletter?._id) {
@@ -168,7 +200,7 @@ const NewsletterManager = () => {
       console.error('Failed to save newsletter:', error);
       toast({
         title: "Error",
-        description: "Failed to save newsletter. Make sure the server is running.",
+        description: error instanceof Error ? error.message : "Failed to save newsletter",
         variant: "destructive",
       });
     } finally {
@@ -577,7 +609,7 @@ const NewsletterManager = () => {
                     {(formData.bannerImageUrl || bannerPreview) && (
                       <div className="relative w-full h-48 rounded-lg border border-border overflow-hidden bg-muted">
                         <img
-                          src={bannerPreview || formData.bannerImageUrl}
+                          src={bannerPreview || resolveMediaUrl(formData.bannerImageUrl)}
                           alt="Banner preview"
                           className="w-full h-full object-cover"
                         />
@@ -692,27 +724,25 @@ const NewsletterManager = () => {
                         <Label>Image</Label>
                         {article?.image && (
                           <div className="mb-2 w-full h-28 rounded border border-border overflow-hidden bg-muted">
-                            <img src={article.image} alt={article.title || `Featured Article ${num}`} className="w-full h-full object-cover" />
+                            <img src={resolveMediaUrl(article.image)} alt={article.title || `Featured Article ${num}`} className="w-full h-full object-cover" />
                           </div>
                         )}
-                        <div className="flex gap-2">
-                          <label className="inline-flex">
-                            <input
-                              type="file"
-                              accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
-                              className="hidden"
-                              onChange={(e) => {
-                                const f = e.target.files?.[0];
-                                if (f) {
-                                  void handleUploadFeaturedArticleImage(num, f);
-                                  e.currentTarget.value = "";
-                                }
-                              }}
-                            />
-                            <Button type="button" variant="outline" disabled={!!isUploadingFeatured[num]}>
-                              {isUploadingFeatured[num] ? "Uploading..." : "Upload"}
-                            </Button>
-                          </label>
+                        <div className="flex gap-2 items-center">
+                          <Input
+                            type="file"
+                            accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
+                            onChange={(e) => {
+                              const f = e.target.files?.[0];
+                              if (f) {
+                                void handleUploadFeaturedArticleImage(num, f);
+                                e.currentTarget.value = "";
+                              }
+                            }}
+                            className="max-w-xs cursor-pointer"
+                          />
+                          {isUploadingFeatured[num] && (
+                            <span className="text-sm text-muted-foreground">Uploading...</span>
+                          )}
                         </div>
                       </div>
                       <div>
@@ -764,14 +794,13 @@ const NewsletterManager = () => {
                         <Label>Article Image</Label>
                         {article.image && (
                           <div className="w-full h-24 rounded border border-border overflow-hidden bg-muted">
-                            <img src={article.image} alt={article.title || `Article ${index + 1}`} className="w-full h-full object-cover" />
+                            <img src={resolveMediaUrl(article.image)} alt={article.title || `Article ${index + 1}`} className="w-full h-full object-cover" />
                           </div>
                         )}
-                        <label className="inline-flex">
-                          <input
+                        <div className="flex gap-2 items-center">
+                          <Input
                             type="file"
                             accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
-                            className="hidden"
                             onChange={(e) => {
                               const f = e.target.files?.[0];
                               if (f) {
@@ -779,11 +808,12 @@ const NewsletterManager = () => {
                                 e.currentTarget.value = "";
                               }
                             }}
+                            className="max-w-xs cursor-pointer"
                           />
-                          <Button type="button" variant="outline" disabled={!!isUploadingAdditional[index]}>
-                            {isUploadingAdditional[index] ? "Uploading..." : "Upload Article Image"}
-                          </Button>
-                        </label>
+                          {isUploadingAdditional[index] && (
+                            <span className="text-sm text-muted-foreground">Uploading...</span>
+                          )}
+                        </div>
                       </div>
                       <Input
                         placeholder="Title"
@@ -825,14 +855,13 @@ const NewsletterManager = () => {
                           <Label>Ad Image</Label>
                           {formData.ad?.image && (
                             <div className="w-full h-28 rounded border border-border overflow-hidden bg-muted">
-                              <img src={formData.ad.image} alt="Ad preview" className="w-full h-full object-cover" />
+                              <img src={resolveMediaUrl(formData.ad.image)} alt="Ad preview" className="w-full h-full object-cover" />
                             </div>
                           )}
-                          <label className="inline-flex">
-                            <input
+                          <div className="flex gap-2 items-center">
+                            <Input
                               type="file"
                               accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
-                              className="hidden"
                               onChange={(e) => {
                                 const f = e.target.files?.[0];
                                 if (f) {
@@ -840,11 +869,12 @@ const NewsletterManager = () => {
                                   e.currentTarget.value = "";
                                 }
                               }}
+                              className="max-w-xs cursor-pointer"
                             />
-                            <Button type="button" variant="outline" disabled={isUploadingAd}>
-                              {isUploadingAd ? "Uploading..." : "Upload Ad Image"}
-                            </Button>
-                          </label>
+                            {isUploadingAd && (
+                              <span className="text-sm text-muted-foreground">Uploading...</span>
+                            )}
+                          </div>
                         </div>
                         <Input
                           placeholder="Ad Link"
@@ -871,14 +901,13 @@ const NewsletterManager = () => {
                           <Label>YouTube Thumbnail</Label>
                           {formData.youtube?.thumbnail && (
                             <div className="w-full h-28 rounded border border-border overflow-hidden bg-muted">
-                              <img src={formData.youtube.thumbnail} alt="YouTube thumbnail preview" className="w-full h-full object-cover" />
+                              <img src={resolveMediaUrl(formData.youtube.thumbnail)} alt="YouTube thumbnail preview" className="w-full h-full object-cover" />
                             </div>
                           )}
-                          <label className="inline-flex">
-                            <input
+                          <div className="flex gap-2 items-center">
+                            <Input
                               type="file"
                               accept=".jpg,.jpeg,.png,.gif,.webp,.bmp,.avif,.heic,.heif,image/*"
-                              className="hidden"
                               onChange={(e) => {
                                 const f = e.target.files?.[0];
                                 if (f) {
@@ -886,11 +915,12 @@ const NewsletterManager = () => {
                                   e.currentTarget.value = "";
                                 }
                               }}
+                              className="max-w-xs cursor-pointer"
                             />
-                            <Button type="button" variant="outline" disabled={isUploadingYoutubeThumb}>
-                              {isUploadingYoutubeThumb ? "Uploading..." : "Upload Thumbnail"}
-                            </Button>
-                          </label>
+                            {isUploadingYoutubeThumb && (
+                              <span className="text-sm text-muted-foreground">Uploading...</span>
+                            )}
+                          </div>
                         </div>
                         <Input
                           placeholder="Video Title"

@@ -1,4 +1,5 @@
 import { Newsletter } from "@/lib/newsletterApi";
+import { resolveMediaUrl } from "@/lib/mediaUrl";
 
 interface NewsletterViewerProps {
   newsletter: Newsletter;
@@ -22,7 +23,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                     <tr>
                       <td style={{ padding: 0 }}>
                         <img 
-                          src={newsletter.bannerImageUrl} 
+                          src={resolveMediaUrl(newsletter.bannerImageUrl)} 
                           alt="ET TECH X Newsletter Banner" 
                           width="600" 
                           style={{ display: "block", width: "100%", maxWidth: "600px", height: "auto", border: 0, outline: "none", textDecoration: "none" }} 
@@ -105,7 +106,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                           <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" border={0}>
                             <tr>
                               <td style={{ paddingBottom: "15px" }}>
-                                <img src={newsletter.article1.image} alt={newsletter.article1.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
+                                <img src={resolveMediaUrl(newsletter.article1.image)} alt={newsletter.article1.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
                               </td>
                             </tr>
                             <tr>
@@ -149,7 +150,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                           <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" border={0}>
                             <tr>
                               <td style={{ paddingBottom: "15px" }}>
-                                <img src={newsletter.article2.image} alt={newsletter.article2.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
+                                <img src={resolveMediaUrl(newsletter.article2.image)} alt={newsletter.article2.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
                               </td>
                             </tr>
                             <tr>
@@ -193,7 +194,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                           <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" border={0}>
                             <tr>
                               <td style={{ paddingBottom: "15px" }}>
-                                <img src={newsletter.article3.image} alt={newsletter.article3.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
+                                <img src={resolveMediaUrl(newsletter.article3.image)} alt={newsletter.article3.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
                               </td>
                             </tr>
                             <tr>
@@ -239,7 +240,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                       <tr>
                         <td align="center" style={{ padding: "20px" }}>
                           <a href={newsletter.ad.link || "#"} style={{ display: "block", textDecoration: "none" }}>
-                            <img src={newsletter.ad.image} alt="Advertisement" width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
+                            <img src={resolveMediaUrl(newsletter.ad.image)} alt="Advertisement" width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
                           </a>
                         </td>
                       </tr>
@@ -258,7 +259,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                           <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" border={0}>
                             <tr>
                               <td width="40%" style={{ paddingRight: "15px", paddingBottom: "15px", verticalAlign: "top" }}>
-                                <img src={article.image} alt={article.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "200px", height: "auto", border: 0, borderRadius: "8px" }} />
+                                <img src={resolveMediaUrl(article.image)} alt={article.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "200px", height: "auto", border: 0, borderRadius: "8px" }} />
                               </td>
                               <td width="60%" style={{ verticalAlign: "top" }}>
                                 <h3 style={{ margin: "0 0 10px 0", fontSize: "18px", fontWeight: "bold", color: "#0B1C2D", fontFamily: "Arial, Helvetica, sans-serif", lineHeight: 1.3 }}>
@@ -300,7 +301,7 @@ const NewsletterViewer = ({ newsletter }: NewsletterViewerProps) => {
                                   <table role="presentation" width="100%" cellPadding="0" cellSpacing="0" border={0}>
                                     <tr>
                                       <td align="center">
-                                        <img src={newsletter.youtube.thumbnail} alt={newsletter.youtube.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
+                                        <img src={resolveMediaUrl(newsletter.youtube.thumbnail)} alt={newsletter.youtube.title} width="100%" style={{ display: "block", width: "100%", maxWidth: "540px", height: "auto", border: 0, borderRadius: "8px" }} />
                                       </td>
                                     </tr>
                                     <tr>

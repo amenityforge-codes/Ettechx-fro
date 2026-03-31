@@ -118,7 +118,10 @@ export async function createNewsletter(data: Newsletter): Promise<Newsletter> {
       },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error('Failed to create newsletter');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Failed to create newsletter' }));
+      throw new Error(errorData.error || 'Failed to create newsletter');
+    }
     const result = await response.json();
     return result.newsletter;
   } catch (error) {
@@ -137,7 +140,10 @@ export async function updateNewsletter(id: string, data: Partial<Newsletter>): P
       },
       body: JSON.stringify(data),
     });
-    if (!response.ok) throw new Error('Failed to update newsletter');
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({ error: 'Failed to update newsletter' }));
+      throw new Error(errorData.error || 'Failed to update newsletter');
+    }
     const result = await response.json();
     return result.newsletter;
   } catch (error) {
