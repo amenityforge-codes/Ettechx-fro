@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Image as ImageIcon, X } from "lucide-react";
-import { loadGalleryData, GalleryImage } from "@/lib/galleryData";
+import { GalleryImage, defaultGalleryData, type GalleryYear } from "@/lib/galleryData";
+import { fetchGalleryData } from "@/lib/galleryApi";
 import { resolveMediaUrl } from "@/lib/mediaUrl";
 
 const GalleryPreviewSection = () => {
@@ -11,27 +12,35 @@ const GalleryPreviewSection = () => {
   const [latestYearName, setLatestYearName] = useState<string>("");
 
   useEffect(() => {
-    loadPreviewImages();
-  }, []);
+    const loadPreviewImages = async () => {
+      let data: GalleryYear[] = [];
 
-  const loadPreviewImages = () => {
-    const galleryData = loadGalleryData();
-    
-    if (galleryData.length > 0) {
-      // Get the first (latest) year
-      const latestYear = galleryData[0];
-      setLatestYearName(latestYear.displayName);
-      
-      // Collect images from all categories in the latest year
-      const allImages: GalleryImage[] = [];
-      latestYear.categories.forEach(category => {
-        allImages.push(...category.images);
-      });
-      
-      // Take first 8 images for preview
-      setPreviewImages(allImages.slice(0, 8));
-    }
-  };
+      try {
+        // Prefer backend data (includes latest uploads from admin)
+        data = await fetchGalleryData();
+      } catch (error) {
+        console.error("Failed to load gallery data from API, using defaults:", error);
+      }
+
+      if (!data || data.length === 0) {
+        data = defaultGalleryData;
+      }
+
+      if (data.length > 0) {
+        const latestYear = data[0];
+        setLatestYearName(latestYear.displayName);
+
+        const allImages: GalleryImage[] = [];
+        latestYear.categories.forEach((category) => {
+          allImages.push(...category.images);
+        });
+
+        setPreviewImages(allImages.slice(0, 8));
+      }
+    };
+
+    void loadPreviewImages();
+  }, []);
 
 
   return (
